@@ -18,10 +18,10 @@ export default function Home() {
           marginTop: "20px",
         }}
       >
-        <Link href="/register">
+        <Link href="/signin">
           <button>Register</button>
         </Link>
-        <Link href="/login">
+        <Link href="/auth/signin">
           <button>Login</button>
         </Link>
       </div>
