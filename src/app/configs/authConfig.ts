@@ -38,6 +38,7 @@ export const authConfig: NextAuthOptions = {
                         // Возвращаем объект пользователя. Этот объект будет доступен в сессии NextAuth.
                         // Важно: в этом объекте НЕ ДОЛЖНО быть конфиденциальных данных типа пароля.
                         // Можете добавить сюда accessToken, если он нужен на клиенте (осторожно с размером сессии).
+                        console.log("****** User authenticated successfully:", user);
                         return {
                             id: user.data.user._id, // Обязательное поле 'id'
                             email: user.data.user.email,
@@ -47,6 +48,7 @@ export const authConfig: NextAuthOptions = {
                     } else {
                         return null; // Аутентификация не удалась, если пользователь не найден
                     }
+                    
                 } catch (error: unknown) { 
                     // Проверяем, является ли ошибка экземпляром Error, чтобы безопасно получить message
                     if (error instanceof Error) {
@@ -71,7 +73,7 @@ export const authConfig: NextAuthOptions = {
     pages: {
         signIn: '/signin', // Путь к вашей кастомной странице входа
         // error: '/auth/error', // Опционально: путь к странице ошибки
-        // signOut: '/auth/signout', // Опционально: путь к странице выхода
+        signOut: '/', // Опционально: путь к странице выхода
     },
 
     // 2. Callbacks (обратные вызовы)

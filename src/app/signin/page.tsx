@@ -1,6 +1,6 @@
 "use client";
 
-import { SignInForm } from "../components/SignInForm";
+import { SignInForm } from "../../components/SignInForm";
 
 // import { SignIn } from "@clerk/nextjs";
 // import { Metadata } from "next";

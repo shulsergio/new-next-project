@@ -1,6 +1,6 @@
-// app/api/auth/[...nextauth]/route.ts
-import { authConfig } from './../../../configs/authConfig'; // Путь может отличаться
+
+import { authConfig } from './../../../configs/authConfig';
 import NextAuth from "next-auth";
 
-const handler = NextAuth(authConfig); // Правильно
+const handler = NextAuth(authConfig); 
 export { handler as GET, handler as POST };
