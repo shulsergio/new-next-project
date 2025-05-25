@@ -13,7 +13,7 @@ export const authConfig: NextAuthOptions = {
             },
             async authorize(credentials) {
                 if (!credentials?.email || !credentials.password) {
-                  return null; // Если нет логина или пароля, аутентификация не удалась
+                    return null;
                 }
                 try {
                     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
@@ -26,121 +26,80 @@ export const authConfig: NextAuthOptions = {
                             password: credentials.password,
                         }),
                     });
-                    // Проверяем, что ответ от бэкенда успешный (статус 200)
                     if (!response.ok) {
-                        // Если бэкенд вернул ошибку, можно пробросить ее,
-                        // NextAuth покажет сообщение об ошибке на странице входа
                         const errorData = await response.json();
                         throw new Error(errorData.message || 'Authentication failed');
                     }
-                    const user = await response.json();
-                    if (user && user.data && user.data.user) {
-                        // Возвращаем объект пользователя. Этот объект будет доступен в сессии NextAuth.
-                        // Важно: в этом объекте НЕ ДОЛЖНО быть конфиденциальных данных типа пароля.
-                        // Можете добавить сюда accessToken, если он нужен на клиенте (осторожно с размером сессии).
-                        console.log("****** User authenticated successfully:", user);
+                    const backendResponse = await response.json();
+                    if (backendResponse && backendResponse.data && backendResponse.data.user) {
+                        console.log("****** User authenticated successfully:", backendResponse);
                         return {
-                            id: user.data.user._id, // Обязательное поле 'id'
-                            email: user.data.user.email,
-                            // role: user.data.user.role, // Если у вас есть роли
-                            // accessToken: user.data.user.accessToken // Если нужно сохранить токен в сессии
-                        };
+                            id: backendResponse.data.user._id, 
+                            email: backendResponse.data.user.email,
+                            name: backendResponse.data.user.name, 
+                           
+                              };
                     } else {
-                        return null; // Аутентификация не удалась, если пользователь не найден
+                        return null; 
                     }
                     
                 } catch (error: unknown) { 
-                    // Проверяем, является ли ошибка экземпляром Error, чтобы безопасно получить message
-                    if (error instanceof Error) {
+                        if (error instanceof Error) {
                         console.error("Backend authentication error:", error);
-                        // Бросаем ошибку, чтобы NextAuth знал, что аутентификация не удалась.
-                        // Это сообщение будет отображено на странице входа, если вы настроите.
-                        throw new Error(error.message || 'Something went wrong during authentication');
+                                            throw new Error(error.message || 'Something went wrong during authentication');
                     } else {
-                        // Если ошибка не является экземпляром Error (например, строка или число)
-                        console.error("An unexpected error occurred:", error);
+                          console.error("An unexpected error occurred:", error);
                         throw new Error('An unexpected error occurred during authentication');
                     }
                 }
             }
         })
     ],
-    // --- ОБЯЗАТЕЛЬНЫЕ И РЕКОМЕНДУЕМЫЕ НАСТРОЙКИ ---
-
-    // 1. Страницы NextAuth
-    // Определяет пути к вашим кастомным страницам NextAuth.
-    // Если не указаны, NextAuth будет использовать свои страницы по умолчанию.
-    pages: {
-        signIn: '/signin', // Путь к вашей кастомной странице входа
-        // error: '/auth/error', // Опционально: путь к странице ошибки
-        signOut: '/', // Опционально: путь к странице выхода
+  pages: {
+        signIn: '/signin', 
+        signOut: '/', 
     },
 
-    // 2. Callbacks (обратные вызовы)
-    // Позволяют контролировать, что происходит при создании JWT-токена и сессии.
+   
     callbacks: {
-        // Вызывается при каждом успешном входе или обновлении сессии.
-        // Здесь мы добавляем данные пользователя (id, email) в JWT-токен NextAuth.
-        async jwt({ token, user }) {
+         async jwt({ token, user }) {
             if (user) {
-                // 'user' здесь - это объект, который мы вернули из функции authorize.
-                // Добавляем его свойства в 'token'.
-                token.id = user.id;
+                 token.id = user.id;
                 token.email = user.email;
-                // Если вы сохранили accessToken/refreshToken в объекте user выше,
-                // вы можете добавить их в токен здесь:
-                // token.accessToken = (user as any).accessToken;
-                // token.refreshToken = (user as any).refreshToken;
-            }
+                token.name = user.name;
+                   }
             return token;
         },
-        // Вызывается при доступе к сессии на клиенте (через useSession)
-        // Здесь мы добавляем данные из JWT-токена в объект сессии,
-        // который будет доступен на клиентской стороне.
-        async session({ session, token }) {
-            // 'token' здесь - это JWT-токен, который был сформирован в callback 'jwt'.
-            if (session.user) {
+         async session({ session, token }) {
+             if (session.user) {
                 session.user.id = token.id as string;
-                session.user.email = token.email as string;
-                // Если вы добавили accessToken/refreshToken в токен,
-                // вы можете добавить их в сессию здесь:
-                // (session as any).accessToken = token.accessToken;
-                // (session as any).refreshToken = token.refreshToken;
-            }
+                 session.user.email = token.email as string;
+                session.user.name = token.name as string;
+                }
             return session;
         }
     },
 
-    // 3. Настройки сессии
-    // Определяет, как NextAuth управляет сессиями.
     session: {
-        strategy: "jwt", // Рекомендуется использовать JWT-стратегию для stateless-сессий.
-                         // Это означает, что данные сессии хранятся в зашифрованном JWT-токене в куки.
-        maxAge: 30 * 24 * 60 * 60, // Время жизни сессии в секундах (например, 30 дней)
+        strategy: "jwt",
+        maxAge: 30 * 24 * 60 * 60,
     },
 
-    // 4. Секретный ключ NextAuth
-    // ОБЯЗАТЕЛЬНО! Используется для шифрования и подписи JWT-токенов и куки.
-    // Должен быть длинной, случайной строкой и храниться в переменной окружения.
     secret: process.env.NEXTAUTH_SECRET,
 };
 
-// Расширение типа Session для включения 'id' и 'email'
-// Это необходимо, чтобы TypeScript знал о ваших кастомных полях в session.user
 declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      email: string;
-      // Добавьте другие поля, если вы их передаете, например:
-      // role?: string;
+        email: string;
+        name?: string;
     } & DefaultSession["user"];
   }
 
   interface JWT {
     id: string;
-    email: string;
-    // Добавьте другие поля, если вы их передаете, например:
-    // role?: string;
+      email: string;
+        name?: string;
   }
 }
