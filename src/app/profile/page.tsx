@@ -1,11 +1,23 @@
+import Link from "next/link";
 import css from "./profile.module.css";
 
 export default function Profile() {
   return (
-    <div>
+    <div className={css.profile}>
       <h1>Profile Page</h1>
-      <div className={css.boxes}></div>
-      <p>You can add more details about the user here.</p>
+
+      <Link className={css.boxes} href="/plans">
+        Promoter Plans
+      </Link>
+      <Link className={css.boxes} href="/competitors">
+        Competitors
+      </Link>
+      <Link className={css.boxes} href="/">
+        edit...
+      </Link>
+      <Link className={css.boxes} href="/">
+        edit...
+      </Link>
     </div>
   );
 }
