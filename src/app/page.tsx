@@ -1,11 +1,12 @@
 import React from "react";
 
-export default function Home() {
+export default async function Home() {
   // const router = useRouter();
 
   return (
-    <div>
-      <h1>Login please</h1>
+    <div style={{ textAlign: "center", marginTop: "30px" }}>
+      <p>You are unknown user.</p>
+      <p>Sign in please</p>
     </div>
   );
 }

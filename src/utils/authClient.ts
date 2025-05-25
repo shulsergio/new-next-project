@@ -12,20 +12,20 @@ export async function clientSideSignOut() {
 
     if (!backendResponse.ok) {
       const errorData = await backendResponse.json();
-      console.error("Backend logout failed:", errorData);
-      toast.error(errorData.message || "Failed to log out from backend.");
+      console.error("Logout failed:", errorData);
+      toast.error(errorData.message || "Logout failed");
     } else {
-      toast.success("Logged out from backend successfully!");
+      toast.success("Thanks!");
     }
 
     await signOut({ callbackUrl: '/' });
 
   } catch (error: unknown) {
-    console.error("Error during sign out process:", error);
+    console.error("Error during sign out:", error);
     if (error instanceof Error) {
-      toast.error(error.message || "An unexpected error occurred during sign out.");
+      toast.error(error.message || "Error during sign out");
     } else {
-      toast.error("An unexpected error occurred during sign out.");
+      toast.error("Error during sign out");
     }
   }
 }

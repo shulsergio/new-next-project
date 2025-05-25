@@ -22,7 +22,7 @@ export default function AuthStatus() {
   }
   return (
     <p>
-      {name}
+      Hello, {name}
       <button onClick={clientSideSignOut} className={css.logoutLinkButton}>
         Sign out
       </button>
