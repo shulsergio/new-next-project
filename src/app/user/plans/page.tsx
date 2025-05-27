@@ -1,4 +1,4 @@
-export default function PlansPage() {
+export default function UsersPlansPage() {
   return (
     <div>
       <h1>Plans</h1>

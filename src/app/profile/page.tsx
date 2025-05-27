@@ -6,10 +6,10 @@ export default function Profile() {
     <div className={css.profile}>
       <h1>Profile Page</h1>
 
-      <Link className={css.boxes} href="/plans">
+      <Link className={css.boxes} href="user/plans">
         Promoter Plans
       </Link>
-      <Link className={css.boxes} href="/competitors">
+      <Link className={css.boxes} href="user/competitors">
         Competitors
       </Link>
       <Link className={css.boxes} href="/">

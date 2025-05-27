@@ -37,7 +37,7 @@ export const authConfig: NextAuthOptions = {
                             id: backendResponse.data.user._id, 
                             email: backendResponse.data.user.email,
                             name: backendResponse.data.user.name, 
-                           
+                           acceessToken: backendResponse.data.accessToken,
                               };
                     } else {
                         return null; 
@@ -64,10 +64,18 @@ export const authConfig: NextAuthOptions = {
     callbacks: {
          async jwt({ token, user }) {
             if (user) {
-                 token.id = user.id;
+                token.id = user.id;
                 token.email = user.email;
                 token.name = user.name;
-                   }
+
+                // --- ИСПРАВЛЕНИЕ ЗДЕСЬ ---
+                // Цель: взять accessToken из 'user' (который пришел из authorize)
+                // и добавить его в 'token'.
+                if (user.accessToken) { // Теперь user.accessToken будет доступен благодаря расширению интерфейса User
+                    token.accessToken = user.accessToken;
+                }
+                // --- КОНЕЦ ИСПРАВЛЕНИЯ ---
+            }
             return token;
         },
          async session({ session, token }) {
@@ -89,17 +97,23 @@ export const authConfig: NextAuthOptions = {
 };
 
 declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
+    interface Session {
+        user: {
+            id: string;
+            email: string;
+            name?: string;
+        } & DefaultSession["user"];
+        accessToken?: string; 
+    }
+
+    interface User {
+        accessToken?: string;
+    }
+
+    interface JWT {
+        id: string;
         email: string;
         name?: string;
-    } & DefaultSession["user"];
-  }
-
-  interface JWT {
-    id: string;
-      email: string;
-        name?: string;
-  }
+        accessToken?: string; 
+    }
 }
