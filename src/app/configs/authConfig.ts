@@ -37,7 +37,7 @@ export const authConfig: NextAuthOptions = {
                             id: backendResponse.data.user._id, 
                             email: backendResponse.data.user.email,
                             name: backendResponse.data.user.name, 
-                           acceessToken: backendResponse.data.accessToken,
+                            accessToken: backendResponse.data.accessToken,
                               };
                     } else {
                         return null; 
@@ -68,14 +68,9 @@ export const authConfig: NextAuthOptions = {
                 token.email = user.email;
                 token.name = user.name;
 
-                // --- ИСПРАВЛЕНИЕ ЗДЕСЬ ---
-                // Цель: взять accessToken из 'user' (который пришел из authorize)
-                // и добавить его в 'token'.
-                if (user.accessToken) { // Теперь user.accessToken будет доступен благодаря расширению интерфейса User
+                if (user.accessToken) {
                     token.accessToken = user.accessToken;
-                }
-                // --- КОНЕЦ ИСПРАВЛЕНИЯ ---
-            }
+                }}
             return token;
         },
          async session({ session, token }) {
@@ -83,7 +78,11 @@ export const authConfig: NextAuthOptions = {
                 session.user.id = token.id as string;
                  session.user.email = token.email as string;
                 session.user.name = token.name as string;
-                }
+             }
+             if (token.accessToken) {   
+                 session.accessToken = token.accessToken as string;
+                 
+             }
             return session;
         }
     },
