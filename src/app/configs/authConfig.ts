@@ -8,11 +8,11 @@ export const authConfig: NextAuthOptions = {
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
-                email: { label: "Email", type: "email", placeholder: "test@example.com" },
+                mcsId: { label: "mcsId", type: "mcsId", placeholder: "your mcs ID" },
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
-                if (!credentials?.email || !credentials.password) {
+                if (!credentials?.mcsId || !credentials.password) {
                     return null;
                 }
                 try {
@@ -22,7 +22,7 @@ export const authConfig: NextAuthOptions = {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            email: credentials.email,
+                            mcsId: credentials.mcsId,
                             password: credentials.password,
                         }),
                     });
@@ -35,8 +35,13 @@ export const authConfig: NextAuthOptions = {
                         console.log("****** User authenticated successfully:", backendResponse);
                         return {
                             id: backendResponse.data.user._id, 
+                            name: backendResponse.data.user.name,
+                            mcsId: backendResponse.data.user.mcsId,
                             email: backendResponse.data.user.email,
-                            name: backendResponse.data.user.name, 
+                            role: backendResponse.data.user.role,
+                            userType: backendResponse.data.user.userType,
+                            gender: backendResponse.data.gender,
+                            unifirm: backendResponse.data.uniform,
                             accessToken: backendResponse.data.accessToken,
                               };
                     } else {
@@ -99,6 +104,7 @@ declare module "next-auth" {
     interface Session {
         user: {
             id: string;
+            mcsId: string;
             email: string;
             name?: string;
         } & DefaultSession["user"];

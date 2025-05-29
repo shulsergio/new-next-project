@@ -7,11 +7,13 @@ import css from "./SignInForm.module.css";
 
 export const SignInForm = () => {
   const router = useRouter();
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
+
     const formData = new FormData(event.currentTarget);
     const res = await signIn("credentials", {
-      email: formData.get("email") as string,
+      mcsId: formData.get("mcsId") as string,
       password: formData.get("password") as string,
       redirect: false,
     });
@@ -27,14 +29,14 @@ export const SignInForm = () => {
     <>
       <form className={css.container} onSubmit={handleSubmit}>
         <h1 className={css.title}>Sign In</h1>
-        <label className={css.label} htmlFor="email">
-          Email:
+        <label className={css.label} htmlFor="mcsId">
+          MCS ID:
         </label>
         <input
           className={css.input}
-          type="email"
-          id="email"
-          name="email"
+          type="mcsId"
+          id="mcsId"
+          name="mcsId"
           required
         />
 
