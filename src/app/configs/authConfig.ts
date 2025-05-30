@@ -40,8 +40,8 @@ export const authConfig: NextAuthOptions = {
                             email: backendResponse.data.user.email,
                             role: backendResponse.data.user.role,
                             userType: backendResponse.data.user.userType,
-                            gender: backendResponse.data.gender,
-                            unifirm: backendResponse.data.uniform,
+                            gender: backendResponse.data.user.gender,
+                            uniform: backendResponse.data.user.uniform,
                             accessToken: backendResponse.data.accessToken,
                               };
                     } else {
@@ -72,6 +72,11 @@ export const authConfig: NextAuthOptions = {
                 token.id = user.id;
                 token.email = user.email;
                 token.name = user.name;
+                token.mcsId = user.mcsId;
+                token.role = user.role;
+                token.userType = user.userType;
+                token.uniform = user.uniform;
+
 
                 if (user.accessToken) {
                     token.accessToken = user.accessToken;
@@ -82,7 +87,11 @@ export const authConfig: NextAuthOptions = {
              if (session.user) {
                 session.user.id = token.id as string;
                  session.user.email = token.email as string;
-                session.user.name = token.name as string;
+                 session.user.name = token.name as string;
+                 session.user.mcsId = token.mcsId as string;
+                 session.user.role = token.role as string;
+                 session.user.userType = token.userType as string;
+                 session.user.uniform = token.uniform as string;
              }
              if (token.accessToken) {   
                  session.accessToken = token.accessToken as string;
@@ -107,18 +116,35 @@ declare module "next-auth" {
             mcsId: string;
             email: string;
             name?: string;
+            role?: string;
+            userType?: string;
+            uniform?: string;
         } & DefaultSession["user"];
+
+
         accessToken?: string; 
     }
 
     interface User {
         accessToken?: string;
+        // id: string;
+        email: string;
+        name?: string;
+        mcsId: string;
+        role?: string;
+        userType?: string;
+        uniform?: string;
+
     }
 
     interface JWT {
         id: string;
         email: string;
         name?: string;
+        mcsId: string;
+        role?: string;
+        userType?: string;
+        uniform?: string;
         accessToken?: string; 
     }
 }

@@ -1,39 +1,8 @@
 import { authConfig } from "@/app/configs/authConfig";
+import { fetchUserPlans, Plan } from "@/utils/fetchData";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-interface Plan {
-  _id: string;
-  userId: string;
-  totalSOplan: number;
-  totalSOfact: number;
-  focusSOplan: number;
-  focusSOfact: number;
-  topBonus: number;
-  date: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-async function fetchUserPlans(accessToken: string) {
-  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans`;
-  const response = await fetch(BackApi, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    cache: "no-store",
-  });
-  if (!response.ok) {
-    if (response.status === 401 || response.status === 403) {
-      throw new Error("Unauthorized access. Please log in again.");
-    }
-    throw new Error("Failed to fetch user plans");
-  }
-  const data = await response.json();
-  return data;
-}
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
 
@@ -44,7 +13,7 @@ export default async function UserPlansPage() {
     console.log(
       "Сессия отсутствует или Access Token не найден для /plans, перенаправляем на /signin"
     );
-    redirect("/signin"); // Если нет, перенаправляем на страницу входа
+    redirect("/signin");
   }
   let plansData: Plan[] = [];
   try {
