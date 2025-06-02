@@ -1,12 +1,21 @@
-html,
+@import "react-circular-progressbar/dist/styles.css";
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
 body {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: Arial, sans-serif;
   font-size: 14px;
   color: #333;
-  box-sizing: border-box;
 }
 
 li,

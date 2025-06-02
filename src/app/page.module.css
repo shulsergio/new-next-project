@@ -1,6 +1,6 @@
 .container {
-  /* box-sizing: border-box; */
-  padding: 20px;
+  box-sizing: border-box;
+  /* padding: 20px; */
 }
 
 .header {

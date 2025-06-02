@@ -1,17 +1,4 @@
 
-
-// export interface UserProfile {
-// _id: string;
-//     name: string;
-//     mcsId: string;
-//     email: string;
-//     password: string;
-//     role: string;
-//     userType: string;
-//     gender: string;
-//     uniform: string;
-//   }
-
 export interface Plan {
     _id: string;
     userId: string;
