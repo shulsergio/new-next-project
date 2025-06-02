@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import React from "react";
 import { authConfig } from "./configs/authConfig";
 import { redirect } from "next/navigation";
+import css from "./page.module.css";
 
 export default async function Home() {
   // const router = useRouter();
@@ -10,9 +11,12 @@ export default async function Home() {
     redirect("/profile");
   }
   return (
-    <div style={{ textAlign: "center", marginTop: "30px" }}>
-      <p>You are unknown user.</p>
-      <p>Sign in please</p>
+    <div className={css.container}>
+      <p className={css.header}>
+        You are unknown user
+        <br />
+        Sign in please
+      </p>
     </div>
   );
 }

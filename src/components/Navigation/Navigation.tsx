@@ -10,7 +10,9 @@ export default function Navigation() {
       <Link href="/" className={css.link}>
         HOME
       </Link>
-      <Link href="/about">About</Link>
+      <Link href="/about" className={css.link}>
+        About
+      </Link>
       <div className={css.authStatusContainer}>
         <AuthStatus />
       </div>
