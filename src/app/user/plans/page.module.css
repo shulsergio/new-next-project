@@ -11,7 +11,7 @@
   flex-direction: row;
   /* align-items: center; */
   justify-content: center;
-  gap: 35px;
+  gap: 20px;
   width: 100%;
   background-color: #fff;
   border-radius: 12px;
@@ -23,5 +23,5 @@
   height: 150px;
 }
 .plansBox p {
-  padding-top: 20px;
+  padding-top: 10px;
 }

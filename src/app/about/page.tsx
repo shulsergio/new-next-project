@@ -21,7 +21,7 @@ export default function About() {
   return (
     <>
       <div className={css.textdata}>
-        <p className={css.text}>all about program</p>
+        <p className={css.text}>Information data for SS FF</p>
       </div>
     </>
   );

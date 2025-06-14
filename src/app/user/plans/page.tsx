@@ -74,7 +74,13 @@ export default async function UserPlansPage() {
                     fact: plansData[0].totalSOfact,
                     plan: plansData[0].totalSOplan,
                     toAchive: 1.2,
-                  })}
+                  }) > 0
+                    ? needToARValue({
+                        fact: plansData[0].totalSOfact,
+                        plan: plansData[0].totalSOplan,
+                        toAchive: 1.2,
+                      })
+                    : "Done"}
                 </span>
               </p>
             </div>
@@ -95,6 +101,38 @@ export default async function UserPlansPage() {
               <p>
                 Focus Fact: <span>{plansData[0].focusSOfact}</span>
               </p>
+              <p>
+                Need to 80%:
+                <span>
+                  {needToARValue({
+                    fact: plansData[0].focusSOfact,
+                    plan: plansData[0].focusSOplan,
+                    toAchive: 0.8,
+                  }) > 0
+                    ? needToARValue({
+                        fact: plansData[0].focusSOfact,
+                        plan: plansData[0].focusSOplan,
+                        toAchive: 0.8,
+                      })
+                    : "Done"}
+                </span>
+              </p>
+              <p>
+                Need to 120%:
+                <span>
+                  {needToARValue({
+                    fact: plansData[0].focusSOfact,
+                    plan: plansData[0].focusSOplan,
+                    toAchive: 1.2,
+                  }) > 0
+                    ? needToARValue({
+                        fact: plansData[0].focusSOfact,
+                        plan: plansData[0].focusSOplan,
+                        toAchive: 1.2,
+                      })
+                    : "Done"}
+                </span>
+              </p>
             </div>
             <div className={css.circularProgressBar}>
               <ClientCircularProgressBar
@@ -109,6 +147,17 @@ export default async function UserPlansPage() {
               <h2>Top bonus</h2>
               <p>
                 Top Bonuses: <span>{plansData[0].topBonus}</span>
+              </p>
+            </div>
+          </div>
+          <div className={css.plansBox}>
+            <div>
+              <h2>Q-ly bonus</h2>
+              <p>
+                A/R plan (%): <span>{plansData[0].topBonus}</span>
+              </p>
+              <p>
+                Need to bonus (uah): <span>{plansData[0].topBonus}</span>
               </p>
             </div>
           </div>
