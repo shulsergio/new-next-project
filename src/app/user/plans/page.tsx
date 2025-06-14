@@ -42,122 +42,170 @@ export default async function UserPlansPage() {
     <div>
       {plansData && plansData.length > 0 ? (
         <div className={css.container}>
-          <div className={css.plansBox}>
-            <div>
-              <h2>Total AR</h2>
+          <div className={css.globalPlans}>
+            <div className={css.plansBox}>
+              <div>
+                <h2>Total AR</h2>
+                <p>
+                  Total Plan: <span>{plansData[0].totalSOplan}</span>
+                </p>
+                <p>
+                  Total Fact: <span>{plansData[0].totalSOfact}</span>
+                </p>
+              </div>
+              <div className={css.circularProgressBar}>
+                <ClientCircularProgressBar
+                  value={
+                    (plansData[0].totalSOfact / plansData[0].totalSOplan) * 100
+                  }
+                />
+              </div>
+            </div>
+            <div className={css.newDataBox}>
               <p>
-                Total Plan: <span>{plansData[0].totalSOplan}</span>
-              </p>
-              <p>
-                Total Fact: <span>{plansData[0].totalSOfact}</span>
-              </p>
-              <p>
-                Need to 80%:
+                Need to 80%
+                <br />
                 <span>
                   {needToARValue({
                     fact: plansData[0].totalSOfact,
                     plan: plansData[0].totalSOplan,
                     toAchive: 0.8,
-                  }) > 0
-                    ? needToARValue({
-                        fact: plansData[0].totalSOfact,
-                        plan: plansData[0].totalSOplan,
-                        toAchive: 0.8,
-                      })
-                    : "Done"}
+                  }) > 0 ? (
+                    needToARValue({
+                      fact: plansData[0].totalSOfact,
+                      plan: plansData[0].totalSOplan,
+                      toAchive: 0.8,
+                    })
+                  ) : (
+                    <span
+                      style={{
+                        backgroundColor: "green",
+                        color: "white",
+                        display: "block",
+                      }}
+                    >
+                      Done!
+                    </span>
+                  )}
                 </span>
               </p>
               <p>
-                Need to 120%:
+                Need to 120%
+                <br />
                 <span>
                   {needToARValue({
                     fact: plansData[0].totalSOfact,
                     plan: plansData[0].totalSOplan,
                     toAchive: 1.2,
-                  }) > 0
-                    ? needToARValue({
-                        fact: plansData[0].totalSOfact,
-                        plan: plansData[0].totalSOplan,
-                        toAchive: 1.2,
-                      })
-                    : "Done"}
+                  }) > 0 ? (
+                    needToARValue({
+                      fact: plansData[0].totalSOfact,
+                      plan: plansData[0].totalSOplan,
+                      toAchive: 1.2,
+                    })
+                  ) : (
+                    <span
+                      style={{
+                        backgroundColor: "green",
+                        color: "white",
+                        display: "block",
+                      }}
+                    >
+                      Done!
+                    </span>
+                  )}
                 </span>
               </p>
             </div>
-            <div className={css.circularProgressBar}>
-              <ClientCircularProgressBar
-                value={
-                  (plansData[0].totalSOfact / plansData[0].totalSOplan) * 100
-                }
-              />
-            </div>
           </div>
-          <div className={css.plansBox}>
-            <div>
-              <h2>Focus AR</h2>
+          <div className={css.globalPlans}>
+            <div className={css.plansBox}>
+              <div>
+                <h2>Focus AR</h2>
+                <p>
+                  Focus Plan: <span>{plansData[0].focusSOplan}</span>
+                </p>
+                <p>
+                  Focus Fact: <span>{plansData[0].focusSOfact}</span>
+                </p>
+              </div>
+              <div className={css.circularProgressBar}>
+                <ClientCircularProgressBar
+                  value={
+                    (plansData[0].focusSOfact / plansData[0].focusSOplan) * 100
+                  }
+                />
+              </div>
+            </div>
+            <div className={css.newDataBox}>
               <p>
-                Focus Plan: <span>{plansData[0].focusSOplan}</span>
-              </p>
-              <p>
-                Focus Fact: <span>{plansData[0].focusSOfact}</span>
-              </p>
-              <p>
-                Need to 80%:
+                Need to 80%
+                <br />
                 <span>
                   {needToARValue({
                     fact: plansData[0].focusSOfact,
                     plan: plansData[0].focusSOplan,
                     toAchive: 0.8,
-                  }) > 0
-                    ? needToARValue({
-                        fact: plansData[0].focusSOfact,
-                        plan: plansData[0].focusSOplan,
-                        toAchive: 0.8,
-                      })
-                    : "Done"}
+                  }) > 0 ? (
+                    needToARValue({
+                      fact: plansData[0].focusSOfact,
+                      plan: plansData[0].focusSOplan,
+                      toAchive: 0.8,
+                    })
+                  ) : (
+                    <span
+                      style={{
+                        backgroundColor: "green",
+                        color: "white",
+                        display: "block",
+                      }}
+                    >
+                      Done!
+                    </span>
+                  )}
                 </span>
               </p>
               <p>
-                Need to 120%:
+                Need to 120% <br />
                 <span>
                   {needToARValue({
                     fact: plansData[0].focusSOfact,
                     plan: plansData[0].focusSOplan,
                     toAchive: 1.2,
-                  }) > 0
-                    ? needToARValue({
-                        fact: plansData[0].focusSOfact,
-                        plan: plansData[0].focusSOplan,
-                        toAchive: 1.2,
-                      })
-                    : "Done"}
+                  }) > 0 ? (
+                    needToARValue({
+                      fact: plansData[0].focusSOfact,
+                      plan: plansData[0].focusSOplan,
+                      toAchive: 1.2,
+                    })
+                  ) : (
+                    <span
+                      style={{
+                        backgroundColor: "green",
+                        color: "white",
+                        display: "block",
+                      }}
+                    >
+                      Done!
+                    </span>
+                  )}
                 </span>
               </p>
             </div>
-            <div className={css.circularProgressBar}>
-              <ClientCircularProgressBar
-                value={
-                  (plansData[0].focusSOfact / plansData[0].focusSOplan) * 100
-                }
-              />
-            </div>
           </div>
-          <div className={css.plansBox}>
-            <div>
-              <h2>Top bonus</h2>
+          <div className={css.globalPlans}>
+            <div className={css.plansBox}>
+              <h2>Top Bonus</h2>
               <p>
-                Top Bonuses: <span>{plansData[0].topBonus}</span>
+                Bonus: <span>{plansData[0].topBonus}</span>
               </p>
             </div>
           </div>
-          <div className={css.plansBox}>
-            <div>
-              <h2>Q-ly bonus</h2>
+          <div className={css.globalPlans}>
+            <div className={css.plansBox}>
+              <h2>Q-ly Bonus</h2>
               <p>
-                A/R plan (%): <span>{plansData[0].topBonus}</span>
-              </p>
-              <p>
-                Need to bonus (uah): <span>{plansData[0].topBonus}</span>
+                Bonus: <span>{plansData[0].topBonus}</span>
               </p>
             </div>
           </div>

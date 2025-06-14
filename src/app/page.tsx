@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import css from "./page.module.css";
 
 export default async function Home() {
+  // const clientWidth = document.documentElement.clientWidth;
   // const router = useRouter();
   const session = await getServerSession(authConfig);
   if (session) {
