@@ -42,6 +42,7 @@ export const authConfig: NextAuthOptions = {
                             userType: backendResponse.data.user.userType,
                             gender: backendResponse.data.user.gender,
                             uniform: backendResponse.data.user.uniform,
+                            mcsShop: backendResponse.data.user.mcsShop,
                             accessToken: backendResponse.data.accessToken,
                               };
                     } else {
@@ -75,6 +76,7 @@ export const authConfig: NextAuthOptions = {
                 token.mcsId = user.mcsId;
                 token.role = user.role;
                 token.userType = user.userType;
+                token.mcsShop = user.mcsShop;
                 token.uniform = user.uniform;
 
 
@@ -91,6 +93,7 @@ export const authConfig: NextAuthOptions = {
                  session.user.mcsId = token.mcsId as string;
                  session.user.role = token.role as string;
                  session.user.userType = token.userType as string;
+                 session.user.mcsShop = token.mcsShop as string;
                  session.user.uniform = token.uniform as string;
              }
              if (token.accessToken) {   
@@ -118,6 +121,7 @@ declare module "next-auth" {
             name?: string;
             role?: string;
             userType?: string;
+            mcsShop?: string;
             uniform?: string;
         } & DefaultSession["user"];
 
@@ -133,6 +137,7 @@ declare module "next-auth" {
         mcsId: string;
         role?: string;
         userType?: string;
+        mcsShop?: string;
         uniform?: string;
 
     }
@@ -145,6 +150,7 @@ declare module "next-auth" {
         role?: string;
         userType?: string;
         uniform?: string;
+        mcsShop?: string;
         accessToken?: string; 
     }
 }

@@ -2,21 +2,60 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  gap: 20px;
+  gap: 15px;
 }
 
 .profile {
   width: 100%;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
   /* padding: 20px; */
-  gap: 24px;
+  gap: 15px;
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
+.profileList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  /* padding: 20px; */
+  gap: 10px;
+  padding: 0 20px 20px;
+  margin: 0 auto;
+  max-width: 400px;
+  gap: 10px;
+}
+
+.profile h1 {
+  font-size: 32px;
+  color: #333;
+  padding-top: 10px;
+}
+
+.profileList li {
+  background-color: #f8f8f8;
+  padding: 10px 15px;
+  border-radius: 8px;
+  min-width: 150px;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  font-size: 16px;
+  color: #555;
+  border: 1px solid #eee;
+}
+.profileList li span {
+  font-weight: 600;
+  color: #007bff;
+  padding-left: 10px;
+}
+
 .buttonBox {
   box-sizing: border-box;
   width: 100%;
@@ -24,27 +63,26 @@
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
-  padding: 20px;
+  padding: 20px 10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
 .boxes {
-  max-width: 60%;
-  background-color: #969fc6;
+  max-width: 160px;
+  background-color: #9ecdff;
   color: #ffffff;
-  padding: 15px 20px;
+  padding: 15px 10px;
   border-radius: 12px;
   text-align: center;
   text-decoration: none;
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 0.5px;
-
   box-shadow: 0 8px 25px rgba(113, 113, 114, 0.25);
-
   transition: all 0.3s ease-in-out;
 }
 
@@ -53,38 +91,6 @@
   box-shadow: 0 12px 30px rgba(0, 123, 255, 0.4);
 }
 
-.profile h1 {
-  font-size: 2.2em;
-  color: #333;
-  padding-top: 10px;
-}
-
-.profile ul {
-  padding-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  max-width: 400px;
-  gap: 10px;
-}
-
-.profile li {
-  background-color: #f8f8f8;
-  padding: 10px 15px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
-  color: #555;
-  border: 1px solid #eee;
-}
-
-.profile li span {
-  font-weight: 600;
-  color: #007bff;
-  margin-left: 10px;
-}
 /* ------media----- */
 
 @media screen and (max-width: 768px) {
