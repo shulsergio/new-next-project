@@ -2,8 +2,9 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { FormEventHandler, useState } from "react";
 import toast from "react-hot-toast";
-import { PulseLoader } from "react-spinners";
+// import { PulseLoader } from "react-spinners";
 import css from "./SignInForm.module.css";
+import Loader from "../Loader/Loader";
 
 export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,16 +42,7 @@ export const SignInForm = () => {
 
   return (
     <>
-      {isLoading && (
-        <div className={css.loaderOverlay}>
-          <PulseLoader
-            className={css.loader}
-            color={"#36D7B7"}
-            loading={isLoading}
-            size={20}
-          />
-        </div>
-      )}
+      {isLoading && <Loader isLoading={isLoading} />}
       <form className={css.container} onSubmit={handleSubmit}>
         <h1 className={css.title}>Sign In</h1>
         <label className={css.label} htmlFor="mcsId">

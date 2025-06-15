@@ -6,11 +6,6 @@ import { getServerSession } from "next-auth";
 export default async function Profile() {
   const session = await getServerSession(authConfig);
 
-  console.log("----- Profile session?.user:", session?.user);
-  console.log("----- Profile session?.user.email:", session?.user.email);
-  console.log("----- Profile session?.user?.mcsId:", session?.user?.mcsId);
-  console.log("----- Profile USER:", session?.user);
-  console.log("----- Profile session?.user:", session?.user?.userType);
   const userProfile = session?.user;
   return (
     <div className={css.container}>
