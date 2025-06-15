@@ -3,6 +3,7 @@ import React from "react";
 import { authConfig } from "./configs/authConfig";
 import { redirect } from "next/navigation";
 import css from "./page.module.css";
+import TextBox from "@/components/TextBox/TextBox";
 
 export default async function Home() {
   // const clientWidth = document.documentElement.clientWidth;
@@ -13,11 +14,7 @@ export default async function Home() {
   }
   return (
     <div className={css.container}>
-      <p className={css.header}>
-        You are unknown user
-        <br />
-        Sign in please
-      </p>
+      <TextBox text="You are unknown user. Sign in" />
     </div>
   );
 }

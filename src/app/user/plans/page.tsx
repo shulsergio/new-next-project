@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import css from "./page.module.css";
 import ClientCircularProgressBar from "@/components/CircularProgressbar/CircularProgressbar";
+import TextBox from "@/components/TextBox/TextBox";
 
 interface needToARValueProps {
   fact: number;
@@ -211,7 +212,7 @@ export default async function UserPlansPage() {
           </div>
         </div>
       ) : (
-        <p>No plans available.</p>
+        <TextBox text="No plans available." />
       )}
       {!plansData && <p>Loading plans...</p>}
     </div>

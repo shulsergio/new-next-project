@@ -1,18 +1,4 @@
-.textdata {
-  max-width: 374px;
-  /* width: 100%; */
-  margin: 25px auto;
+.container {
+  box-sizing: border-box;
   padding: 20px;
-  border: 1px solid #cce7ff;
-  border-radius: 5px;
-  background-color: #e6f2ff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.text {
-  width: max-content;
-  margin: 0 auto;
-  font-size: 20px;
-  line-height: 1.6;
-  color: #007bff;
 }
