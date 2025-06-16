@@ -51,11 +51,11 @@ export const authConfig: NextAuthOptions = {
                     
                 } catch (error: unknown) { 
                         if (error instanceof Error) {
-                        console.error("Backend authentication error:", error);
-                                            throw new Error(error.message || 'Something went wrong during authentication');
+                        console.error("Backend error:", error);
+                                            throw new Error(error.message || 'Something went wrong');
                     } else {
-                          console.error("An unexpected error occurred:", error);
-                        throw new Error('An unexpected error occurred during authentication');
+                          console.error("Something went wrong:", error);
+                        throw new Error('Something went wrong');
                     }
                 }
             }
