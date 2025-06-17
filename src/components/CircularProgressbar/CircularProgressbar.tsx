@@ -20,7 +20,7 @@ export default function ClientCircularProgressBar({
     <div className={css.container}>
       <CircularProgressbarWithChildren
         value={value}
-        text={`${value}%`}
+        text={`${value.toFixed(1)}%`}
         strokeWidth={strokeWidth}
         styles={buildStyles({
           strokeLinecap: "butt",
