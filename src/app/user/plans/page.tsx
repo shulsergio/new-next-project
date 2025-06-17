@@ -152,7 +152,7 @@ export default async function UserPlansPage() {
                       fact: plansData[0].focusSOfact,
                       plan: plansData[0].focusSOplan,
                       toAchive: 0.8,
-                    })
+                    }).toFixed(1)
                   ) : (
                     <span
                       style={{
@@ -178,7 +178,7 @@ export default async function UserPlansPage() {
                       fact: plansData[0].focusSOfact,
                       plan: plansData[0].focusSOplan,
                       toAchive: 1.2,
-                    })
+                    }).toFixed(1)
                   ) : (
                     <span
                       style={{
