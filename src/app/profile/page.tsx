@@ -22,7 +22,7 @@ export default async function Profile() {
             Uniform: <span>{userProfile?.uniform || "-"}</span>
           </li>
           <li>
-            Shop: <span>{userProfile?.mcsShop || "-"}</span>
+            Shop: <span>{userProfile?.shop || "-"}</span>
           </li>
         </ul>
       </div>

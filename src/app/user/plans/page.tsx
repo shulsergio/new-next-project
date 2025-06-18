@@ -5,17 +5,12 @@ import { redirect } from "next/navigation";
 import css from "./page.module.css";
 import ClientCircularProgressBar from "@/components/CircularProgressbar/CircularProgressbar";
 import TextBox from "@/components/TextBox/TextBox";
+import {
+  getFocusPercent,
+  getFormatUahFromNumber,
+  needToARValue,
+} from "@/utils/calculations";
 
-interface needToARValueProps {
-  fact: number;
-  plan: number;
-  toAchive: number;
-}
-
-function needToARValue({ fact, plan, toAchive }: needToARValueProps) {
-  const total = plan * toAchive - fact > 0 ? plan * toAchive - fact : -1;
-  return total;
-}
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
 
@@ -48,10 +43,16 @@ export default async function UserPlansPage() {
               <div>
                 <h2>Total AR</h2>
                 <p>
-                  Total Plan: <span>{plansData[0].totalSOplan}</span>
+                  Total Plan:{" "}
+                  <span className={css.formatUah}>
+                    {getFormatUahFromNumber(plansData[0].totalSOplan)}
+                  </span>
                 </p>
                 <p>
-                  Total Fact: <span>{plansData[0].totalSOfact}</span>
+                  Total Fact:{" "}
+                  <span className={css.formatUah}>
+                    {getFormatUahFromNumber(plansData[0].totalSOfact)}
+                  </span>
                 </p>
               </div>
               <div className={css.circularProgressBar}>
@@ -66,55 +67,23 @@ export default async function UserPlansPage() {
               <p>
                 Need to 80%
                 <br />
-                <span>
+                <span className={css.formatUah}>
                   {needToARValue({
                     fact: plansData[0].totalSOfact,
                     plan: plansData[0].totalSOplan,
                     toAchive: 0.8,
-                  }) > 0 ? (
-                    needToARValue({
-                      fact: plansData[0].totalSOfact,
-                      plan: plansData[0].totalSOplan,
-                      toAchive: 0.8,
-                    }).toFixed(1)
-                  ) : (
-                    <span
-                      style={{
-                        backgroundColor: "green",
-                        color: "white",
-                        display: "block",
-                      }}
-                    >
-                      Done!
-                    </span>
-                  )}
+                  })}
                 </span>
               </p>
               <p>
                 Need to 120%
                 <br />
-                <span>
+                <span className={css.formatUah}>
                   {needToARValue({
                     fact: plansData[0].totalSOfact,
                     plan: plansData[0].totalSOplan,
                     toAchive: 1.2,
-                  }) > 0 ? (
-                    needToARValue({
-                      fact: plansData[0].totalSOfact,
-                      plan: plansData[0].totalSOplan,
-                      toAchive: 1.2,
-                    }).toFixed(1)
-                  ) : (
-                    <span
-                      style={{
-                        backgroundColor: "green",
-                        color: "white",
-                        display: "block",
-                      }}
-                    >
-                      Done!
-                    </span>
-                  )}
+                  })}
                 </span>
               </p>
             </div>
@@ -124,10 +93,16 @@ export default async function UserPlansPage() {
               <div>
                 <h2>Focus AR</h2>
                 <p>
-                  Focus Plan: <span>{plansData[0].focusSOplan}</span>
+                  Focus Plan:{" "}
+                  <span className={css.formatUah}>
+                    {getFormatUahFromNumber(plansData[0].focusSOplan)}
+                  </span>
                 </p>
                 <p>
-                  Focus Fact: <span>{plansData[0].focusSOfact}</span>
+                  Focus Fact:{" "}
+                  <span className={css.formatUah}>
+                    {getFormatUahFromNumber(plansData[0].focusSOfact)}
+                  </span>
                 </p>
               </div>
               <div className={css.circularProgressBar}>
@@ -142,54 +117,22 @@ export default async function UserPlansPage() {
               <p>
                 Need to 80%
                 <br />
-                <span>
+                <span className={css.formatUah}>
                   {needToARValue({
                     fact: plansData[0].focusSOfact,
                     plan: plansData[0].focusSOplan,
                     toAchive: 0.8,
-                  }) > 0 ? (
-                    needToARValue({
-                      fact: plansData[0].focusSOfact,
-                      plan: plansData[0].focusSOplan,
-                      toAchive: 0.8,
-                    }).toFixed(1)
-                  ) : (
-                    <span
-                      style={{
-                        backgroundColor: "green",
-                        color: "white",
-                        display: "block",
-                      }}
-                    >
-                      Done!
-                    </span>
-                  )}
+                  })}
                 </span>
               </p>
               <p>
                 Need to 120% <br />
-                <span>
+                <span className={css.formatUah}>
                   {needToARValue({
                     fact: plansData[0].focusSOfact,
                     plan: plansData[0].focusSOplan,
                     toAchive: 1.2,
-                  }) > 0 ? (
-                    needToARValue({
-                      fact: plansData[0].focusSOfact,
-                      plan: plansData[0].focusSOplan,
-                      toAchive: 1.2,
-                    }).toFixed(1)
-                  ) : (
-                    <span
-                      style={{
-                        backgroundColor: "green",
-                        color: "white",
-                        display: "block",
-                      }}
-                    >
-                      Done!
-                    </span>
-                  )}
+                  })}
                 </span>
               </p>
             </div>
@@ -198,15 +141,54 @@ export default async function UserPlansPage() {
             <div className={css.plansBox}>
               <h2>Top Bonus</h2>
               <p>
-                Bonus: <span>{plansData[0].topBonus}</span>
+                Total:
+                <span className={css.formatUah}>
+                  {getFormatUahFromNumber(plansData[0].topBonus)}
+                </span>
               </p>
             </div>
           </div>
           <div className={css.globalPlans}>
             <div className={css.plansBox}>
-              <h2>Q-ly Bonus</h2>
+              <h2>Quarterly results </h2>
               <p>
-                Bonus: <span>{plansData[0].topBonus}</span>
+                Focus AR:
+                <span>
+                  {getFocusPercent({
+                    planQly: plansData[0].focusQlySOplan,
+                    factQly: plansData[0].focusQlySOfact,
+                    planCurrent: plansData[0].focusSOplan,
+                    factCurrent: plansData[0].focusSOfact,
+                  }).toFixed(1)}
+                  %
+                </span>
+              </p>
+            </div>
+            <div className={css.newDataBox}>
+              <p>
+                Need to 90%
+                <br />
+                <span className={css.formatUah}>
+                  {needToARValue({
+                    fact:
+                      plansData[0].focusQlySOfact + plansData[0].focusSOfact,
+                    plan:
+                      plansData[0].focusQlySOplan + plansData[0].focusSOplan,
+                    toAchive: 0.9,
+                  })}
+                </span>
+              </p>
+              <p>
+                Need to 120% <br />
+                <span className={css.formatUah}>
+                  {needToARValue({
+                    fact:
+                      plansData[0].focusQlySOfact + plansData[0].focusSOfact,
+                    plan:
+                      plansData[0].focusQlySOplan + plansData[0].focusSOplan,
+                    toAchive: 1.2,
+                  })}
+                </span>
               </p>
             </div>
           </div>

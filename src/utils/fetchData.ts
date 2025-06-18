@@ -5,7 +5,11 @@ export interface Plan {
     totalSOplan: number;
     totalSOfact: number;
     focusSOplan: number;
-    focusSOfact: number;
+  focusSOfact: number;
+  totalQlySOplan: number;
+  totalQlySOfact: number;
+  focusQlySOplan: number;
+  focusQlySOfact: number;
     topBonus: number;
     date: string;
     createdAt: string;

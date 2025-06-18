@@ -42,7 +42,7 @@ export const authConfig: NextAuthOptions = {
                             userType: backendResponse.data.user.userType,
                             gender: backendResponse.data.user.gender,
                             uniform: backendResponse.data.user.uniform,
-                            mcsShop: backendResponse.data.user.mcsShop,
+                            shop: backendResponse.data.user.shop,
                             accessToken: backendResponse.data.accessToken,
                               };
                     } else {
@@ -76,7 +76,7 @@ export const authConfig: NextAuthOptions = {
                 token.mcsId = user.mcsId;
                 token.role = user.role;
                 token.userType = user.userType;
-                token.mcsShop = user.mcsShop;
+                token.shop = user.shop;
                 token.uniform = user.uniform;
 
 
@@ -93,7 +93,7 @@ export const authConfig: NextAuthOptions = {
                  session.user.mcsId = token.mcsId as string;
                  session.user.role = token.role as string;
                  session.user.userType = token.userType as string;
-                 session.user.mcsShop = token.mcsShop as string;
+                 session.user.shop = token.shop as string;
                  session.user.uniform = token.uniform as string;
              }
              if (token.accessToken) {   
@@ -106,7 +106,7 @@ export const authConfig: NextAuthOptions = {
 
     session: {
         strategy: "jwt",
-        maxAge: 30 * 24 * 60 * 60,
+        maxAge: 24 * 60 * 60,
     },
 
     secret: process.env.NEXTAUTH_SECRET,
@@ -121,7 +121,7 @@ declare module "next-auth" {
             name?: string;
             role?: string;
             userType?: string;
-            mcsShop?: string;
+            shop?: string;
             uniform?: string;
         } & DefaultSession["user"];
 
@@ -137,7 +137,7 @@ declare module "next-auth" {
         mcsId: string;
         role?: string;
         userType?: string;
-        mcsShop?: string;
+        shop?: string;
         uniform?: string;
 
     }
@@ -150,7 +150,7 @@ declare module "next-auth" {
         role?: string;
         userType?: string;
         uniform?: string;
-        mcsShop?: string;
+        shop?: string;
         accessToken?: string; 
     }
 }
