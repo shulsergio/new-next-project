@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "About My App",
   description: "This is the about app page.",
   keywords: ["about", "app", "information"],
-  authors: [{ name: "Shulcman" }],
+  authors: [{ name: "Shulga" }],
   robots: {
     index: true,
     follow: true,

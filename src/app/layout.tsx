@@ -3,6 +3,7 @@ import "./globals.css";
 
 import AuthProvider from "./providers";
 import Navigation from "@/components/Navigation/Navigation";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "MY Next App",
@@ -20,6 +21,7 @@ export default function RootLayout({
         <AuthProvider>
           <Navigation />
           <main>{children}</main>
+          <Footer />
         </AuthProvider>
       </body>
     </html>
