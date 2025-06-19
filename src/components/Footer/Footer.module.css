@@ -7,7 +7,7 @@
   text-align: center;
   margin-top: auto;
   width: 100%;
-  box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 .content {
   /* max-width: 1200px; */
