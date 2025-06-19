@@ -9,12 +9,20 @@ export default async function Home() {
   // const clientWidth = document.documentElement.clientWidth;
   // const router = useRouter();
   const session = await getServerSession(authConfig);
-  if (session) {
+  console.log("*1*1* Сессия на главной странице:", session);
+
+  if (!session) {
+    return (
+      <div className={css.container}>
+        <TextBox text="You are unknown user. Sign in" />
+      </div>
+    );
+  }
+  console.log("***Сессия на главной странице:", session);
+  console.log("*** session.user?.role:", session.user?.role);
+  if (session.user?.role === "admin") {
+    redirect("/admin");
+  } else {
     redirect("/profile");
   }
-  return (
-    <div className={css.container}>
-      <TextBox text="You are unknown user. Sign in" />
-    </div>
-  );
 }

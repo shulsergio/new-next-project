@@ -196,7 +196,7 @@ export default async function UserPlansPage() {
       ) : (
         <TextBox text="No plans available." />
       )}
-      {!plansData && <p>Loading plans...</p>}
+      {/* {!plansData && <p>Loading plans...</p>} */}
     </div>
   );
 }

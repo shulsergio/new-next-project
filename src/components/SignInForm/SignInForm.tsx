@@ -24,7 +24,7 @@ export const SignInForm = () => {
       });
       if (res && !res?.error) {
         toast.success("You are signed");
-        router.push("/profile");
+        router.push("/");
       } else {
         toast.error(res?.error || "Sign in failed");
       }
