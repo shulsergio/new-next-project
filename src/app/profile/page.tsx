@@ -1,10 +1,18 @@
-import Link from "next/link";
 import css from "./profile.module.css";
 import { authConfig } from "../configs/authConfig";
 import { getServerSession } from "next-auth";
 import { ProfileBox } from "@/components/ProfileBox/ProfileBox";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
+import ButtonBox from "@/components/ButtonBox/ButtonBox";
 
+/**
+ * Profile page component
+ * This all profiles except ADMIN
+ * Profile- its first page after sign in
+ *
+ * @export
+ * @return {*}
+ */
 export default async function Profile() {
   const session = await getServerSession(authConfig);
 
@@ -12,19 +20,19 @@ export default async function Profile() {
   return (
     <div className={css.container}>
       <ProfileBox userProfile={userProfile} />
-      <ComponentWrapper title="">
-        <Link className={css.boxes} href="user/plans">
+      <ComponentWrapper>
+        <ButtonBox option="link" href="user/plans">
           Promoter Plans
-        </Link>
-        <Link className={css.boxes} href="user/competitors">
+        </ButtonBox>
+        <ButtonBox option="link" href="user/competitors">
           Competitors
-        </Link>
-        <Link className={css.boxes} href="/">
+        </ButtonBox>
+        <ButtonBox option="link" href="/">
           edit...
-        </Link>
-        <Link className={css.boxes} href="/">
+        </ButtonBox>
+        <ButtonBox option="link" href="/">
           edit...
-        </Link>
+        </ButtonBox>
       </ComponentWrapper>
     </div>
   );

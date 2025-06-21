@@ -2,7 +2,7 @@ import css from "./ComponentWrapper.module.css";
 
 interface ComponentWrapperProps {
   children?: React.ReactNode;
-  title: string;
+  title?: string;
 }
 
 export default function ComponentWrapper({
