@@ -1,7 +1,6 @@
-// import Link from "next/link";
-import Link from "next/link";
 import css from "./admin.module.css";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
+import ButtonBox from "@/components/ButtonBox/ButtonBox";
 // import { authConfig } from "../configs/authConfig";
 // import { getServerSession } from "next-auth";
 
@@ -21,12 +20,15 @@ export default async function Admin() {
     <div className={css.container}>
       <ComponentWrapper title="Admin panel" />
       <ComponentWrapper>
-        <Link className={css.boxes} href="user/plans">
-          Promoter Plans
-        </Link>
-        <Link className={css.boxes} href="user/competitors">
-          Competitors
-        </Link>
+        <ButtonBox option="link" href="admin/promoters">
+          promoters data
+        </ButtonBox>
+        <ButtonBox option="link" href="admin/promoters/plans">
+          promoters plans
+        </ButtonBox>
+        <ButtonBox option="link" href="admin/competitors">
+          competitors
+        </ButtonBox>
       </ComponentWrapper>
     </div>
   );
