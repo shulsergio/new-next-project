@@ -22,7 +22,7 @@ export default function About() {
   return (
     <>
       <div className={css.container}>
-        <TextBox text="Information data for SS FF"></TextBox>
+        <TextBox option="text">{"Information data for SS FF"}</TextBox>
       </div>
     </>
   );

@@ -14,7 +14,7 @@ export default async function Home() {
   if (!session) {
     return (
       <div className={css.container}>
-        <TextBox text="You are unknown user. Sign in" />
+        <TextBox option="text">{"You are unknown user. Sign in"}</TextBox>
       </div>
     );
   }

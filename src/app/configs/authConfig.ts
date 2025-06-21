@@ -74,10 +74,10 @@ export const authConfig: NextAuthOptions = {
                 token.email = user.email;
                 token.name = user.name;
                 token.role = user.role;
-                // token.mcsId = user.mcsId;
-                // token.userType = user.userType;
-                // token.shop = user.shop;
-                // token.uniform = user.uniform;
+                token.mcsId = user.mcsId;
+                token.userType = user.userType;
+                token.shop = user.shop;
+                token.uniform = user.uniform;
 
 
                 if (user.accessToken) {
@@ -148,10 +148,10 @@ declare module "next-auth" {
         name?: string;
 
         role?: string;
-        // mcsId: string;
-        // userType?: string;
-        // uniform?: string;
-        // shop?: string;
+        mcsId: string;
+        userType?: string;
+        uniform?: string;
+        shop?: string;
         accessToken?: string; 
     }
 }

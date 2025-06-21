@@ -2,6 +2,8 @@ import Link from "next/link";
 import css from "./profile.module.css";
 import { authConfig } from "../configs/authConfig";
 import { getServerSession } from "next-auth";
+import { ProfileBox } from "@/components/ProfileBox/ProfileBox";
+import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 
 export default async function Profile() {
   const session = await getServerSession(authConfig);
@@ -9,24 +11,8 @@ export default async function Profile() {
   const userProfile = session?.user;
   return (
     <div className={css.container}>
-      <div className={css.profile}>
-        <h1>{userProfile?.role || ""} profile</h1>
-        <ul className={css.profileList}>
-          <li>
-            Role: <span>{userProfile?.role || "-"}</span>
-          </li>
-          <li>
-            User type: <span>{userProfile?.userType || "-"}</span>
-          </li>
-          <li>
-            Uniform: <span>{userProfile?.uniform || "-"}</span>
-          </li>
-          <li>
-            Shop: <span>{userProfile?.shop || "-"}</span>
-          </li>
-        </ul>
-      </div>
-      <div className={css.buttonBox}>
+      <ProfileBox userProfile={userProfile} />
+      <ComponentWrapper title="">
         <Link className={css.boxes} href="user/plans">
           Promoter Plans
         </Link>
@@ -39,7 +25,7 @@ export default async function Profile() {
         <Link className={css.boxes} href="/">
           edit...
         </Link>
-      </div>
+      </ComponentWrapper>
     </div>
   );
 }

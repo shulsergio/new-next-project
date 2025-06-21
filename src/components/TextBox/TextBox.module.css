@@ -11,3 +11,15 @@
   font-weight: 500;
   color: #007bff;
 }
+.staticBox {
+  background-color: #f8f8f8;
+  padding: 10px 15px;
+  border-radius: 8px;
+  min-width: 150px;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  font-size: 16px;
+  color: #555;
+  border: 1px solid #eee;
+}
