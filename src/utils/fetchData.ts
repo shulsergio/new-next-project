@@ -16,6 +16,20 @@ export interface Plan {
     updatedAt: string;
   }
   
+  export interface Promoter {
+    _id: string;
+    email: string;
+    name?: string;
+    mcsId?: string;
+    role?: string;
+    userType?: string;
+    gender?: string;
+    uniform?: string;
+    shop?: string;
+   }
+  
+
+
 export async function fetchUserPlans(accessToken: string) {
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans`;
     const response = await fetch(BackApi, {
@@ -36,7 +50,26 @@ export async function fetchUserPlans(accessToken: string) {
     return data;
   }
 
-// export async function fetchUserProfile(accessToken: string) {
-//     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile
+export async function fetchAllPromoters(accessToken: string) {
 
-// }
+  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/promoters`;
+  const response = await fetch(BackApi, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      console.error("fetchAllPromoters error:", response.status);
+      throw new Error(`Failed to fetch promoters: ${response.statusText}`);
+    }
+  }
+  const data = await response.json();
+  console.log('ALL PROMOTERS DATA:', data);
+  return data;
+
+  }
