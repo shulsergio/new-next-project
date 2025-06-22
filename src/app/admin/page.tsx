@@ -1,4 +1,3 @@
-import css from "./admin.module.css";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 // import { authConfig } from "../configs/authConfig";
@@ -17,7 +16,7 @@ export default async function Admin() {
 
   // const userProfile = session?.user;
   return (
-    <div className={css.container}>
+    <>
       <ComponentWrapper title="Admin panel" />
       <ComponentWrapper>
         <ButtonBox option="link" href="admin/promoters">
@@ -30,6 +29,6 @@ export default async function Admin() {
           competitors
         </ButtonBox>
       </ComponentWrapper>
-    </div>
+    </>
   );
 }

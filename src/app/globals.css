@@ -47,10 +47,12 @@ h1 {
 
 .container {
   width: 100%;
-  /* padding: 10px; */
   height: 100vh;
 }
-
+.main-container {
+  box-sizing: border-box;
+  padding: 20px 10px;
+}
 @media (min-width: 378px) {
   body {
     margin: 0 auto;

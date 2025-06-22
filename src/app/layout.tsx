@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={`container antialiased`}>
         <AuthProvider>
           <Navigation />
-          <main>{children}</main>
+          <main className="main-container">{children}</main>
           <Footer />
         </AuthProvider>
       </body>

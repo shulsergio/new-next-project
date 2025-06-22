@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import React from "react";
 import { authConfig } from "./configs/authConfig";
 import { redirect } from "next/navigation";
-import css from "./page.module.css";
+// import css from "./page.module.css";
 import TextBox from "@/components/TextBox/TextBox";
 
 export default async function Home() {
@@ -12,11 +12,7 @@ export default async function Home() {
   console.log("*1*1* Сессия на главной странице:", session);
 
   if (!session) {
-    return (
-      <div className={css.container}>
-        <TextBox option="text">{"You are unknown user. Sign in"}</TextBox>
-      </div>
-    );
+    return <TextBox option="text">{"You are unknown user. Sign in"}</TextBox>;
   }
   console.log("***Сессия на главной странице:", session);
   console.log("*** session.user?.role:", session.user?.role);

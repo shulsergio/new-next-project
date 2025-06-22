@@ -1,5 +1,4 @@
 import TextBox from "@/components/TextBox/TextBox";
-import css from "./about.module.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,11 +18,5 @@ export const viewport = {
 };
 
 export default function About() {
-  return (
-    <>
-      <div className={css.container}>
-        <TextBox option="text">{"Information data for SS FF"}</TextBox>
-      </div>
-    </>
-  );
+  return <TextBox option="text">{"Information data for SS FF"}</TextBox>;
 }

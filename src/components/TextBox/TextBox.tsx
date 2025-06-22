@@ -14,9 +14,9 @@ export interface TextBoxProps {
  */
 export default function TextBox({ option, children }: TextBoxProps) {
   if (option === "static") {
-    return <p className={css.staticBox}>{children}</p>;
+    return <div className={css.staticBox}>{children}</div>;
   }
   if (option === "text") {
-    return <p className={css.text}>{children}</p>;
+    return <div className={css.text}>{children}</div>;
   }
 }
