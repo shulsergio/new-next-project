@@ -10,6 +10,7 @@ import {
   getFormatUahFromNumber,
   needToARValue,
 } from "@/utils/calculations";
+import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
@@ -37,11 +38,10 @@ export default async function UserPlansPage() {
   return (
     <div>
       {plansData && plansData.length > 0 ? (
-        <div className={css.container}>
-          <div className={css.globalPlans}>
+        <>
+          <ComponentWrapper title="Total AR">
             <div className={css.plansBox}>
               <div>
-                <h2>Total AR</h2>
                 <p>
                   Total Plan:{" "}
                   <span className={css.formatUah}>
@@ -87,11 +87,10 @@ export default async function UserPlansPage() {
                 </span>
               </p>
             </div>
-          </div>
-          <div className={css.globalPlans}>
+          </ComponentWrapper>
+          <ComponentWrapper title="Focus AR">
             <div className={css.plansBox}>
               <div>
-                <h2>Focus AR</h2>
                 <p>
                   Focus Plan:{" "}
                   <span className={css.formatUah}>
@@ -136,10 +135,9 @@ export default async function UserPlansPage() {
                 </span>
               </p>
             </div>
-          </div>
-          <div className={css.globalPlans}>
+          </ComponentWrapper>
+          <ComponentWrapper title="Top Bonus">
             <div className={css.plansBox}>
-              <h2>Top Bonus</h2>
               <p>
                 Total:
                 <span className={css.formatUah}>
@@ -147,10 +145,9 @@ export default async function UserPlansPage() {
                 </span>
               </p>
             </div>
-          </div>
-          <div className={css.globalPlans}>
+          </ComponentWrapper>
+          <ComponentWrapper title="Quarterly results">
             <div className={css.plansBox}>
-              <h2>Quarterly results </h2>
               <p>
                 Focus AR:
                 <span>
@@ -191,8 +188,8 @@ export default async function UserPlansPage() {
                 </span>
               </p>
             </div>
-          </div>
-        </div>
+          </ComponentWrapper>
+        </>
       ) : (
         <TextBox option="text">{"No plans available."}</TextBox>
       )}
