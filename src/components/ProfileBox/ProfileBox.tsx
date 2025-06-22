@@ -14,6 +14,7 @@ interface ProfileBoxProps {
     gender?: string;
     uniform?: string;
     shop?: string;
+    region?: string;
   } | null;
 }
 
@@ -30,6 +31,9 @@ export function ProfileBox({ userProfile }: ProfileBoxProps) {
       </TextBox>
       <TextBox option="static">
         Uniform: <span className={css.span}>{userProfile?.uniform || "-"}</span>
+      </TextBox>
+      <TextBox option="static">
+        Region: <span className={css.span}>{userProfile?.region || "-"}</span>
       </TextBox>
       <TextBox option="static">
         Shop: <span className={css.span}>{userProfile?.shop || "-"}</span>

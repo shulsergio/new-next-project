@@ -42,7 +42,9 @@ export const authConfig: NextAuthOptions = {
                             userType: backendResponse.data.user.userType,
                             gender: backendResponse.data.user.gender,
                             uniform: backendResponse.data.user.uniform,
+                            region: backendResponse.data.user.region,
                             shop: backendResponse.data.user.shop,
+                            lastVisit: backendResponse.data.user.lastVisit,
                             accessToken: backendResponse.data.accessToken,
                               };
                     } else {
@@ -78,7 +80,8 @@ export const authConfig: NextAuthOptions = {
                 token.userType = user.userType;
                 token.shop = user.shop;
                 token.uniform = user.uniform;
-
+                token.region = user.region;
+                token.lastVisit = user.lastVisit;
 
                 if (user.accessToken) {
                     token.accessToken = user.accessToken;
@@ -95,6 +98,8 @@ export const authConfig: NextAuthOptions = {
                  session.user.userType = token.userType as string;
                  session.user.shop = token.shop as string;
                  session.user.uniform = token.uniform as string;
+                 session.user.region = token.region as string;
+                    session.user.lastVisit = token.lastVisit as string;
              }
              if (token.accessToken) {   
                  session.accessToken = token.accessToken as string;
@@ -123,6 +128,8 @@ declare module "next-auth" {
             userType?: string;
             shop?: string;
             uniform?: string;
+            region?: string;
+            lastVisit?: string;
         } & DefaultSession["user"];
 
 
@@ -139,6 +146,8 @@ declare module "next-auth" {
         userType?: string;
         shop?: string;
         uniform?: string;
+        region?: string;
+        lastVisit?: string;
 
     }
 
@@ -146,12 +155,13 @@ declare module "next-auth" {
         id: string;
         email: string;
         name?: string;
-
         role?: string;
         mcsId: string;
         userType?: string;
         uniform?: string;
         shop?: string;
-        accessToken?: string; 
+        accessToken?: string;
+        region?: string;
+        lastVisit?: string;
     }
 }

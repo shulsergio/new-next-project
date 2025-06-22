@@ -26,6 +26,8 @@ export interface Plan {
     gender?: string;
     uniform?: string;
     shop?: string;
+    region?: string;
+    lastVisit?: string;
    }
   
 

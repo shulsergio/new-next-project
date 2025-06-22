@@ -16,6 +16,7 @@ export default function PromotersTable({ promoters }: PromotersTableProps) {
           <tr>
             <th>Promoter</th>
             <th>MCS id</th>
+            <th>Region</th>
             <th>Type</th>
           </tr>
         </thead>
@@ -24,6 +25,7 @@ export default function PromotersTable({ promoters }: PromotersTableProps) {
             <tr key={promoter._id}>
               <td>{promoter.name}</td>
               <td>{promoter.mcsId}</td>
+              <td>{promoter.region}</td>
               <td>{promoter.userType}</td>
             </tr>
           ))}
