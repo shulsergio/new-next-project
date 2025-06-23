@@ -15,7 +15,6 @@ export default function Modal({
   onClose,
   title,
   children,
-  className,
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function Modal({
     return null;
   }
   return (
-    <div className={`modal-overlay ${className}`}>
+    <div className={css.modalOverlay}>
       <div className={css.modalContent}>
         <div
           className={css.modalContentClasses}
