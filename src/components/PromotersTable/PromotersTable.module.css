@@ -4,18 +4,21 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0;
 }
 
 .table {
   width: 100%;
   /* border-collapse: collapse; */
   /* border: 1px solid #a4a4a4; */
-  font-size: 14px;
-  min-width: 400px;
+  font-size: 13px;
+  min-width: 380px;
+  table-layout: fixed;
+  padding: 0;
 }
 .table th,
 .table td {
-  padding: 12px 15px;
+  padding: 8px 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -24,9 +27,26 @@
   background-color: #f2f2f2;
   color: #333;
   font-weight: 600;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .table tbody tr:hover {
-  background-color: #f5f5f5; /* Цвет при наведении на строку */
+  background-color: #f5f5f5;
+}
+
+.table th:nth-child(1),
+.table td:nth-child(1) {
+  width: 22%;
+}
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  width: 38%;
+}
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 30%;
+}
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 10%;
 }

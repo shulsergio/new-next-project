@@ -16,6 +16,7 @@ export default function ClientCircularProgressBar({
   value,
   strokeWidth = 10,
 }: ClientProgressBarProps) {
+  const pathColor = value < 80 ? "red" : value > 99 ? "green" : "orange";
   return (
     <div className={css.container}>
       <CircularProgressbarWithChildren
@@ -23,6 +24,7 @@ export default function ClientCircularProgressBar({
         text={`${value.toFixed(1)}%`}
         strokeWidth={strokeWidth}
         styles={buildStyles({
+          pathColor: pathColor,
           strokeLinecap: "butt",
         })}
       >

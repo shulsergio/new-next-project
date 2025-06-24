@@ -14,18 +14,18 @@ export default function PromotersTable({ promoters }: PromotersTableProps) {
       <table className={css.table}>
         <thead>
           <tr>
+            <th>Region</th>
             <th>Promoter</th>
             <th>MCS id</th>
-            <th>Region</th>
             <th>Type</th>
           </tr>
         </thead>
         <tbody>
           {promoters.map((promoter) => (
             <tr key={promoter._id}>
+              <td>{promoter.region}</td>
               <td>{promoter.name}</td>
               <td>{promoter.mcsId}</td>
-              <td>{promoter.region}</td>
               <td>{promoter.userType}</td>
             </tr>
           ))}
