@@ -11,6 +11,7 @@ import {
   needToARValue,
 } from "@/utils/calculations";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
+import ButtonBox from "@/components/ButtonBox/ButtonBox";
 
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
@@ -144,6 +145,8 @@ export default async function UserPlansPage() {
                   {getFormatUahFromNumber(plansData[0].topBonus)}
                 </span>
               </p>
+              <ButtonBox option='link' href='/user/plans/top-bonus'>
+             Top bonuses</ButtonBox>   
             </div>
           </ComponentWrapper>
           <ComponentWrapper title="Quarterly results">
