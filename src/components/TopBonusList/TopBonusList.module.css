@@ -1,0 +1,25 @@
+.textbox{
+width: 390px;
+padding: 0 5px 5px;
+/* text-align: center; */
+display: flex;
+font-size: 15px;
+
+}
+.addtextbox{
+    font-weight: bold;
+    font-size: 17px;
+    padding-bottom: 10px;
+}
+.item{
+    width: 46%;
+}
+.qty{
+    width: 18%;
+}
+.week{
+    width: 18%;
+}
+.uah{
+        width: 18%;
+}
