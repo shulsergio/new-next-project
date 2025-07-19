@@ -1,18 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
-import PromotersTable from "@/components/PromotersTable/PromotersTable";
-import { fetchAllPromoters, Promoter } from "@/utils/fetchData";
+// import PromotersTable from "@/components/PromotersTable/PromotersTable";
+import { fetchAllPlans, Plan } from "@/utils/fetchData";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 // import css from "./page.module.css";
 // import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
-// import Modal from "@/components/Modal/Modal";
 
-export default function AdminPromotersPage() {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  const [promotersData, setPromotersData] = useState<Promoter[]>([]);
+export default function AdminPlansPage() {
+  const [plansData, setPlansData] = useState<Plan[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -32,7 +30,7 @@ export default function AdminPromotersPage() {
   }, [session, status]);
 
   useEffect(() => {
-    const loadPromoters = async () => {
+    const loadPlans = async () => {
       if (
         status === "authenticated" &&
         session?.user?.role === "admin" &&
@@ -41,12 +39,12 @@ export default function AdminPromotersPage() {
         setLoading(true);
         setError(null);
         try {
-          const fetchedData = await fetchAllPromoters(session.accessToken);
-          setPromotersData(fetchedData);
-          console.log("Fetched promoters data:", fetchedData);
+          const fetchedData = await fetchAllPlans(session.accessToken);
+          setPlansData(fetchedData);
+          console.log("Fetched PLANS data:", fetchedData);
         } catch (e: unknown) {
-          console.error("Error fetching promoters:", e);
-          setError("Failed to load promoters data.");
+          console.error("Error fetching PLANS:", e);
+          setError("Failed to load PLANS data.");
         } finally {
           setLoading(false);
         }
@@ -55,16 +53,13 @@ export default function AdminPromotersPage() {
       }
     };
 
-    loadPromoters();
+    loadPlans();
   }, [session, status]);
-
-  // const openModal = () => setIsModalOpen(true);
-  // const closeModal = () => setIsModalOpen(false);
 
   if (status === "loading") {
     return <Loader isLoading={true} />;
   }
-
+console.log("**** ALL PLANS data  ****:", plansData );
   return (
     <>
       <ComponentWrapper title="Promoters plans">
@@ -73,7 +68,7 @@ export default function AdminPromotersPage() {
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
-          <PromotersTable promoters={promotersData} />
+      <p>text here</p>
         )}
 
   

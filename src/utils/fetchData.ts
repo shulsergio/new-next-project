@@ -75,3 +75,27 @@ export async function fetchAllPromoters(accessToken: string) {
   return data;
 
   }
+
+  export async function fetchAllPlans(accessToken: string) {
+
+  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/plans`;
+  const response = await fetch(BackApi, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      console.error("fetchAllPromoters error:", response.status);
+      throw new Error(`Failed to fetch promoters: ${response.statusText}`);
+    }
+  }
+  const data = await response.json();
+  console.log('ALL PROMOTERS DATA:', data);
+  return data;
+
+  }

@@ -6,7 +6,7 @@ import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
-  title: "MY Next App",
+  title: "SAMS project",
   description: "create next app",
 };
 

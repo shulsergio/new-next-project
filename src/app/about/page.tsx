@@ -2,9 +2,9 @@ import TextBox from "@/components/TextBox/TextBox";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About My App",
-  description: "This is the about app page.",
-  keywords: ["about", "app", "information"],
+  title: "About SAMS",
+  description: "This is the about SAMS app page.",
+  keywords: ["about", "app", "information", "SAMS"],
   authors: [{ name: "Shulga" }],
   robots: {
     index: true,
@@ -18,5 +18,9 @@ export const viewport = {
 };
 
 export default function About() {
-  return <TextBox option="text">{"Information data for SS FF"}</TextBox>;
+  return <><TextBox option="text">
+    <p>Sales Achievement Monitoring System</p>
+    <p>Information data for SS FF</p></TextBox>
+  {/* <TextBox option="text">{"Information data for SS FF"}</TextBox> */}
+  </>;
 }

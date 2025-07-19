@@ -2,3 +2,13 @@
   box-sizing: border-box;
   padding: 20px 10px;
 }
+.topic{
+text-align: left;
+font-weight: normal;
+}
+.letter{
+  font-weight: bold;
+  color: #003b7b;
+  color: #064bba;
+  font-size: 20px;
+}
