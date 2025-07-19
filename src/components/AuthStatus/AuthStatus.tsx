@@ -13,7 +13,7 @@ export default function AuthStatus() {
   if (status === "unauthenticated") {
     return (
       <>
-        <Link href="/signin">Sign in</Link>
+        <Link href="/signin" className={css.link}>Login</Link>
       </>
     );
   }

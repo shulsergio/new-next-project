@@ -18,12 +18,24 @@
   color: #0056b3;
 }
 
+.link {
+  font-size: 16px;
+  padding: 8px 10px;
+  color: #0070f3;
+  text-decoration: none;
+  border: 1px solid #0070f3;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+
 .userName {
   font-size: 16px;
   font-weight: 500;
   color: #007bff;
 }
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 768px) {
   .logoutLinkButton {
     font-size: 22px;
     padding: 10px 15px;
@@ -32,5 +44,10 @@
 
   .userName {
     font-size: 22px;
+  }
+    .link {
+    font-size: 22px;
+
+  padding: 10px 20px;
   }
 }

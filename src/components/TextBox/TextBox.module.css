@@ -29,3 +29,9 @@
   padding: 12px 8px;
 }
 }
+
+@media (min-width: 375px) {
+.text {
+  max-width: 720px;
+}
+}

@@ -1,25 +1,30 @@
 .textbox{
-width: 390px;
-padding: 0 5px 5px;
+width: 300px;
+padding: 0 0 5px;
 /* text-align: center; */
 display: flex;
-font-size: 15px;
+/* font-size: 15px; */
 
 }
 .addtextbox{
     font-weight: bold;
-    font-size: 17px;
+    /* font-size: 14px; */
     padding-bottom: 10px;
 }
 .item{
-    width: 46%;
+    width: 50%;
 }
 .qty{
     width: 18%;
 }
 .week{
-    width: 18%;
+    width: 16%;
 }
 .uah{
-        width: 18%;
+        width: 16%;
+}
+@media (min-width: 375px) {
+    .textbox{
+width: 355px;
+}
 }
