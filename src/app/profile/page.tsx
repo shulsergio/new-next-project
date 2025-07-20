@@ -27,8 +27,8 @@ export default async function Profile() {
         <ButtonBox option="link" href="user/competitors">
           Competitors
         </ButtonBox>
-        <ButtonBox option="link" href="/">
-          edit...
+        <ButtonBox option="link" href="user/checkins">
+          Checkins
         </ButtonBox>
         <ButtonBox option="link" href="/">
           edit...

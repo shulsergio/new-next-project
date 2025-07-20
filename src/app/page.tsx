@@ -6,8 +6,6 @@ import css from "./page.module.css";
 import TextBox from "@/components/TextBox/TextBox";
 
 export default async function Home() {
-  // const clientWidth = document.documentElement.clientWidth;
-  // const router = useRouter();
   const session = await getServerSession(authConfig);
   console.log("*1*1* Сессия на главной странице:", session);
 
@@ -19,8 +17,7 @@ export default async function Home() {
         <p><span className={css.letter}>S</span>ystem </p></div>
     </TextBox>;
   }
-  console.log("***Сессия на главной странице:", session);
-  console.log("*** session.user?.role:", session.user?.role);
+ console.log("*** session.user?.role:", session.user?.role);
   if (session.user?.role === "admin") {
     redirect("/admin");
   } else {

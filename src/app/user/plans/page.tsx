@@ -149,6 +149,11 @@ export default async function UserPlansPage() {
              Top bonuses</ButtonBox>   
             </div>
           </ComponentWrapper>
+                    <ComponentWrapper title="IHS results">
+                      <div className={css.ihsBox}>
+                        <p>coming soon...</p>
+                      </div>
+                    </ComponentWrapper>
           <ComponentWrapper title="Quarterly results">
             <div className={css.plansBox}>
               <p>
