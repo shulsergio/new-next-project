@@ -1,0 +1,17 @@
+.mainBox{
+    display: flex;
+    flex-direction: column;
+
+}
+.list{
+
+    display: flex;
+    flex-direction: row;
+    /* gap: 3px; */
+
+}
+.list li{
+        padding: 8px 0;
+    min-width: 50px;
+  border: 1px solid #cce7ff;
+}

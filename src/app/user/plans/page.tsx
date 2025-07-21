@@ -12,6 +12,7 @@ import {
 } from "@/utils/calculations";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
+import PromotersIhsBox from "@/components/PromotersIhsBox/PromotersIhsBox";
 
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
@@ -151,7 +152,7 @@ export default async function UserPlansPage() {
           </ComponentWrapper>
                     <ComponentWrapper title="IHS results">
                       <div className={css.ihsBox}>
-                        <p>coming soon...</p>
+        <PromotersIhsBox/>
                       </div>
                     </ComponentWrapper>
           <ComponentWrapper title="Quarterly results">
