@@ -9,7 +9,7 @@
 }
 
 .table {
-  width: 98%;
+  width: 120%;
   /* border-collapse: collapse; */
   /* border: 1px solid #a4a4a4; */
   font-size: 13px;
@@ -52,13 +52,15 @@
 .table td:nth-child(4) {
   width: 12%;
 }
+.table th:nth-child(5),
+.table td:nth-child(5) {
+  width: 20%;
+}
 
 @media (min-width: 768px) {
 
 .table {
   width: 98%;
-  /* border-collapse: collapse; */
-  /* border: 1px solid #a4a4a4; */
   font-size: 18px;
   /* min-width: 380px; */
   table-layout: fixed;
