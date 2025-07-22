@@ -13,3 +13,17 @@ font-weight: normal;
   color: #064bba;
   font-size: 24px;
 }
+
+@media (min-width: 1200px) {
+.topic{
+    font-size: 28px;
+text-align: left;
+font-weight: normal;
+}
+.letter{
+  font-weight: bold;
+  color: #003b7b;
+  color: #064bba;
+  font-size: 32px;
+}
+}

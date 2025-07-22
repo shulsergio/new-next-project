@@ -28,10 +28,14 @@
   min-width: 155px;
   padding: 12px 8px;
 }
-}
-
-@media (min-width: 375px) {
 .text {
   max-width: 720px;
+}
+}
+
+@media (min-width: 768px) {
+.staticBox {  
+  min-width: 190px;
+  padding: 18px 10px;
 }
 }

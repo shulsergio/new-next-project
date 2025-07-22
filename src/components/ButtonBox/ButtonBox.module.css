@@ -19,7 +19,14 @@
 @media (min-width: 375px) {
 .linkBox {  
     min-width: 155px;
-font-size: 16px;
+/* font-size: 16px; */
   padding: 12px 8px;
+}
+}
+@media (min-width: 768px) {
+.linkBox {  
+    min-width: 190px;
+/* font-size: 16px; */
+  padding: 18px 10px;
 }
 }
