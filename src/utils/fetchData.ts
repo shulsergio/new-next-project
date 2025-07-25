@@ -30,6 +30,45 @@ export interface Plan {
     lastVisit?: string;
    }
   
+   
+export interface IhsData {
+ _id: string;
+  storeId: string;
+   ihsData: Array<{ 
+    year: number; 
+    week: number; 
+    categories: Array<{
+      category: string; 
+      share: number;   
+    }>;
+  }>;
+  }
+
+export async function fetchShopIhsData(storeId: string, accessToken: string) {
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/ihsdatas/?storeId=${storeId}`;
+ 
+ 
+    const response = await fetch(BackApi, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      cache: "no-store",
+    });
+    if (!response.ok) {
+         console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
+
+      if (response.status === 401 || response.status === 403) {
+        throw new Error("Unauthorized access. Please log in again.");
+      }
+      throw new Error("Failed to fetch IHS data");
+    }
+    const data = await response.json();
+    return data;
+  }
+
+
 
 
 export async function fetchUserPlans(accessToken: string) {
