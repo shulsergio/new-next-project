@@ -11,7 +11,22 @@
 
 }
 .list li{
+
         padding: 8px 0;
-    min-width: 50px;
+    min-width: 55px;
   border: 1px solid #cce7ff;
+}
+.ihsData{
+font-weight: bold;
+}
+
+@media (min-width: 375px) {
+    .list li {
+        min-width: 60px;
+    }
+}
+@media (min-width: 768px) {
+    .list li {
+        min-width: 65px;
+    }
 }

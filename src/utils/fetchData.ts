@@ -46,8 +46,8 @@ export interface IhsData {
 
 export async function fetchShopIhsData(storeId: string, accessToken: string) {
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/ihsdatas/?storeId=${storeId}`;
- 
- 
+
+
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {
@@ -57,7 +57,7 @@ export async function fetchShopIhsData(storeId: string, accessToken: string) {
       cache: "no-store",
     });
     if (!response.ok) {
-         console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
+    console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
 
       if (response.status === 401 || response.status === 403) {
         throw new Error("Unauthorized access. Please log in again.");
@@ -67,9 +67,6 @@ export async function fetchShopIhsData(storeId: string, accessToken: string) {
     const data = await response.json();
     return data;
   }
-
-
-
 
 export async function fetchUserPlans(accessToken: string) {
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans`;

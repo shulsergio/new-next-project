@@ -13,7 +13,8 @@ import {
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 // import PromotersIhsBox from "@/components/PromotersIhsBox/PromotersIhsBox";
-// import PromotersIhsBox from "@/components/PromotersIhsBox/PromotersIhsBox";
+import PromotersIhsBox from "@/components/PromotersIhsBox/PromotersIhsBox";
+// import toast from "react-hot-toast";
 
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
@@ -36,6 +37,7 @@ export default async function UserPlansPage() {
     console.log("plansData PLANS DATA:", plansData);
   } catch (e: string | unknown) {
     console.error("Error fetching user plans:", e);
+
     redirect("/profile");
   }
   let IhsShopsData: IhsData[] = [];
@@ -45,7 +47,9 @@ export default async function UserPlansPage() {
     console.log("IhsShopsData IHSS DATA:", IhsShopsData);
   } catch (e: string | unknown) {
     console.error("Error fetching Ihs Shops Data:", e);
-    redirect("/profile");
+        IhsShopsData = [];
+    // toast.error("Error Ihs Shops Data");
+
   }
 
   return (
@@ -163,7 +167,7 @@ export default async function UserPlansPage() {
           </ComponentWrapper>
                     <ComponentWrapper title="IHS results">
                       <div className={css.ihsBox}>
-        {/* <PromotersIhsBox IhsShopsData={IhsShopsData} sessionCategory={session.user.userType}/> */}
+        <PromotersIhsBox IhsShopsData={IhsShopsData} sessionCategory={session.user.userType}/>
                       </div>
                     </ComponentWrapper>
           <ComponentWrapper title="Quarterly results">
