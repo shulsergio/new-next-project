@@ -47,9 +47,7 @@ export default async function UserPlansPage() {
     console.log("IhsShopsData IHSS DATA:", IhsShopsData);
   } catch (e: string | unknown) {
     console.error("Error fetching Ihs Shops Data:", e);
-        IhsShopsData = [];
-    // toast.error("Error Ihs Shops Data");
-
+        // IhsShopsData = [];
   }
 
   return (
