@@ -12,12 +12,10 @@ categories: Category[];
     year: number;
 }
 
-
 interface PromotersIhsBoxProps {
     IhsShopsData: IhsDataItem[]; 
     sessionCategory: string;
 }
-
 
 export default function PromotersIhsBox({ IhsShopsData, sessionCategory }: PromotersIhsBoxProps) {
 
@@ -34,7 +32,7 @@ if(newarray){
     console.log('&&& PromotersIhsBox- IhsInCategory - ',IhsInCategory);
     return IhsInCategory ? parseFloat((100*IhsInCategory.share).toFixed(1)) : 0;
 }
-        return 0.01;
+        return 0;
 
     }
 );
@@ -42,7 +40,6 @@ if(newarray){
     return (
 
         <div className={css.mainBox}>
-            <p>100000%</p>
 <ul className={css.list}>
 {weekNumberofMonth.map((item, index)=><li key={index}>{item}</li>)}
 </ul>
@@ -51,6 +48,5 @@ if(newarray){
         </ul>
         </div>
     )
-
 
 };

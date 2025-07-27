@@ -21,8 +21,12 @@ export default async function Profile() {
     <div className={css.container}>
       <ProfileBox userProfile={userProfile} />
       <ComponentWrapper>
+        
         <ButtonBox option="link" href="user/plans">
           Promoter Plans
+        </ButtonBox>
+        <ButtonBox option="link" href="user/shopMatrix">
+          Shop matrix
         </ButtonBox>
         <ButtonBox option="link" href="user/competitors">
           Competitors
@@ -30,9 +34,7 @@ export default async function Profile() {
         <ButtonBox option="link" href="user/checkins">
           Checkins
         </ButtonBox>
-        <ButtonBox option="link" href="/">
-          edit...
-        </ButtonBox>
+
       </ComponentWrapper>
     </div>
   );

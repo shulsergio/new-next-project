@@ -12,9 +12,9 @@ import {
 } from "@/utils/calculations";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
-// import PromotersIhsBox from "@/components/PromotersIhsBox/PromotersIhsBox";
+
 import PromotersIhsBox, { IhsDataItem } from "@/components/PromotersIhsBox/PromotersIhsBox";
-// import toast from "react-hot-toast";
+
 
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
@@ -37,8 +37,7 @@ export default async function UserPlansPage() {
     console.log("plansData PLANS DATA:", plansData);
   } catch (e: string | unknown) {
     console.error("Error fetching user plans:", e);
-
-    redirect("/profile");
+plansData = [];
   }
 let IhsShopsData: IhsDataItem[] = [];
   try {
@@ -47,7 +46,7 @@ let IhsShopsData: IhsDataItem[] = [];
     console.log("IhsShopsData IHSS DATA:", IhsShopsData);
   } catch (e: string | unknown) {
     console.error("Error fetching Ihs Shops Data:", e);
-        // IhsShopsData = [];
+        IhsShopsData = [];
   }
 
   return (
