@@ -19,9 +19,9 @@ import PromotersIhsBox, { IhsDataItem } from "@/components/PromotersIhsBox/Promo
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
 
-  console.log("***Сессия на странице:", session);
-  console.log("***Access Token на странице (проверка):", session?.accessToken);
- console.log("***Access SHOP на странице (проверка):", session?.user.shop);
+  console.log("***Сессия на странице UserPlansPage:", session);
+  console.log("***Access Token на странице UserPlansPage:", session?.accessToken);
+ console.log("***Access SHOP на странице UserPlansPage:", session?.user.shop);
 
   if (!session || !session.accessToken) {
     console.log(
