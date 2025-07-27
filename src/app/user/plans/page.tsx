@@ -1,5 +1,5 @@
 import { authConfig } from "@/app/configs/authConfig";
-import { fetchShopIhsData, fetchUserPlans, IhsData, Plan } from "@/utils/fetchData";
+import { fetchShopIhsData, fetchUserPlans, Plan } from "@/utils/fetchData";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import css from "./page.module.css";
@@ -13,7 +13,7 @@ import {
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 // import PromotersIhsBox from "@/components/PromotersIhsBox/PromotersIhsBox";
-import PromotersIhsBox from "@/components/PromotersIhsBox/PromotersIhsBox";
+import PromotersIhsBox, { IhsDataItem } from "@/components/PromotersIhsBox/PromotersIhsBox";
 // import toast from "react-hot-toast";
 
 export default async function UserPlansPage() {
@@ -40,10 +40,10 @@ export default async function UserPlansPage() {
 
     redirect("/profile");
   }
-  let IhsShopsData: IhsData[] = [];
+let IhsShopsData: IhsDataItem[] = [];
   try {
     const fetchIhsData = await fetchShopIhsData(session.user.shop ||"", session.accessToken);
-    IhsShopsData = fetchIhsData.data.data[0].ihsData;
+  IhsShopsData = fetchIhsData.data.data[0].ihsData;
     console.log("IhsShopsData IHSS DATA:", IhsShopsData);
   } catch (e: string | unknown) {
     console.error("Error fetching Ihs Shops Data:", e);
@@ -165,7 +165,7 @@ export default async function UserPlansPage() {
           </ComponentWrapper>
                     <ComponentWrapper title="IHS results">
                       <div className={css.ihsBox}>
-        <PromotersIhsBox IhsShopsData={IhsShopsData} sessionCategory={session.user.userType}/>
+        <PromotersIhsBox IhsShopsData={IhsShopsData} sessionCategory={session.user.userType ?? ""}/>
                       </div>
                     </ComponentWrapper>
           <ComponentWrapper title="Quarterly results">

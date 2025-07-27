@@ -6,7 +6,7 @@ interface Category{
     share: number;
 }
 
-interface IhsDataItem{
+export interface IhsDataItem{
 categories: Category[]; 
     week: string;
     year: number;
