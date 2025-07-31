@@ -1,49 +1,84 @@
 'use client';
-// import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import css from "./ProfileBox.module.css";
 import ComponentWrapper from "../ComponentWrapper/ComponentWrapper";
 import TextBox from "../TextBox/TextBox";
-// import Modal from "../Modal/Modal";
-
-interface ProfileBoxProps {
-  userProfile?: {
-    id: string;
-    email: string;
-    mcsId: string;
-    name?: string;
-    role?: string;
-    userType?: string;
-    gender?: string;
-    uniform?: string;
-    shop?: string;
-    region?: string;
-  } | null;
-}
-
-  // const [uniformEditValue, setUniformEditValue] = useState(userProfile?.uniform || '');
-  // const [isSave, setIsSave] = useState(false);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+import Modal from "../Modal/Modal";
+import { useSession } from 'next-auth/react';
+import toast from "react-hot-toast";
 
 
+export function ProfileBox() {
+  const { data: session, update } = useSession();
+console.log('Session DATA IN PROFILE:', session);
+const userProfile = session?.user;
+  console.log('User Profile DATA IN PROFILE:', userProfile);
 
-
-
-export function ProfileBox({ userProfile }: ProfileBoxProps) {
   const profileTitle = `${userProfile?.role} profile`;
 
-  // --- модалка 
-// const openModal = () => {
-//     setUniformEditValue(userProfile?.uniform || '');
-//     setIsModalOpen(true);
-//   };
-//   const closeModal = () => {
-//     setIsModalOpen(false);
-//     setIsSave(false);  
-//   };
+  const [uniformEditValue, setUniformEditValue] = useState(userProfile?.uniform || '');
+  const [isSave, setIsSave] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
+  useEffect(() => {
+    console.log('EFFECT: session.user.uniform changed to:', session?.user?.uniform);
+    setUniformEditValue(session?.user?.uniform || '');
+  }, [session?.user?.uniform]);
 
 
+  //--- модалка 
+const openModal = () => {
+    setUniformEditValue(userProfile?.uniform || '');
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setIsSave(false);  
+  };
+
+const handleSaveBtn = async () => {
+setIsSave(true);
+
+    if (!session?.accessToken || !userProfile?.id) {
+      toast.error('Ошибка: Нет доступа или ID пользователя.');
+      setIsSave(false);
+      return;
+    }
+  try {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/${userProfile.id}/uniform`, {
+        method: 'PATCH', 
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.accessToken}`,
+        },
+        body: JSON.stringify({ newUniformValue: uniformEditValue.trim() }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: "Unknown error" }));
+        throw new Error(errorData.message || 'Не удалось обновить размер униформы.');
+      }
+      const result = await response.json();
+      console.log('result FROM BACKEND (после PATCH):', result);
+
+      await update({
+          user: {
+              ...session.user, // Копируем все существующие поля пользователя
+              uniform: uniformEditValue.trim(),
+          }
+      });
+      console.log('Session DATA AFTER UPDATE CALL:', session); // <-- ПРОВЕРЬТЕ ЭТОТ ЛОГ!
+
+toast.success('Thats OK');
+    closeModal();
+  } catch (error: unknown) {
+    console.error('ERR UNIFORM:', error);
+  }
+  finally {
+    setIsModalOpen(false);
+    setIsSave(false);
+  }
+}
 
   return (
     <ComponentWrapper title={profileTitle}>
@@ -56,27 +91,27 @@ export function ProfileBox({ userProfile }: ProfileBoxProps) {
       </TextBox>
       <TextBox option="static">
         Uniform: <span className={css.span}>{userProfile?.uniform || "-"}</span>
+          <button 
+          onClick={openModal} 
+            className={css.editButton} 
+            aria-label="размер"
+          >
+&#10004;
+          </button>
       </TextBox>
       <TextBox option="static">
         Region: <span className={css.span}>{userProfile?.region || "-"}</span>
       </TextBox>
       <TextBox option="static">
         Shop: <span className={css.span}>{userProfile?.shop || "-"}</span>
-      {/*    <button 
-          onClick={openModal} 
-            className={css.editButton} 
-            aria-label="Изменить размер униформы"
-          >
-            &#10006; 
-          </button> */}
+      
       </TextBox>
 
-
-            {/* <Modal isOpen={isModalOpen} onClose={closeModal} title="Uniform">
+            <Modal isOpen={isModalOpen} onClose={closeModal} title="Uniform">
         <div className={css.modalForm}>
-          <label htmlFor="uniform-size" className={css.modalLabel}>New size:</label>
+          <label htmlFor="uniformSize" className={css.modalLabel}>New size:</label>
           <input
-            id="uniform-size"
+            id="uniformSize"
             type="text"
             value={uniformEditValue}
             onChange={(e) => setUniformEditValue(e.target.value)}
@@ -84,14 +119,14 @@ export function ProfileBox({ userProfile }: ProfileBoxProps) {
             disabled={isSave}  
           />
           <button 
-            onClick={handleSaveUniform} 
+            onClick={handleSaveBtn} 
             className={css.modalSaveButton}
             disabled={isSave} 
           >
-            {isSave ? 'Сохранение...' : 'Сохранить'}
+            {isSave ? 'Save...' : 'Save'}
           </button>
         </div>
-      </Modal> */}
+      </Modal>
     </ComponentWrapper>
   );
 }

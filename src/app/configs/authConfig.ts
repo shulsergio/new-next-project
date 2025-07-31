@@ -34,7 +34,7 @@ export const authConfig: NextAuthOptions = {
                     if (backendResponse && backendResponse.data && backendResponse.data.user) {
                         console.log("****** User authenticated successfully:", backendResponse);
                         return {
-                            id: backendResponse.data.user._id, 
+                            id: backendResponse.data.user.id, 
                             name: backendResponse.data.user.name,
                             mcsId: backendResponse.data.user.mcsId,
                             email: backendResponse.data.user.email,
@@ -46,7 +46,7 @@ export const authConfig: NextAuthOptions = {
                             shop: backendResponse.data.user.shop,
                             lastVisit: backendResponse.data.user.lastVisit,
                             accessToken: backendResponse.data.accessToken,
-                              };
+                            };
                     } else {
                         return null; 
                     }
@@ -70,7 +70,7 @@ export const authConfig: NextAuthOptions = {
 
    
     callbacks: {
-         async jwt({ token, user }) {
+     async jwt({ token, user, trigger, session }){
             if (user) {
                 token.id = user.id;
                 token.email = user.email;
@@ -86,6 +86,44 @@ export const authConfig: NextAuthOptions = {
                 if (user.accessToken) {
                     token.accessToken = user.accessToken;
                 }}
+       if (trigger === 'update' && session?.user?.uniform !== undefined) {
+            
+                    console.log("JWT Callback: Triggered by update, updating uniform directly from session data.");
+                    token.uniform = session.user.uniform;
+                } else if (trigger === 'update' && token.id) {
+       
+                    console.log("JWT Callback: Triggered by update, re-fetching user data from backend.");
+                    try {
+                        const userResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${token.id}`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token.accessToken}`, 
+                            },
+                        });
+
+                        if (userResponse.ok) {
+                            const userData = await userResponse.json();
+                            console.log("JWT Callback: Fetched fresh user data:", userData);
+
+                            token.name = userData.data.user.name;
+                            token.email = userData.data.user.email;
+                            token.mcsId = userData.data.user.mcsId;
+                            token.role = userData.data.user.role;
+                            token.userType = userData.data.user.userType;
+                            token.gender = userData.data.user.gender;
+                            token.uniform = userData.data.user.uniform; 
+                            token.region = userData.data.user.region;
+                            token.lastVisit = userData.data.user.lastVisit;
+                
+                        } else {
+                            console.error("JWT Callback: Failed to re-fetch user data:", userResponse.status);
+                        }
+                    } catch (error) {
+                        console.error("JWT Callback: Error re-fetching user data:", error);
+                    }
+                }
+
             return token;
         },
          async session({ session, token }) {
@@ -138,7 +176,7 @@ declare module "next-auth" {
 
     interface User {
         accessToken?: string;
-        // id: string;
+        id: string;
         email: string;
         name?: string;
         mcsId: string;

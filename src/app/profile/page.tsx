@@ -1,6 +1,6 @@
 import css from "./profile.module.css";
-import { authConfig } from "../configs/authConfig";
-import { getServerSession } from "next-auth";
+// import { authConfig } from "../configs/authConfig";
+// import { getServerSession } from "next-auth";
 import { ProfileBox } from "@/components/ProfileBox/ProfileBox";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
@@ -14,12 +14,12 @@ import ButtonBox from "@/components/ButtonBox/ButtonBox";
  * @return {*}
  */
 export default async function Profile() {
-  const session = await getServerSession(authConfig);
+  // const session = await getServerSession(authConfig);
 
-  const userProfile = session?.user;
+  // const userProfile = session?.user;
   return (
     <div className={css.container}>
-      <ProfileBox userProfile={userProfile} />
+      <ProfileBox/>
       <ComponentWrapper>
         
         <ButtonBox option="link" href="user/plans">
