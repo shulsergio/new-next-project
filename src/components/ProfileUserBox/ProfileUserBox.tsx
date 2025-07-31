@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from "react";
-import css from "./ProfileBox.module.css";
+import css from "./ProfileUserBox.module.css";
 import ComponentWrapper from "../ComponentWrapper/ComponentWrapper";
 import TextBox from "../TextBox/TextBox";
 import Modal from "../Modal/Modal";
@@ -19,7 +19,7 @@ const UniformSizeData = [
   "4XL"
 ];
 
-export function ProfileBox() {
+export function ProfileUserBox() {
   const { data: session, update } = useSession();
 const userProfile = session?.user;
   console.log('User Profile DATA IN PROFILE:', userProfile);
@@ -107,16 +107,7 @@ toast.success('Size changed!');
           >
 &#10004;
           </button>
-      </TextBox>
-      <TextBox option="static">
-        Region: <span className={css.span}>{userProfile?.region || "-"}</span>
-      </TextBox>
-      <TextBox option="static">
-        Shop: <span className={css.span}>{userProfile?.shop || "-"}</span>
-      
-      </TextBox>
-
-            <Modal isOpen={isModalOpen} onClose={closeModal} title="Uniform">
+                      <Modal isOpen={isModalOpen} onClose={closeModal} title="Uniform">
         <div className={css.modalForm}>
           <label htmlFor="uniformSize" className={css.modalLabel}>New size:</label>
           {/* <input
@@ -137,13 +128,8 @@ toast.success('Size changed!');
           >
             {UniformSizeData.map((size)=> (
               <option key={size} value={size}>{size}</option>))}
-
             </select>
-
-
-
-
-
+            
           <button 
             onClick={handleSaveBtn} 
             className={css.modalSaveButton}
@@ -153,6 +139,13 @@ toast.success('Size changed!');
           </button>
         </div>
       </Modal>
+      </TextBox>
+      <TextBox option="static">
+        Region: <span className={css.span}>{userProfile?.region || "-"}</span>
+      </TextBox>
+
+
+
     </ComponentWrapper>
   );
 }

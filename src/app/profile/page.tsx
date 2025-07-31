@@ -1,9 +1,10 @@
 import css from "./profile.module.css";
 // import { authConfig } from "../configs/authConfig";
 // import { getServerSession } from "next-auth";
-import { ProfileBox } from "@/components/ProfileBox/ProfileBox";
+import { ProfileUserBox } from "@/components/ProfileUserBox/ProfileUserBox";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
+import { ProfileUserShopBox } from "@/components/ProfileUserShopBox/ProfileUserShopBox";
 
 /**
  * Profile page component
@@ -19,7 +20,8 @@ export default async function Profile() {
   // const userProfile = session?.user;
   return (
     <div className={css.container}>
-      <ProfileBox/>
+      <ProfileUserBox/>
+      <ProfileUserShopBox/>
       <ComponentWrapper>
         
         <ButtonBox option="link" href="user/plans">
