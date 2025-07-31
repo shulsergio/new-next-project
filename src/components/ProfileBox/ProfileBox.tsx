@@ -7,10 +7,20 @@ import Modal from "../Modal/Modal";
 import { useSession } from 'next-auth/react';
 import toast from "react-hot-toast";
 
+// -- UniformSizeData --
+const UniformSizeData = [
+  "XS",
+  "S",
+  "M",
+  "L",
+  "XL",
+  "2XL",
+  "3XL",
+  "4XL"
+];
 
 export function ProfileBox() {
   const { data: session, update } = useSession();
-console.log('Session DATA IN PROFILE:', session);
 const userProfile = session?.user;
   console.log('User Profile DATA IN PROFILE:', userProfile);
 
@@ -63,13 +73,12 @@ setIsSave(true);
 
       await update({
           user: {
-              ...session.user, // Копируем все существующие поля пользователя
+              ...session.user,
               uniform: uniformEditValue.trim(),
           }
       });
-      console.log('Session DATA AFTER UPDATE CALL:', session); // <-- ПРОВЕРЬТЕ ЭТОТ ЛОГ!
 
-toast.success('Thats OK');
+toast.success('Size changed!');
     closeModal();
   } catch (error: unknown) {
     console.error('ERR UNIFORM:', error);
@@ -110,14 +119,31 @@ toast.success('Thats OK');
             <Modal isOpen={isModalOpen} onClose={closeModal} title="Uniform">
         <div className={css.modalForm}>
           <label htmlFor="uniformSize" className={css.modalLabel}>New size:</label>
-          <input
+          {/* <input
             id="uniformSize"
             type="text"
             value={uniformEditValue}
             onChange={(e) => setUniformEditValue(e.target.value)}
             className={css.modalInput}
             disabled={isSave}  
-          />
+          /> */}
+
+          <select
+            id="uniformSize"
+            value={uniformEditValue}
+            onChange={(e) => setUniformEditValue(e.target.value)}
+            className={css.modalSelect}
+            disabled={isSave}
+          >
+            {UniformSizeData.map((size)=> (
+              <option key={size} value={size}>{size}</option>))}
+
+            </select>
+
+
+
+
+
           <button 
             onClick={handleSaveBtn} 
             className={css.modalSaveButton}
