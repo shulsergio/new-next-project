@@ -7,7 +7,7 @@ import TextBox from "../TextBox/TextBox";
 
 
 export function ProfileUserShopBox(){
-     const { data: session } = useSession();
+    const { data: session } = useSession();
     const userProfile = session?.user;
       console.log('User Profile DATA IN PROFILE:', userProfile);
     return (
@@ -16,15 +16,12 @@ export function ProfileUserShopBox(){
           Shop: <span className={css.span}>{userProfile?.shop || "-"}</span>
         
         </TextBox>
-                <TextBox option="static">
+          <TextBox option="static">
           Chain: <span className={css.span}>{ "X"}</span>
-        
         </TextBox>
-                <TextBox option="static">
+          <TextBox option="static">
           Addr: <span className={css.span}>{"X"}</span>
-        
         </TextBox>
-         
         </ComponentWrapper>
 
     );
