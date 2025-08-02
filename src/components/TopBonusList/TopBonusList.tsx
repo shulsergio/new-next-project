@@ -9,12 +9,12 @@ import css from './TopBonusList.module.css';
 
 interface TopBonusesJSON{
     "Site Id": string;
-      "Account": string; 
-  "Item": string;
-  "SO QTY": number; 
-  "Week": string;
-  "UAH": number; 
-  "Type": string;
+    "Account": string; 
+    "Item": string;
+    "SO QTY": number; 
+    "Week": string;
+    "UAH": number; 
+    "Type": string;
 }
 
 export default function TopBonusList() {
