@@ -1,14 +1,14 @@
-.tableWrapper{
-    width: 100%;
-    overflow-x: auto; 
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 0;
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0;
 }
 
-.table{
-    width: 110%;
+.table {
+  width: 110%;
   font-size: 12px;
   table-layout: fixed;
   margin: 0 auto;
@@ -46,23 +46,22 @@
   width: 35%;
 }
 @media (min-width: 425px) {
-    .table{
+  .table {
     width: 100%;
-  font-size: 14px;
-}
+    font-size: 14px;
+  }
 }
 @media (min-width: 768px) {
-    .table{
-width: 98%;
-  font-size: 16px;
-}
+  .table {
+    width: 98%;
+    font-size: 16px;
+  }
 }
 @media (min-width: 1200px) {
-
-.table {
-  width: 1100px;
-  font-size: 22px;
-  /* min-width: 380px; */
-  table-layout: fixed;
-
-}}
+  .table {
+    width: 1100px;
+    font-size: 22px;
+    /* min-width: 380px; */
+    table-layout: fixed;
+  }
+}
