@@ -26,7 +26,7 @@ export default async function UserTopBonusPage() {
       session.accessToken
     );
     console.log("fetchShopMatixData DATA:", fetchedData);
-    shopBonuses = fetchedData.data.bonuses[0].bonusData[0].categories;
+    shopBonuses = fetchedData.data.bonuses.bonusData[0].categories;
     console.log("!!shopBonuses UserTopBonusPage:", shopBonuses);
   } catch (e: string | unknown) {
     console.error("Error fetching ShopMatrixPage:", e);
