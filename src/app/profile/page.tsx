@@ -20,12 +20,14 @@ export default async function Profile() {
   // const userProfile = session?.user;
   return (
     <div className={css.container}>
-      <ProfileUserBox/>
-      <ProfileUserShopBox/>
+      <ProfileUserBox />
+      <ProfileUserShopBox />
       <ComponentWrapper>
-        
         <ButtonBox option="link" href="user/plans">
           Promoter Plans
+        </ButtonBox>
+        <ButtonBox option="link" href="user/focus-models">
+          Focus Models
         </ButtonBox>
         <ButtonBox option="link" href="user/shopMatrix">
           Shop matrix
@@ -33,10 +35,6 @@ export default async function Profile() {
         <ButtonBox option="link" href="user/competitors">
           Competitors
         </ButtonBox>
-        <ButtonBox option="link" href="user/checkins">
-          Checkins
-        </ButtonBox>
-
       </ComponentWrapper>
     </div>
   );
