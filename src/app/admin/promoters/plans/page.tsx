@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 // import css from "./page.module.css";
 // import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
+import PromotersAllPlansTable from "@/components/PromotersAllPlansTable/PromotersAllPlansTable";
 
 export default function AdminPlansPage() {
   const [plansData, setPlansData] = useState<Plan[]>([]);
@@ -59,7 +60,7 @@ export default function AdminPlansPage() {
   if (status === "loading") {
     return <Loader isLoading={true} />;
   }
-console.log("**** ALL PLANS data  ****:", plansData );
+  console.log("**** ALL PLANS data  ****:", plansData);
   return (
     <>
       <ComponentWrapper title="Promoters plans">
@@ -68,10 +69,8 @@ console.log("**** ALL PLANS data  ****:", plansData );
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
-      <p>text here</p>
+          <PromotersAllPlansTable promotersAllPlans={plansData} />
         )}
-
-  
       </ComponentWrapper>
     </>
   );

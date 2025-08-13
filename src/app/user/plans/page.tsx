@@ -13,15 +13,19 @@ import {
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 
-import PromotersIhsBox, { IhsDataItem } from "@/components/PromotersIhsBox/PromotersIhsBox";
-
+import PromotersIhsBox, {
+  IhsDataItem,
+} from "@/components/PromotersIhsBox/PromotersIhsBox";
 
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
 
   console.log("***Сессия на странице UserPlansPage:", session);
-  console.log("***Access Token на странице UserPlansPage:", session?.accessToken);
- console.log("***Access SHOP на странице UserPlansPage:", session?.user.shop);
+  console.log(
+    "***Access Token на странице UserPlansPage:",
+    session?.accessToken
+  );
+  console.log("***Access SHOP на странице UserPlansPage:", session?.user.shop);
 
   if (!session || !session.accessToken) {
     console.log(
@@ -37,16 +41,19 @@ export default async function UserPlansPage() {
     console.log("plansData PLANS DATA:", plansData);
   } catch (e: string | unknown) {
     console.error("Error fetching user plans:", e);
-plansData = [];
+    plansData = [];
   }
-let IhsShopsData: IhsDataItem[] = [];
+  let IhsShopsData: IhsDataItem[] = [];
   try {
-    const fetchIhsData = await fetchShopIhsData(session.user.shop ||"", session.accessToken);
-  IhsShopsData = fetchIhsData.data.data[0].ihsData;
+    const fetchIhsData = await fetchShopIhsData(
+      session.user.shop || "",
+      session.accessToken
+    );
+    IhsShopsData = fetchIhsData.data.data[0].ihsData;
     console.log("IhsShopsData IHSS DATA:", IhsShopsData);
   } catch (e: string | unknown) {
     console.error("Error fetching Ihs Shops Data:", e);
-        IhsShopsData = [];
+    IhsShopsData = [];
   }
 
   return (
@@ -158,15 +165,19 @@ let IhsShopsData: IhsDataItem[] = [];
                   {getFormatUahFromNumber(plansData[0].topBonus)}
                 </span>
               </p>
-              <ButtonBox option='link' href='/user/plans/top-bonus'>
-            Top bonuses</ButtonBox>   
+              <ButtonBox option="link" href="/user/plans/top-bonus">
+                Top bonuses
+              </ButtonBox>
             </div>
           </ComponentWrapper>
-                    <ComponentWrapper title="IHS results">
-                      <div className={css.ihsBox}>
-        <PromotersIhsBox IhsShopsData={IhsShopsData} sessionCategory={session.user.userType ?? ""}/>
-                      </div>
-                    </ComponentWrapper>
+          <ComponentWrapper title="IHS results">
+            <div className={css.ihsBox}>
+              <PromotersIhsBox
+                IhsShopsData={IhsShopsData}
+                sessionCategory={session.user.userType ?? ""}
+              />
+            </div>
+          </ComponentWrapper>
           <ComponentWrapper title="Quarterly results">
             <div className={css.plansBox}>
               <p>
