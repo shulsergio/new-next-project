@@ -25,6 +25,9 @@ export default async function Admin() {
         <ButtonBox option="link" href="admin/promoters/plans">
           promoters plans
         </ButtonBox>
+        <ButtonBox option="link" href="admin/shops">
+          shops data
+        </ButtonBox>
         <ButtonBox option="link" href="admin/competitors">
           competitors
         </ButtonBox>
