@@ -207,10 +207,10 @@ export async function fetchShopMatixData(storeId: string, accessToken: string) {
       if (response.status === 401 || response.status === 403) {
         throw new Error("Unauthorized access. Please log in again.");
       }
-      throw new Error("Failed to fetch IHS data");
+      throw new Error("Failed to fetch shops data");
     }
     const data = await response.json();
-    console.log('%%%% FILE fetchShopMatixData: ', data)
+    console.log('%%%% FILE fetchShopsById: ', data)
     return data;
 }
   
