@@ -1,14 +1,14 @@
-import css from "./ComponentWrapper.module.css";
+import css from "./ComponentAdminWrapper.module.css";
 
-interface ComponentWrapperProps {
+interface ComponentAdminWrapperProps {
   children?: React.ReactNode;
   title?: string;
 }
 
-export default function ComponentWrapper({
+export default function ComponentAdminWrapper({
   title,
   children,
-}: ComponentWrapperProps) {
+}: ComponentAdminWrapperProps) {
   return (
     <div className={css.wrapper}>
       {title && <h2 className={css.title}>{title}</h2>}

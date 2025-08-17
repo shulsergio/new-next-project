@@ -1,7 +1,15 @@
-import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
+"use client";
+
+import { useState } from "react";
+import css from "./admin.module.css";
+// import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
-// import { authConfig } from "../configs/authConfig";
+
+import AdminPromotersPage from "./promoters/page";
+import AdminPlansPage from "./promoters/plans/page";
+import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 // import { getServerSession } from "next-auth";
+// import { authConfig } from "../configs/authConfig";
 
 /**
  *
@@ -11,27 +19,54 @@ import ButtonBox from "@/components/ButtonBox/ButtonBox";
  * @export
  * @return {*}
  */
-export default async function Admin() {
-  // const session = await getServerSession(authConfig);
+export default function Admin() {
+  const [currentPage, setCurrentPage] = useState<string | null>(null);
 
-  // const userProfile = session?.user;
+  const renderContent = () => {
+    switch (currentPage) {
+      case "promoters":
+        return <AdminPromotersPage />;
+      case "promoters/plans":
+        return <AdminPlansPage />;
+      // case "shops":
+      //   return <ShopsData />;
+      // case "competitors":
+      //   return <CompetitorsData />;
+      default:
+        return <></>;
+    }
+  };
+
   return (
     <>
-      <ComponentWrapper title="Admin panel" />
-      <ComponentWrapper>
-        <ButtonBox option="link" href="admin/promoters">
-          promoters data
-        </ButtonBox>
-        <ButtonBox option="link" href="admin/promoters/plans">
-          promoters plans
-        </ButtonBox>
-        <ButtonBox option="link" href="admin/shops">
-          shops data
-        </ButtonBox>
-        <ButtonBox option="link" href="admin/competitors">
-          competitors
-        </ButtonBox>
-      </ComponentWrapper>
+      <ComponentAdminWrapper title="admin panel" />
+      <div className={css.mainContainer}>
+        <div className={css.buttonBox}>
+          <ComponentAdminWrapper>
+            <ButtonBox
+              option="button"
+              // href="admin/promoters"
+              onClick={() => setCurrentPage("promoters")}
+            >
+              promoters data
+            </ButtonBox>
+            <ButtonBox
+              option="button"
+              // href="admin/promoters/plans"
+              onClick={() => setCurrentPage("promoters/plans")}
+            >
+              promoters plans
+            </ButtonBox>
+            <ButtonBox option="link" href="admin/shops">
+              shops data
+            </ButtonBox>
+            <ButtonBox option="link" href="admin/competitors">
+              competitors
+            </ButtonBox>
+          </ComponentAdminWrapper>
+        </div>
+        <div className={css.dataBox}>{renderContent()}</div>
+      </div>
     </>
   );
 }

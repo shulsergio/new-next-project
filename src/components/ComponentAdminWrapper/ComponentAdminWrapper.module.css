@@ -45,10 +45,10 @@
 }
 @media (min-width: 1200px) {
   .wrapper {
-    width: 400px;
+    width: 100%;
   }
   .listWrapper {
-    max-width: 400px;
+    width: 100%;
     gap: 12px;
     font-size: 18px;
   }

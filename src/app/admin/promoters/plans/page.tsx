@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
+// import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 // import PromotersTable from "@/components/PromotersTable/PromotersTable";
 import { fetchAllPlans, Plan } from "@/utils/fetchData";
 import { useSession } from "next-auth/react";
@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 // import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
 import PromotersAllPlansTable from "@/components/PromotersAllPlansTable/PromotersAllPlansTable";
+import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 
 export default function AdminPlansPage() {
   const [plansData, setPlansData] = useState<Plan[]>([]);
@@ -63,7 +64,7 @@ export default function AdminPlansPage() {
   console.log("**** ALL PLANS data  ****:", plansData);
   return (
     <>
-      <ComponentWrapper title="Promoters plans">
+      <ComponentAdminWrapper title="Promoters plans">
         {loading ? (
           <Loader isLoading={true} />
         ) : error ? (
@@ -71,7 +72,7 @@ export default function AdminPlansPage() {
         ) : (
           <PromotersAllPlansTable promotersAllPlans={plansData} />
         )}
-      </ComponentWrapper>
+      </ComponentAdminWrapper>
     </>
   );
 }

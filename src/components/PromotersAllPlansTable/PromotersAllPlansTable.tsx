@@ -15,7 +15,7 @@ export default function PromotersAllPlansTable({
 }: promotersAllPlansProps) {
   return (
     <div>
-      <h1>Promoters All Plans Table</h1>
+      {/* <h1>Promoters All Plans Table</h1> */}
       <table className={css.table}>
         <thead>
           <tr>

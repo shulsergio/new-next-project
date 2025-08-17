@@ -27,7 +27,7 @@ export default function ButtonBox({
   }
   if (option === "button") {
     return (
-      <button type="button" onClick={onClick} className={css.buttonBox}>
+      <button type="button" onClick={onClick} className={css.linkBox}>
         {children}
       </button>
     );

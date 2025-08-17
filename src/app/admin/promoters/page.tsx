@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
+// import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import PromotersTable from "@/components/PromotersTable/PromotersTable";
 import { fetchAllPromoters, Promoter } from "@/utils/fetchData";
 import { useSession } from "next-auth/react";
@@ -9,6 +9,7 @@ import css from "./page.module.css";
 import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
 import Modal from "@/components/Modal/Modal";
+import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 
 export default function AdminPromotersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,7 +58,13 @@ export default function AdminPromotersPage() {
 
     loadPromoters();
   }, [session, status]);
-
+  const PromsByUserType = promotersData.reduce((acc, promoter) => {
+    if (promoter.userType) {
+      acc[promoter.userType] = (acc[promoter.userType] || 0) + 1;
+    }
+    return acc;
+  }, {} as Record<string, number>);
+  console.log("Promoters by user type:", PromsByUserType);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -66,26 +73,65 @@ export default function AdminPromotersPage() {
   }
 
   return (
-    <>
-      <ComponentWrapper title="All promoters">
-        {loading ? (
-          <Loader isLoading={true} />
-        ) : error ? (
-          <p>Error: {error}</p>
-        ) : (
-          <PromotersTable promoters={promotersData} />
-        )}
+    <div className={css.adminPromotersPage}>
+      <div className={css.promsList}>
+        <ComponentAdminWrapper title="All promoters">
+          {loading ? (
+            <Loader isLoading={true} />
+          ) : error ? (
+            <p>Error: {error}</p>
+          ) : (
+            <PromotersTable promoters={promotersData} />
+          )}
 
-        <div className={css.buttonGroup}>
-          <Link href="/admin/promoters/register" className={css.registerButton}>
-            Register New Promoter (Page)
-          </Link>
-          <button onClick={openModal} className={css.openModalButton}>
-            Register New Promoter (Modal)
-          </button>
+          <div className={css.buttonGroup}>
+            <Link
+              href="/admin/promoters/register"
+              className={css.registerButton}
+            >
+              Register New Promoter (Page)
+            </Link>
+            <button onClick={openModal} className={css.openModalButton}>
+              Register New Promoter (Modal)
+            </button>
+          </div>
+        </ComponentAdminWrapper>
+      </div>
+      <div className={css.promsData}>
+        <div className={css.promsDatabyDep}>
+          <ComponentAdminWrapper title="Qty by Dep">
+            {loading ? (
+              <Loader isLoading={true} />
+            ) : error ? (
+              <p>Error: {error}</p>
+            ) : (
+              <p>by dep</p>
+            )}
+          </ComponentAdminWrapper>
         </div>
-      </ComponentWrapper>
-
+        <div className={css.promsDatabyRegion}>
+          <ComponentAdminWrapper title="Qty by Region">
+            {loading ? (
+              <Loader isLoading={true} />
+            ) : error ? (
+              <p>Error: {error}</p>
+            ) : (
+              <p>by dep</p>
+            )}
+          </ComponentAdminWrapper>
+        </div>{" "}
+        <div className={css.promsDatabyChain}>
+          <ComponentAdminWrapper title="Qty by Chain">
+            {loading ? (
+              <Loader isLoading={true} />
+            ) : error ? (
+              <p>Error: {error}</p>
+            ) : (
+              <p>by dep</p>
+            )}
+          </ComponentAdminWrapper>
+        </div>
+      </div>
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
@@ -110,6 +156,6 @@ export default function AdminPromotersPage() {
           </button>
         </div>
       </Modal>
-    </>
+    </div>
   );
 }
