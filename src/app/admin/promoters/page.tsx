@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 // import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
-import PromotersTable from "@/components/PromotersTable/PromotersTable";
+import PromotersTable from "@/components/Tables/PromotersTable/PromotersTable";
 import { fetchAllPromoters, Promoter } from "@/utils/fetchData";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -10,6 +10,7 @@ import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
 import Modal from "@/components/Modal/Modal";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
+import DataTable from "@/components/Tables/DataTable/DataTable";
 
 export default function AdminPromotersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,6 +66,13 @@ export default function AdminPromotersPage() {
     return acc;
   }, {} as Record<string, number>);
   console.log("Promoters by user type:", PromsByUserType);
+  const PromsByRegion = promotersData.reduce((acc, promoter) => {
+    if (promoter.region) {
+      acc[promoter.region] = (acc[promoter.region] || 0) + 1;
+    }
+    return acc;
+  }, {} as Record<string, number>);
+  console.log("Promoters by user type:", PromsByRegion);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -99,13 +107,13 @@ export default function AdminPromotersPage() {
       </div>
       <div className={css.promsData}>
         <div className={css.promsDatabyDep}>
-          <ComponentAdminWrapper title="Qty by Dep">
+          <ComponentAdminWrapper title="Qty by type">
             {loading ? (
               <Loader isLoading={true} />
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <p>by dep</p>
+              <DataTable data={PromsByUserType} />
             )}
           </ComponentAdminWrapper>
         </div>
@@ -116,7 +124,7 @@ export default function AdminPromotersPage() {
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <p>by dep</p>
+              <DataTable data={PromsByRegion} />
             )}
           </ComponentAdminWrapper>
         </div>{" "}
@@ -127,7 +135,7 @@ export default function AdminPromotersPage() {
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <p>by dep</p>
+              <p>---</p>
             )}
           </ComponentAdminWrapper>
         </div>

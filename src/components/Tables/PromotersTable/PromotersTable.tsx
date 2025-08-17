@@ -32,7 +32,9 @@ export default function PromotersTable({ promoters }: PromotersTableProps) {
               <td>{promoter.name}</td>
               <td>{promoter.mcsId}</td>
               <td>{promoter.userType}</td>
-              <td>{getUkrFormatDate(promoter.lastVisit?.toString()?? 'null')}</td>
+              <td>
+                {getUkrFormatDate(promoter.lastVisit?.toString() ?? "null")}
+              </td>
             </tr>
           ))}
         </tbody>
