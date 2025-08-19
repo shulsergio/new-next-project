@@ -29,7 +29,7 @@ export default async function UserTopBonusPage() {
     shopBonuses = fetchedData.data.bonuses.bonusData[0].categories;
     console.log("!!shopBonuses UserTopBonusPage:", shopBonuses);
   } catch (e: string | unknown) {
-    console.error("Error fetching ShopMatrixPage:", e);
+    console.error("Error fetching UserTopBonusPage:", e);
   }
 
   return (
