@@ -214,9 +214,9 @@ export async function fetchShopMatixData(storeId: string, accessToken: string) {
     return data;
 }
   
-  export async function fetchFocusModels(storeId: string, accessToken: string){
-
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/shops/${storeId}`;
+  export async function fetchFocusModels(type: string, accessToken: string){
+    // type = "AV";
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}`;
 
 
     const response = await fetch(BackApi, {
