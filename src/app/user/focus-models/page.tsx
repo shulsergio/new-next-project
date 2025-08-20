@@ -34,7 +34,7 @@ export default async function UsersFocusModels() {
       session?.accessToken
     );
     console.log("fetchShopMatixData DATA:", fetchedData);
-    focusModels = fetchedData.data.data[0].data;
+    focusModels = fetchedData.data.data;
     console.log("!!shopBonuses UserTopBonusPage:", focusModels);
   } catch (e: string | unknown) {
     console.error("Error fetching ShopMatrixPage:", e);
