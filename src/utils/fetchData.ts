@@ -214,11 +214,12 @@ export async function fetchShopMatixData(storeId: string, accessToken: string) {
     return data;
 }
   
-  export async function fetchFocusModels(type: string, accessToken: string){
+  export async function fetchFocusModels(curPage: number, limit: number, type: string, accessToken: string){
     // type = "AV";
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}`;
+    console.log("WWWWW fetchFocusModels curPage===", curPage)
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}`;
 
-
+    console.log("WWWWW fetchFocusModels BackApi===", BackApi)
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {

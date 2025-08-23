@@ -17,6 +17,12 @@
   background-color: #0056b3;
   box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
 }
+.linkBox:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
 @media (min-width: 375px) {
   .linkBox {
     min-width: 155px;

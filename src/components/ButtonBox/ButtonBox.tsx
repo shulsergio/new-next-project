@@ -17,6 +17,7 @@ export default function ButtonBox({
   href = "",
   onClick,
   children = null,
+  disabled = false,
 }: ButtonBoxProps) {
   if (option === "link") {
     return (
@@ -27,7 +28,12 @@ export default function ButtonBox({
   }
   if (option === "button") {
     return (
-      <button type="button" onClick={onClick} className={css.linkBox}>
+      <button
+        type="button"
+        onClick={onClick}
+        className={css.linkBox}
+        disabled={disabled}
+      >
         {children}
       </button>
     );
