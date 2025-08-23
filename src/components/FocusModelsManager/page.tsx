@@ -4,6 +4,7 @@ import { fetchFocusModels } from "@/utils/fetchData";
 import { useEffect, useState } from "react";
 import PaginationButtons from "../PaginationButtons/page";
 import FocusModelsTable from "../Tables/FocusModelsTable/page";
+import Loader from "../Loader/Loader";
 
 interface FocusModelsManagerProps {
   limit: number;
@@ -65,8 +66,7 @@ export default function FocusModelsManager({
 
   return (
     <>
-      {" "}
-      {loading && <p>Загрузка данных...</p>}
+      {loading && <Loader isLoading={true} />}
       {error && <p>Ошибка: {error}</p>}
       {!loading && !error && (
         <>
