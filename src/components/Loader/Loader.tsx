@@ -12,7 +12,7 @@ export default function Loader({ isLoading }: LoaderProps) {
         className={css.loader}
         color={"#36D7B7"}
         loading={isLoading}
-        size={20}
+        size={40}
       />
     </div>
   );
