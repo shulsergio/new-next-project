@@ -42,7 +42,24 @@ export interface IhsData {
       share: number;   
     }>;
   }>;
-  }
+}
+  
+
+interface ProductData {
+  _id: number;
+  sku: string;
+  prd: string;  
+  rrp: string;
+  focus: number;
+  type: string;
+  topFocus: number;
+}
+interface ApiResponse {
+  data: {
+    data: ProductData[];
+    totalCount: number;
+  };
+}
 
 export async function fetchShopIhsData(storeId: string, accessToken: string) {
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/ihsdatas/?storeId=${storeId}`;
@@ -214,10 +231,11 @@ export async function fetchShopMatixData(storeId: string, accessToken: string) {
     return data;
 }
   
-  export async function fetchFocusModels(curPage: number, limit: number, type: string, accessToken: string){
+  export async function fetchFocusModels(curPage: number, limit: number, type: string, accessToken: string, selectedPrd: string){
     // type = "AV";
-    console.log("WWWWW fetchFocusModels curPage===", curPage)
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}`;
+    console.log("WWWWW fetchFocusModels selectedPrd===", selectedPrd)
+    
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}&selectedPrd=${selectedPrd}`;
 
     console.log("WWWWW fetchFocusModels BackApi===", BackApi)
     const response = await fetch(BackApi, {
@@ -239,4 +257,42 @@ export async function fetchShopMatixData(storeId: string, accessToken: string) {
     const data = await response.json();
     console.log('%%%% FILE fetchShopMatixData: ', data)
     return data;
+}
+  
+export const fetchAllPrds = async (
+  curPage: number,
+  limit: number,
+  type: string,
+  accessToken: string
+): Promise<string[]> => {
+
+  // const type = Addtype === "AV" ? "AV" : "DA";
+  // console.log('EEEE fetchAllPrds Addtype===', Addtype);
+    console.log('EEEE fetchAllPrds type===', type);
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}`;
+
+    console.log("EEEE fetchAllPrds BackApi===", BackApi)
+    const response = await fetch(BackApi, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      cache: "no-store",
+    });
+    if (!response.ok) {
+    console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
+
+      if (response.status === 401 || response.status === 403) {
+        throw new Error("Unauthorized access. Please log in again.");
+      }
+      throw new Error("Failed to fetchAllPrds data");
+    }
+  const responseData = await response.json() as ApiResponse;
+        console.log('EEEE fetchAllPrds responseData===', responseData);
+  const uniquePrds = Array.from(
+    new Set(responseData.data.data.map((item: ProductData) => item.prd))
+  );
+      console.log('EEEE fetchAllPrds uniquePrds===', uniquePrds);
+    return ['all',...uniquePrds];
   }

@@ -1,11 +1,10 @@
 "use client";
 import css from "./FocusModelsTable.module.css";
-interface FocusModel {
+export interface FocusModel {
   _id: string;
   sku: string;
   prd: string;
   rrp: string;
-  total: number;
   focus: number;
   topFocus: number;
   type?: string;

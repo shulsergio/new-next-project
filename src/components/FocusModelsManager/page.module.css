@@ -1,0 +1,18 @@
+.modalSelect {
+  width: 100px;
+  padding: 8px 8px;
+  border: 1px solid #b3d9ff;
+  border-radius: 5px;
+  background-color: #e6f2ff;
+  color: #333;
+}
+.modalSelect:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.modalLabel {
+  /* font-weight: 600; */
+  padding-right: 10px;
+  color: #0056b3;
+}

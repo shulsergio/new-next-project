@@ -1,9 +1,10 @@
 "use client";
 
-import { fetchFocusModels } from "@/utils/fetchData";
+import css from "./page.module.css";
+import { fetchAllPrds, fetchFocusModels } from "@/utils/fetchData";
 import { useEffect, useState } from "react";
 import PaginationButtons from "../PaginationButtons/page";
-import FocusModelsTable from "../Tables/FocusModelsTable/page";
+import FocusModelsTable, { FocusModel } from "../Tables/FocusModelsTable/page";
 import Loader from "../Loader/Loader";
 
 interface FocusModelsManagerProps {
@@ -12,27 +13,53 @@ interface FocusModelsManagerProps {
   accessToken: string;
 }
 
+interface ApiResponse {
+  data: {
+    data: FocusModel[];
+    totalCount: number;
+  };
+}
+
 export default function FocusModelsManager({
   limit,
   type,
   accessToken,
 }: FocusModelsManagerProps) {
-  const [focusModels, setFocusModels] = useState([]);
+  const [focusModels, setFocusModels] = useState<FocusModel[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [curPage, setCurPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedPrd, setSelectedPrd] = useState<string>("all");
+  const [prds, setPrds] = useState<string[]>([]);
 
+  useEffect(() => {
+    const loadAllPrds = async () => {
+      try {
+        const allPrds = await fetchAllPrds(1, 10000, type, accessToken);
+        setPrds(allPrds);
+        console.log("*** data in FocusModelsManager::: allPrds:::", allPrds);
+        if (allPrds.length > 0) {
+          setSelectedPrd(allPrds[0]);
+        }
+      } catch (e) {
+        console.error("Ошибка при загрузке всех PRD:", e);
+      }
+    };
+    loadAllPrds();
+  }, [accessToken, type]);
+  console.log("*** data in FocusModelsManager prds", prds);
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const fetchedData = await fetchFocusModels(
+        const fetchedData: ApiResponse = await fetchFocusModels(
           curPage,
           limit,
           type,
-          accessToken
+          accessToken,
+          selectedPrd
         );
         setFocusModels(fetchedData.data.data);
         console.log("*** data in FocusModelsManager fetchedData:", fetchedData);
@@ -44,15 +71,20 @@ export default function FocusModelsManager({
         setLoading(false);
       }
     };
-    loadData();
-  }, [curPage, limit, type, accessToken]);
+    if (selectedPrd !== null) {
+      loadData();
+    }
+  }, [curPage, limit, type, accessToken, selectedPrd]);
+
+  const handlePrdChange = (prd: string) => {
+    setSelectedPrd(prd);
+    setCurPage(1);
+  };
+
+  console.log("data in FocusModelsManager prds:", prds);
 
   const hasPrevPage = curPage > 1;
   const hasNextPage = curPage * limit < totalCount;
-  //   const totalPages = Math.ceil(totalCount / limit);
-
-  // const focusModelsArray = focusModels.data.data;
-  // console.log("*** data in FocusModelsManager fetchedData:", focusModelsArray);
 
   const handleNextClick = () => setCurPage((prevPage) => prevPage + 1);
   const handlePrevClick = () => setCurPage((prevPage) => prevPage - 1);
@@ -70,7 +102,12 @@ export default function FocusModelsManager({
       {error && <p>Ошибка: {error}</p>}
       {!loading && !error && (
         <>
-          <FocusModelsTable focusModels={focusModels} />
+          <PrdFilter
+            prds={prds}
+            onPrdChange={handlePrdChange}
+            selectedPrd={selectedPrd}
+          />
+          {<FocusModelsTable focusModels={focusModels} />}
           <PaginationButtons
             onPreviousClick={handlePrevClick}
             onNextClick={handleNextClick}
@@ -80,5 +117,32 @@ export default function FocusModelsManager({
         </>
       )}
     </>
+  );
+}
+interface PrdFilterProps {
+  prds: string[];
+  selectedPrd: string | null;
+  onPrdChange: (prd: string) => void;
+}
+
+function PrdFilter({ prds, selectedPrd, onPrdChange }: PrdFilterProps) {
+  return (
+    <div>
+      <label htmlFor="prdSelect" className={css.modalLabel}>
+        Filter by Group:
+      </label>
+      <select
+        id="prdSelect"
+        value={selectedPrd || ""}
+        onChange={(e) => onPrdChange(e.target.value)}
+        className={css.modalSelect}
+      >
+        {prds.map((prd) => (
+          <option key={prd} value={prd}>
+            {prd}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }

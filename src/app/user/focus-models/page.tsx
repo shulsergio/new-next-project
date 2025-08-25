@@ -15,8 +15,10 @@ export default async function UsersFocusModels() {
     );
     redirect("/signin");
   }
+
+  console.log("!!!!!!! UsersFocusModels!!! session:", session.user.userType);
   const limit = 20;
-  const type = "AV";
+  const type = session.user.userType || "";
   return (
     <ComponentWrapper>
       <FocusModelsManager
