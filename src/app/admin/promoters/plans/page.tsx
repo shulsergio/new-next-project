@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 // import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 // import PromotersTable from "@/components/PromotersTable/PromotersTable";
-import { fetchAllPlans, Plan } from "@/utils/fetchData";
+import { fetchAllPlans, fetchAllPromoters, Plan } from "@/utils/fetchData";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 // import css from "./page.module.css";
@@ -17,6 +17,13 @@ export default function AdminPlansPage() {
   const [loading, setLoading] = useState<boolean>(true);
 
   const { data: session, status } = useSession();
+
+  interface Promoter {
+    _id: string;
+    name: string;
+    region: string;
+    userType: string;
+  }
 
   useEffect(() => {
     if (status === "loading") {
@@ -41,9 +48,34 @@ export default function AdminPlansPage() {
         setLoading(true);
         setError(null);
         try {
-          const fetchedData = await fetchAllPlans(session.accessToken);
-          setPlansData(fetchedData);
-          console.log("Fetched PLANS data:", fetchedData);
+          const [fetchedPlans, fetchedPromoters] = await Promise.all([
+            fetchAllPlans(session.accessToken),
+            fetchAllPromoters(session.accessToken),
+          ]);
+          console.log("FFFFFF fetchedPlans data:", fetchedPlans);
+
+          console.log("FFFFFF fetchedPromoters data:", fetchedPromoters);
+
+          const promoterMap = new Map<
+            string,
+            Pick<Promoter, "name" | "region" | "userType">
+          >();
+          fetchedPromoters.forEach((p) =>
+            promoterMap.set(p._id, {
+              name: p.name,
+              region: p.region,
+              userType: p.userType,
+            })
+          );
+
+          console.log("FFFFFF promoterMap data:", promoterMap);
+
+          const enrichedData = fetchedPlans.map((plan) => ({
+            ...plan,
+            promoterName: promoterMap.get(plan.userId) || "Неизвестный",
+          }));
+          console.log("FFFFFF enrichedData data:", enrichedData);
+          setPlansData(enrichedData);
         } catch (e: unknown) {
           console.error("Error fetching PLANS:", e);
           setError("Failed to load PLANS data.");
