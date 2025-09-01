@@ -91,13 +91,17 @@ export function ProfileUserBox() {
   const closeWelcomeModal = () => {
     setIsWelcomeModalOpen(false);
   };
+
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
-  const hasShownWelcomeModal = sessionStorage.getItem("welcomeModalShown");
-  console.log("hasShownWelcomeModal:", hasShownWelcomeModal);
-  if (!hasShownWelcomeModal) {
-    setIsWelcomeModalOpen(true);
-    sessionStorage.setItem("welcomeModalShown", "true");
-  }
+  useEffect(() => {
+    const hasShownWelcomeModal = sessionStorage.getItem("welcomeModalShown");
+    console.log("!!! hasShownWelcomeModal:", hasShownWelcomeModal);
+    if (hasShownWelcomeModal !== "1" && !hasShownWelcomeModal) {
+      console.log("!!! hasShownWelcomeModal IN IF:", hasShownWelcomeModal);
+      setIsWelcomeModalOpen(true);
+      sessionStorage.setItem("welcomeModalShown", "1");
+    }
+  }, []);
 
   return (
     <ComponentWrapper title={profileTitle}>
@@ -123,8 +127,8 @@ export function ProfileUserBox() {
           title="Hello!"
         >
           <p>
-            Оновлення селауту по вівторках до 22.00 (повний тиждень), та по
-            суботах до 12.00 (по п*ятницю).
+            Оновлення селауту по вівторках до 22.00 (дані за повний тиждень), та
+            по суботах до 12.00 (дані по п*ятницю).
           </p>
           <button className={css.modalSaveButton} onClick={closeWelcomeModal}>
             ОК
