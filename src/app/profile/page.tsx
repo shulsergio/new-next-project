@@ -5,6 +5,7 @@ import { ProfileUserBox } from "@/components/ProfileUserBox/ProfileUserBox";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 import { ProfileUserShopBox } from "@/components/ProfileUserShopBox/ProfileUserShopBox";
+// import FirstModalData from "@/components/Modal/FirstModalData/page";
 
 /**
  * Profile page component
@@ -20,6 +21,7 @@ export default async function Profile() {
   // const userProfile = session?.user;
   return (
     <div className={css.container}>
+      {/* <FirstModalData /> */}
       <ProfileUserBox />
       <ProfileUserShopBox />
       <ComponentWrapper>
