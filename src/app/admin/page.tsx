@@ -8,6 +8,7 @@ import ButtonBox from "@/components/ButtonBox/ButtonBox";
 import AdminPromotersPage from "./promoters/page";
 import AdminPlansPage from "./promoters/plans/page";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
+import AdminPromotersMotivationPage from "./promoters/motivation/page";
 // import { getServerSession } from "next-auth";
 // import { authConfig } from "../configs/authConfig";
 
@@ -28,8 +29,8 @@ export default function Admin() {
         return <AdminPromotersPage />;
       case "promoters/plans":
         return <AdminPlansPage />;
-      // case "shops":
-      //   return <ShopsData />;
+      case "promoters/motivation":
+        return <AdminPromotersMotivationPage />;
       // case "competitors":
       //   return <CompetitorsData />;
       default:
@@ -57,8 +58,12 @@ export default function Admin() {
             >
               promoters plans
             </ButtonBox>
-            <ButtonBox option="link" href="admin/shops">
-              shops data
+            <ButtonBox
+              option="link"
+              // href="admin/shops"
+              onClick={() => setCurrentPage("promoters/motivation")}
+            >
+              motivation
             </ButtonBox>
             <ButtonBox option="link" href="admin/competitors">
               competitors
