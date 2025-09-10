@@ -295,4 +295,29 @@ export const fetchAllPrds = async (
   );
       console.log('EEEE fetchAllPrds uniquePrds===', uniquePrds);
     return ['all',...uniquePrds];
-  }
+}
+
+export async function fetchDavDataClusters(selectedCluster: string, accessToken: string) {
+  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/motivation/davMotivation`;
+  console.log("%%%% FILE fetchDavDataClusters BackApi: ", BackApi)
+ 
+    const response = await fetch(BackApi, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      cache: "no-store",
+    });
+    if (!response.ok) {
+    console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
+
+      if (response.status === 401 || response.status === 403) {
+        throw new Error("Unauthorized access. Please log in again.");
+      }
+      throw new Error("Failed to fetch IHS data");
+    }
+    const data = await response.json();
+    console.log('%%%% FILE fetchDavDataClusters: ', data)
+    return data;
+}
