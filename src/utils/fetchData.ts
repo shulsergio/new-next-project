@@ -298,7 +298,7 @@ export const fetchAllPrds = async (
 }
 
 export async function fetchDavDataClusters(selectedCluster: string, accessToken: string) {
-  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/motivation/davMotivation`;
+  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/motivation/davMotivation?cluster=${selectedCluster}`;
   console.log("%%%% FILE fetchDavDataClusters BackApi: ", BackApi)
  
     const response = await fetch(BackApi, {

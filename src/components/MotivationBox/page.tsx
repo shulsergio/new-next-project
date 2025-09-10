@@ -53,7 +53,6 @@ export default function MotivationBox({ accessToken }) {
           {<AvDavMotivationTable motivationData={data} />}
         </>
       )}
-      ;
     </>
   );
 }
