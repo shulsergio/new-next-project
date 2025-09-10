@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import css from "./page.module.css";
 import { fetchDavDataClusters } from "@/utils/fetchData";
+import AvDavMotivationTable from "../Tables/AvDavMotivationTable/page";
 
 const selectClusters = ["1", "2", "3", "4", "5"];
 
@@ -27,7 +28,7 @@ export default function MotivationBox({ accessToken }) {
           accessToken
         );
         console.log("*** data in MotivationBox clusters:::", fetchedData);
-        setData(fetchedData.data);
+        setData(fetchedData.data.davMotivations);
       } catch (e) {
         console.error("Error loading DAV data clusters:", e);
       } finally {
@@ -49,6 +50,7 @@ export default function MotivationBox({ accessToken }) {
             onClusterChange={handleSelectChange}
             selectedCluster={selectedCluster}
           />
+          {<AvDavMotivationTable motivationData={data} />}
         </>
       )}
       ;
@@ -70,7 +72,7 @@ function ClusterFilter({
   return (
     <div>
       <label htmlFor="clusterSelect" className={css.modalLabel}>
-        Filter by Group:
+        Filter by Cluster:
       </label>
       <select
         id="clusterSelect"
