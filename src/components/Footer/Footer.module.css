@@ -1,8 +1,7 @@
 .footer {
-  background-color: #333;
-  background-color: #e6f2ff;
+  background-color: var(--bg-color-footer-navigation);
   box-sizing: border-box;
-  border-top: 1px solid #b3d9ff;
+  border-top: 1px solid #17223a;
   padding: 0 10px;
   text-align: center;
   margin-top: auto;
@@ -14,13 +13,14 @@
   margin: 0 auto;
   /* font-size: 16px; */
   padding: 20px 0px;
-  color: #0070f3;
+  /* color: #0070f3; */
+  color: #f5f5f5;
   text-decoration: none;
   font-weight: 500;
 }
 @media (min-width: 1200px) {
   .content {
     font-size: 22px;
-      /* font-weight: 600; */
+    /* font-weight: 600; */
   }
 }

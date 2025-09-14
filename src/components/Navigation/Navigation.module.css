@@ -1,11 +1,13 @@
 .nav {
+  background-color: var(--bg-color-footer-navigation);
   box-sizing: border-box;
+  border-top: 1px solid #17223a;
+
   padding: 0 10px;
-  border-bottom: 1px solid #b3d9ff;
   display: flex;
   gap: 10px;
   align-items: center;
-  background-color: #e6f2ff;
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
@@ -13,7 +15,7 @@
 .link {
   font-size: 16px;
   padding: 20px 0px;
-  color: #0070f3;
+  color: #f5f5f5;
   text-decoration: none;
   font-weight: 500;
   border-radius: 4px;
@@ -21,7 +23,7 @@
 }
 
 .link:hover {
-  background-color: #e6f7ff;
+  background-color: var(--bg-color-footer-navigation-hover);
 }
 
 .authStatusContainer {
