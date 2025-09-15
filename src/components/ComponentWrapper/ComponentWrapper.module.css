@@ -6,9 +6,9 @@
   align-items: center;
   padding: 10px 0;
   margin-bottom: 15px;
-  background-color: #fff;
+  background-color: var(--color-background-wrapper);
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 50, 150, 0.2);
   text-align: center;
 }
 .title {

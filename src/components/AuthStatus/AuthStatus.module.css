@@ -1,7 +1,7 @@
 .logoutLinkButton {
   background: none;
   border: none;
-  color: var(--color-text);
+  color: var(--color-text-white);
   text-decoration: none;
   cursor: pointer;
   /* font-size: 16px; */
@@ -15,13 +15,13 @@
 
 .logoutLinkButton:hover {
   border: #9e9e9e 1px solid;
-  color: var(--color-text);
+  color: var(--color-text-white);
 }
 
 .link {
   font-size: 16px;
   padding: 8px 10px;
-  color: var(--color-text);
+  color: var(--color-text-white);
   text-decoration: none;
   border: 1px solid #0070f3;
   font-weight: 500;
@@ -32,7 +32,7 @@
 .userName {
   font-size: 16px;
   font-weight: 500;
-  color: #007bff;
+  color: var(--color-text-white);
 }
 @media screen and (min-width: 768px) {
   .logoutLinkButton {

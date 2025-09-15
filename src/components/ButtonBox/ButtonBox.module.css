@@ -1,7 +1,7 @@
 .linkBox {
   min-width: 145px;
-  background-color: #9ecdff;
-  color: #ffffff;
+  background-color: var(--bg-color-button);
+  color: var(--color-text-white);
   padding: 10px 5px;
   border-radius: 6px;
   border: none;
@@ -10,12 +10,12 @@
   font-weight: 700;
   /* font-size: 16px; */
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 4px rgba(113, 113, 114, 0.25);
+  box-shadow: 0 4px 4px rgba(130, 130, 252, 0.2);
   transition: all 0.3s ease-in-out;
 }
 .linkBox:hover {
-  background-color: #0056b3;
-  box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
+  background-color: var(--bg-color-button-hover);
+  box-shadow: 2px 4px 12px rgba(0, 50, 150, 0.4);
 }
 .linkBox:disabled {
   background-color: #cccccc;
