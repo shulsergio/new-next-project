@@ -1,4 +1,4 @@
-import css from "./TopBonusList.module.css";
+import css from "./TopBonusListTable.module.css";
 
 export interface categorySchema {
   account: string;

@@ -31,9 +31,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: var(--color-text-headers);
   /* margin-bottom: 20px; */
-  border-bottom: 1px solid #eee;
-    /* padding-top: 20px; */
+  /* border-bottom: 1px solid #eee; */
+  /* padding-top: 20px; */
   padding-bottom: 30px;
 }
 .closeButton {

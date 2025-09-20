@@ -1,8 +1,3 @@
-.formatUah {
-  font-size: 15px;
-  font-weight: 700;
-}
-
 .plansBox {
   display: flex;
   flex-direction: row;
@@ -10,6 +5,15 @@
   align-items: center;
   gap: 5px;
   width: 100%;
+}
+.plansBox p {
+  font-size: 15px;
+  color: var(--color-text-main);
+}
+.formatUah {
+  font-size: 16px;
+  color: var(--color-text-headers);
+  font-weight: 700;
 }
 
 .newDataBox {
@@ -19,6 +23,9 @@
   width: 100%;
 }
 .newDataBox p {
+  font-size: 16px;
+  color: var(--color-text-main);
+
   text-align: center;
   width: 45%;
   align-items: center;
@@ -30,9 +37,15 @@
   height: 120px;
 }
 .plansBox p {
+  font-size: 16px;
+
   padding-bottom: 10px;
 }
-.plansBox h2 {
+.plansBox span {
+  color: var(--color-text-headers);
+  font-weight: 700;
+}
+/* .plansBox h2 {
   padding-bottom: 20px;
   text-align: center;
-}
+} */

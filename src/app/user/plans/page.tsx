@@ -113,13 +113,13 @@ export default async function UserPlansPage() {
             <div className={css.plansBox}>
               <div>
                 <p>
-                  Focus Plan:{" "}
+                  Focus Plan:
                   <span className={css.formatUah}>
                     {getFormatUahFromNumber(plansData[0].focusSOplan)}
                   </span>
                 </p>
                 <p>
-                  Focus Fact:{" "}
+                  Focus Fact:
                   <span className={css.formatUah}>
                     {getFormatUahFromNumber(plansData[0].focusSOfact)}
                   </span>
@@ -181,7 +181,7 @@ export default async function UserPlansPage() {
           <ComponentWrapper title="Quarterly results">
             <div className={css.plansBox}>
               <p>
-                Focus AR:
+                Focus AR:{" "}
                 <span>
                   {getFocusPercent({
                     planQly: plansData[0].focusQlySOplan,
