@@ -22,7 +22,7 @@
   text-align: center;
   width: 45%;
   align-items: center;
-  border: 1px solid #cce7ff;
+  border: 1px solid var(--border_solid);
   padding: 10px;
 }
 .circularProgressBar {

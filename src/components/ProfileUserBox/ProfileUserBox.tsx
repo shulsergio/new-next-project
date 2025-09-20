@@ -126,10 +126,7 @@ export function ProfileUserBox() {
           onClose={closeWelcomeModal}
           title="Hello!"
         >
-          <p>
-            Оновлення селауту по вівторках до 22.00 (дані за повний тиждень), та
-            по суботах до 12.00 (дані по п*ятницю).
-          </p>
+          <p>Селаут оновлено по 19.09, список фокусів оновлено на вересень.</p>
           <button className={css.modalSaveButton} onClick={closeWelcomeModal}>
             ОК
           </button>

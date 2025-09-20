@@ -1,5 +1,5 @@
-.span{
+.span {
   font-weight: 600;
-  color: #007bff;
+  color: var(--color-text-headers);
   padding-left: 10px;
 }

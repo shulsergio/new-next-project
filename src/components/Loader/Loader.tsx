@@ -10,7 +10,7 @@ export default function Loader({ isLoading }: LoaderProps) {
     <div className={css.loaderOverlay}>
       <PulseLoader
         className={css.loader}
-        color={"#36D7B7"}
+        color={"#6699ff"}
         loading={isLoading}
         size={40}
       />

@@ -1,28 +1,28 @@
 .span {
   font-weight: 600;
-  color: #007bff;
+  color: var(--color-text-headers);
   padding-left: 10px;
 }
 
-.editButton{
+.editButton {
   margin-left: 30px;
   padding: 2px 4px;
-color:  #ff0000;
-font-weight: 900;
-border: 1px solid  #007bff;
-border-radius: 4px;
-box-shadow: 0 2px 2px rgba(0, 123, 255, 0.2);
+  color: #ff0000;
+  font-weight: 900;
+  border: 1px solid var(--bg-color-footer-navigation-hover);
+  border-radius: 4px;
+  box-shadow: 0 2px 2px rgba(0, 123, 255, 0.2);
 }
-.modalLabel{
+.modalLabel {
   /* font-weight: 600; */
-padding-right: 10px;
+  padding-right: 10px;
   /* color: #0056b3; */
 }
 
-.modalSelect{
+.modalSelect {
   width: 70px;
-padding: 8px 10px;
-  border: 1px solid #b3d9ff;
+  padding: 8px 10px;
+  border: 1px solid var(--border_solid);
   border-radius: 5px;
   background-color: #e6f2ff;
   color: #333;
@@ -33,9 +33,9 @@ padding: 8px 10px;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 .modalSaveButton {
-padding: 8px 12px;
-margin-left: 10px;
-border: 1px solid #007bff;
+  padding: 8px 12px;
+  margin-left: 10px;
+  border: 1px solid #007bff;
   border-radius: 5px;
   background-color: #007bff;
   color: white;

@@ -9,8 +9,11 @@
   --bg-color-footer-navigation: #6699ff;
   --bg-color-footer-navigation-hover: #003296;
 
-  --bg-color-button: #6699ff;
+  /* --bg-color-button: #6699ff; */
+  --bg-color-button: #82b0ff;
   --bg-color-button-hover: #003296;
+
+  --border_solid: #b5dbff;
 }
 html {
   box-sizing: border-box;
