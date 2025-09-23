@@ -13,7 +13,7 @@ interface FocusModelsManagerProps {
   accessToken: string;
 }
 
-interface ApiResponse {
+interface ApiResponseModel {
   data: {
     data: FocusModel[];
     totalCount: number;
@@ -32,6 +32,7 @@ export default function FocusModelsManager({
   const [error, setError] = useState(null);
   const [selectedPrd, setSelectedPrd] = useState<string>("all");
   const [prds, setPrds] = useState<string[]>([]);
+  const [isFocusOnly, setIsFocusOnly] = useState(false);
 
   useEffect(() => {
     const loadAllPrds = async () => {
@@ -49,24 +50,25 @@ export default function FocusModelsManager({
     loadAllPrds();
   }, [accessToken, type]);
   console.log("*** data in FocusModelsManager prds", prds);
+
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const fetchedData: ApiResponse = await fetchFocusModels(
+        const fetchedData: ApiResponseModel = await fetchFocusModels(
           curPage,
           limit,
           type,
           accessToken,
-          selectedPrd
+          selectedPrd,
+          isFocusOnly
         );
         setFocusModels(fetchedData.data.data);
         console.log("*** data in FocusModelsManager fetchedData:", fetchedData);
         setTotalCount(fetchedData.data.totalCount);
       } catch (e) {
         console.error("Ошибка при загрузке данных:", e);
-        // setError("Не удалось загрузить данные");
       } finally {
         setLoading(false);
       }
@@ -74,10 +76,14 @@ export default function FocusModelsManager({
     if (selectedPrd !== null) {
       loadData();
     }
-  }, [curPage, limit, type, accessToken, selectedPrd]);
+  }, [curPage, limit, type, accessToken, selectedPrd, isFocusOnly]);
 
   const handlePrdChange = (prd: string) => {
     setSelectedPrd(prd);
+    setCurPage(1);
+  };
+  const handleFocusChange = (isChecked: boolean) => {
+    setIsFocusOnly(isChecked);
     setCurPage(1);
   };
 
@@ -102,6 +108,10 @@ export default function FocusModelsManager({
       {error && <p>Ошибка: {error}</p>}
       {!loading && !error && (
         <>
+          <FocusFilter
+            isFocusOnly={isFocusOnly}
+            onFocusChange={handleFocusChange}
+          />
           <PrdFilter
             prds={prds}
             onPrdChange={handlePrdChange}
@@ -143,6 +153,27 @@ function PrdFilter({ prds, selectedPrd, onPrdChange }: PrdFilterProps) {
           </option>
         ))}
       </select>
+    </div>
+  );
+}
+
+interface FocusFilterProps {
+  isFocusOnly: boolean;
+  onFocusChange: (isChecked: boolean) => void;
+}
+
+function FocusFilter({ isFocusOnly, onFocusChange }: FocusFilterProps) {
+  return (
+    <div>
+      <label>
+        Focus only
+        <input
+          type="checkbox"
+          checked={isFocusOnly}
+          onChange={(e) => onFocusChange(e.target.checked)}
+        ></input>
+        <span></span>
+      </label>
     </div>
   );
 }

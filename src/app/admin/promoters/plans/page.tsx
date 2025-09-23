@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 // import css from "./page.module.css";
 // import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
-import PromotersAllPlansTable from "@/components/PromotersAllPlansTable/PromotersAllPlansTable";
+import PromotersAllPlansTable from "@/components/Tables/PromotersAllPlansTable/PromotersAllPlansTable";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 
 export default function AdminPlansPage() {

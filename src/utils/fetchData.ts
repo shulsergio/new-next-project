@@ -46,7 +46,9 @@ export interface IhsData {
   
 
 interface ProductData {
-  _id: number;
+  _id: string;
+  year: number;
+  month: number;
   sku: string;
   prd: string;  
   rrp: string;
@@ -231,11 +233,11 @@ export async function fetchShopMatixData(storeId: string, accessToken: string) {
     return data;
 }
   
-  export async function fetchFocusModels(curPage: number, limit: number, type: string, accessToken: string, selectedPrd: string){
+  export async function fetchFocusModels(curPage: number, limit: number, type: string, accessToken: string, selectedPrd: string, isFocusOnly: boolean): Promise<ApiResponse> {
     // type = "AV";
     console.log("WWWWW fetchFocusModels selectedPrd===", selectedPrd)
     
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}&selectedPrd=${selectedPrd}`;
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}&selectedPrd=${selectedPrd}&isFocusOnly=${isFocusOnly}`;
 
     console.log("WWWWW fetchFocusModels BackApi===", BackApi)
     const response = await fetch(BackApi, {
