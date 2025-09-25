@@ -84,7 +84,7 @@ export default function FocusModelsManager({
     accessToken,
     selectedPrd,
     isFocusOnly,
-    isFocusOnly,
+    isBonusOnly,
   ]);
 
   const handlePrdChange = (prd: string) => {
