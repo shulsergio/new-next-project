@@ -299,6 +299,45 @@ export const fetchAllPrds = async (
     return ['all',...uniquePrds];
 }
 
+  
+export const fetchAllWeeks = async (
+  storeId: string,
+  curPage: number,
+  limit: number,
+  type: string,
+  accessToken: string
+): Promise<string[]> => {
+
+  console.log('EEEE fetchAllPrds type===', type);
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}${type}?page=${curPage}&limit=${limit}`;
+
+    console.log("EEEE fetchAllPrds BackApi===", BackApi)
+    const response = await fetch(BackApi, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      cache: "no-store",
+    });
+    if (!response.ok) {
+    console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
+
+      if (response.status === 401 || response.status === 403) {
+        throw new Error("Unauthorized access. Please log in again.");
+      }
+      throw new Error("Failed to fetchAllPrds data");
+    }
+  const responseData = await response.json() as ApiResponse;
+        console.log('EEEE fetchAllPrds responseData===', responseData);
+  const uniquePrds = Array.from(
+    new Set(responseData.data.data.map((item: ProductData) => item.prd))
+  );
+      console.log('EEEE fetchAllPrds uniquePrds===', uniquePrds);
+    return ['all',...uniquePrds];
+}
+
+
 export async function fetchDavDataClusters(selectedCluster: string, accessToken: string) {
   const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/motivation/davMotivation?cluster=${selectedCluster}`;
   console.log("%%%% FILE fetchDavDataClusters BackApi: ", BackApi)

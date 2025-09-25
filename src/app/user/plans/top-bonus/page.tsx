@@ -3,7 +3,7 @@ import ButtonBox from "@/components/ButtonBox/ButtonBox";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import TopBonusList from "@/components/Tables/TopBonusListTable/TopBonusListTable";
 import { fetchTopBonusesById } from "@/utils/fetchData";
-// import TopBonusList from "@/components/TopBonusList/TopBonusList";
+
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -19,25 +19,26 @@ export default async function UserTopBonusPage() {
     redirect("/signin");
   }
 
-  let shopBonuses = [];
-  try {
-    const fetchedData = await fetchTopBonusesById(
-      session.user.shop || "",
-      session.accessToken
-    );
-    console.log("fetchShopMatixData DATA:", fetchedData);
-    shopBonuses = fetchedData.data.bonuses.bonusData[0].categories;
-    console.log("!!shopBonuses UserTopBonusPage:", shopBonuses);
-  } catch (e: string | unknown) {
-    console.error("Error fetching UserTopBonusPage:", e);
-  }
-
+  // let shopBonuses = [];
+  // try {
+  //   const fetchedData = await fetchTopBonusesById(
+  //     session.user.shop || "",
+  //     session.accessToken
+  //   );
+  //   console.log("fetchShopMatixData DATA:", fetchedData);
+  //   shopBonuses = fetchedData.data.bonuses.bonusData[0].categories;
+  //   console.log("!!shopBonuses UserTopBonusPage:", shopBonuses);
+  // } catch (e: string | unknown) {
+  //   console.error("Error fetching UserTopBonusPage:", e);
+  // }
+  // const type = session.user.userType || "";
   return (
     <>
       <ComponentWrapper title="Top Bonus list">
         <TopBonusList
-          shopBonuses={shopBonuses}
-          sessionCategory={session.user.userType || ""}
+          // shopBonuses={shopBonuses}
+          // type={type}
+          session={session}
         />
       </ComponentWrapper>
       <ButtonBox option="link" href="/user/plans/">

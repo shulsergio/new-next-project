@@ -1,4 +1,8 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import css from "./TopBonusListTable.module.css";
+import { fetchAllWeeks } from "@/utils/fetchData";
 
 export interface categorySchema {
   account: string;
@@ -11,18 +15,49 @@ export interface categorySchema {
 }
 
 export interface shopBonusesProps {
-  shopBonuses: categorySchema[];
-  sessionCategory: string;
+  type: string;
+  session: {
+    accessToken: string;
+    user: { shop: string; userType: string };
+  };
 }
 
-export default function TopBonusList({
-  shopBonuses,
-  sessionCategory,
-}: shopBonusesProps) {
-  const filteredShopBonuses =
-    sessionCategory === "DA"
-      ? shopBonuses.filter((item) => item.prd === "SDA" || item.prd === "MDA")
-      : shopBonuses.filter((item) => item.prd === sessionCategory);
+export default function TopBonusList({ session }: shopBonusesProps) {
+  // const filteredShopBonuses =
+  // type === "DA"
+  //   ? shopBonuses.filter((item) => item.prd === "SDA" || item.prd === "MDA")
+  //   : shopBonuses.filter((item) => item.prd === type);
+  const type = session.user.userType || "";
+  const accessToken = session.accessToken || "";
+  const storeId = session.user.shop || "";
+  const [allModels, setAllModels] = useState<[]>;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [selectedWeek, setSelectedWeek] = useState<string>("all");
+  const [weeks, setWeeks] = useState<string[]>([]);
+  // const [isFocusOnly, setIsFocusOnly] = useState(false);
+  useEffect(() => {
+    const loadAllWeeks = async () => {
+      try {
+        const allWeeks = await fetchAllWeeks(
+          storeId,
+          1,
+          10000,
+          type,
+          accessToken
+        );
+        setWeeks(allWeeks);
+        console.log("*** data in FocusModelsManager::: allPrds:::", allPrds);
+        if (allWeeks.length > 0) {
+          setSelectedWeek(allWeeks[0]);
+        }
+      } catch (e) {
+        console.error("Ошибка при загрузке всех weeks:", e);
+      }
+    };
+    loadAllWeeks();
+  }, [accessToken, type]);
+  console.log("*** data in TopBonusList weeks", weeks);
 
   return (
     <>

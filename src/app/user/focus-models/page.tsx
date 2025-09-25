@@ -1,11 +1,9 @@
 import { authConfig } from "@/app/configs/authConfig";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import FocusModelsManager from "@/components/FocusModelsManager/page";
-// import FocusModelsTable from "@/components/Tables/FocusModelsTable/page";
-// import { fetchFocusModels } from "@/utils/fetchData";
+
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-// import css from "./page.module.css";
 
 export default async function UsersFocusModels() {
   const session = await getServerSession(authConfig);
