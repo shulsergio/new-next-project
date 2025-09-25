@@ -33,7 +33,7 @@ export default function FocusModelsManager({
   const [selectedPrd, setSelectedPrd] = useState<string>("all");
   const [prds, setPrds] = useState<string[]>([]);
   const [isFocusOnly, setIsFocusOnly] = useState(false);
-
+  const [isBonusOnly, setIsBonusOnly] = useState(false);
   useEffect(() => {
     const loadAllPrds = async () => {
       try {
@@ -62,7 +62,8 @@ export default function FocusModelsManager({
           type,
           accessToken,
           selectedPrd,
-          isFocusOnly
+          isFocusOnly,
+          isBonusOnly
         );
         setFocusModels(fetchedData.data.data);
         console.log("*** data in FocusModelsManager fetchedData:", fetchedData);
@@ -76,7 +77,15 @@ export default function FocusModelsManager({
     if (selectedPrd !== null) {
       loadData();
     }
-  }, [curPage, limit, type, accessToken, selectedPrd, isFocusOnly]);
+  }, [
+    curPage,
+    limit,
+    type,
+    accessToken,
+    selectedPrd,
+    isFocusOnly,
+    isFocusOnly,
+  ]);
 
   const handlePrdChange = (prd: string) => {
     setSelectedPrd(prd);
@@ -86,7 +95,10 @@ export default function FocusModelsManager({
     setIsFocusOnly(isChecked);
     setCurPage(1);
   };
-
+  const handleBonusChange = (isChecked: boolean) => {
+    setIsBonusOnly(isChecked);
+    setCurPage(1);
+  };
   console.log("data in FocusModelsManager prds:", prds);
 
   const hasPrevPage = curPage > 1;
@@ -108,15 +120,24 @@ export default function FocusModelsManager({
       {error && <p>Ошибка: {error}</p>}
       {!loading && !error && (
         <>
-          <FocusFilter
-            isFocusOnly={isFocusOnly}
-            onFocusChange={handleFocusChange}
-          />
-          <PrdFilter
-            prds={prds}
-            onPrdChange={handlePrdChange}
-            selectedPrd={selectedPrd}
-          />
+          <div className={css.filterWrapperBox}>
+            <PrdFilter
+              prds={prds}
+              onPrdChange={handlePrdChange}
+              selectedPrd={selectedPrd}
+            />
+            <div className={css.focusFilterBox}>
+              {" "}
+              <FocusFilter
+                isFocusOnly={isFocusOnly}
+                onFocusChange={handleFocusChange}
+              />
+              <BonusFilter
+                isBonusOnly={isBonusOnly}
+                onBonusChange={handleBonusChange}
+              />
+            </div>
+          </div>
           {<FocusModelsTable focusModels={focusModels} />}
           <PaginationButtons
             onPreviousClick={handlePrevClick}
@@ -137,15 +158,15 @@ interface PrdFilterProps {
 
 function PrdFilter({ prds, selectedPrd, onPrdChange }: PrdFilterProps) {
   return (
-    <div>
-      <label htmlFor="prdSelect" className={css.modalLabel}>
+    <div className={css.prdFilterBox}>
+      <label htmlFor="prdSelect" className={css.selectLabel}>
         Filter by Group:
       </label>
       <select
         id="prdSelect"
         value={selectedPrd || ""}
         onChange={(e) => onPrdChange(e.target.value)}
-        className={css.modalSelect}
+        className={css.selectBox}
       >
         {prds.map((prd) => (
           <option key={prd} value={prd}>
@@ -165,12 +186,35 @@ interface FocusFilterProps {
 function FocusFilter({ isFocusOnly, onFocusChange }: FocusFilterProps) {
   return (
     <div>
-      <label>
-        Focus only
+      <label className={css.selectLabel}>
+        Focus only{" "}
         <input
+          className={css.inputLabel}
           type="checkbox"
           checked={isFocusOnly}
           onChange={(e) => onFocusChange(e.target.checked)}
+        ></input>
+        <span></span>
+      </label>
+    </div>
+  );
+}
+
+interface BonusFilterProps {
+  isBonusOnly: boolean;
+  onBonusChange: (isChecked: boolean) => void;
+}
+
+function BonusFilter({ isBonusOnly, onBonusChange }: BonusFilterProps) {
+  return (
+    <div className={css.focusFilterBox}>
+      <label className={css.selectLabel}>
+        Bonus only{" "}
+        <input
+          className={css.inputLabel}
+          type="checkbox"
+          checked={isBonusOnly}
+          onChange={(e) => onBonusChange(e.target.checked)}
         ></input>
         <span></span>
       </label>

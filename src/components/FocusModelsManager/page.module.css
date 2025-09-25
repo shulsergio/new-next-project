@@ -1,18 +1,47 @@
-.modalSelect {
-  width: 100px;
-  padding: 8px 8px;
+.prdFilterBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.selectBox {
+  width: 90px;
+  padding: 3px;
   border: 1px solid #b3d9ff;
   border-radius: 5px;
   background-color: #e6f2ff;
+  font-size: 13px;
   color: #333;
 }
-.modalSelect:focus {
+.selectBox:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-.modalLabel {
+.focusFilterBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+.selectLabel {
   /* font-weight: 600; */
-  padding-right: 10px;
-  color: #0056b3;
+  font-size: 14px;
+  color: var(--color-text-main);
+}
+.inputLabel {
+  margin: 0;
+  text-align: center;
+  /* padding-left: 10px; */
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.filterWrapperBox {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+
+  /* align-items: center; */
+  /* margin-bottom: 10px; */
+  flex-wrap: wrap;
 }
