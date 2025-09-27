@@ -166,9 +166,9 @@ export default async function UserPlansPage() {
                 </span>
               </p>
               {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
-              {/* <ButtonBox option="link" href="/user/plans/top-bonus">
+              <ButtonBox option="link" href="/user/plans/top-bonus">
                 Top bonuses
-              </ButtonBox> */}
+              </ButtonBox>
             </div>
           </ComponentWrapper>
           <ComponentWrapper title="IHS results">

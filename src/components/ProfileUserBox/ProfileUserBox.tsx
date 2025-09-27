@@ -126,7 +126,7 @@ export function ProfileUserBox() {
           onClose={closeWelcomeModal}
           title="Hello!"
         >
-          <p>Селаут оновлено по 21.09 включно.</p>
+          <p>Селаут оновлено по 25.09 включно.</p>
           <button className={css.modalSaveButton} onClick={closeWelcomeModal}>
             ОК
           </button>

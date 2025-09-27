@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import css from "./TopBonusListTable.module.css";
 import { fetchAllWeeks } from "@/utils/fetchData";
+// import Loader from "@/components/Loader/Loader";
 
 export interface categorySchema {
   account: string;
@@ -14,40 +15,39 @@ export interface categorySchema {
   soqty: number;
 }
 
-export interface shopBonusesProps {
+export interface TopBonusListProps {
   type: string;
-  session: {
-    accessToken: string;
-    user: { shop: string; userType: string };
-  };
+  accessToken: string;
+  storeId: string;
+  // session: object;
 }
 
-export default function TopBonusList({ session }: shopBonusesProps) {
+export default function TopBonusList({
+  type,
+  accessToken,
+  storeId,
+}: TopBonusListProps) {
   // const filteredShopBonuses =
   // type === "DA"
   //   ? shopBonuses.filter((item) => item.prd === "SDA" || item.prd === "MDA")
   //   : shopBonuses.filter((item) => item.prd === type);
-  const type = session.user.userType || "";
-  const accessToken = session.accessToken || "";
-  const storeId = session.user.shop || "";
-  const [allModels, setAllModels] = useState<[]>;
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // const type = session.user.userType || "";
+  // const accessToken = session.accessToken || "";
+  // const storeId = session.user.shop || "";
+
+  // const [allModels, setAllModels] = useState<[]>;
+
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState<string>("all");
+
   const [weeks, setWeeks] = useState<string[]>([]);
-  // const [isFocusOnly, setIsFocusOnly] = useState(false);
   useEffect(() => {
     const loadAllWeeks = async () => {
       try {
-        const allWeeks = await fetchAllWeeks(
-          storeId,
-          1,
-          10000,
-          type,
-          accessToken
-        );
+        const allWeeks = await fetchAllWeeks(type, accessToken, storeId);
         setWeeks(allWeeks);
-        console.log("*** data in FocusModelsManager::: allPrds:::", allPrds);
+        console.log("*** data in FocusModelsManager::: allPrds:::", allWeeks);
         if (allWeeks.length > 0) {
           setSelectedWeek(allWeeks[0]);
         }
@@ -56,13 +56,48 @@ export default function TopBonusList({ session }: shopBonusesProps) {
       }
     };
     loadAllWeeks();
-  }, [accessToken, type]);
+  }, [accessToken, type, storeId]);
   console.log("*** data in TopBonusList weeks", weeks);
-
+  console.log("*** data in TopBonusList selectedWeek", selectedWeek);
+  // let shopBonuses = [];
+  // useEffect(() => {
+  //   const loadData = async () => {
+  //     setLoading(true);
+  //     setError(null);
+  //     try {
+  //       const fetchedData = await fetchAllWeeks(
+  //         1,
+  //         10000,
+  //         type,
+  //         accessToken,
+  //         storeId
+  //       );
+  //       // setAllModels(fetchedData);
+  //       console.log("***!!! shopBonuses fetchedData:", fetchedData);
+  //       // console.log("***!!! shopBonuses allModels:", allModels);
+  //     } catch (e) {
+  //       console.error("Ошибка при загрузке всех weeks:", e);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   loadData();
+  // }, [accessToken, type, storeId, selectedWeek]);
+  const handleWeekChange = (week: string) => {
+    setSelectedWeek(week);
+  };
   return (
     <>
+      {/* {loading && <Loader isLoading={true} />}
+      {error && <p>Ошибка: {error}</p>} */}
+      <WeekFilter
+        weeks={weeks}
+        onWeekChange={handleWeekChange}
+        selectedWeek={selectedWeek}
+      />
       <div className={css.tableWrapper}>
-        <table className={css.table}>
+        <p>edit...</p>
+        {/* <table className={css.table}>
           <thead>
             <tr>
               <th>SKU</th>
@@ -83,8 +118,36 @@ export default function TopBonusList({ session }: shopBonusesProps) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
       </div>
     </>
+  );
+}
+
+interface WeekFilterProps {
+  weeks: string[];
+  selectedWeek: string | null;
+  onWeekChange: (prd: string) => void;
+}
+
+function WeekFilter({ weeks, selectedWeek, onWeekChange }: WeekFilterProps) {
+  return (
+    <div className={css.prdFilterBox}>
+      <label htmlFor="prdSelect" className={css.selectLabel}>
+        Filter by week:
+      </label>
+      <select
+        id="prdSelect"
+        value={selectedWeek || ""}
+        onChange={(e) => onWeekChange(e.target.value)}
+        className={css.selectBox}
+      >
+        {weeks.map((prd) => (
+          <option key={prd} value={prd}>
+            {prd}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }

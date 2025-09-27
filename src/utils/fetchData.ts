@@ -63,6 +63,26 @@ interface ApiResponse {
   };
 }
 
+interface WeekData {
+  _id: string;
+  sku: string;
+  prd: string;  
+  rrp: string;
+  focus: number;
+  type: string;
+  topFocus: number;
+}
+interface ApiResponseWeek {
+  data: {
+    BonusData: WeekData[];
+  };
+  storeId: string;
+}
+
+
+
+
+
 export async function fetchShopIhsData(storeId: string, accessToken: string) {
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/ihsdatas/?storeId=${storeId}`;
 
@@ -301,17 +321,15 @@ export const fetchAllPrds = async (
 
   
 export const fetchAllWeeks = async (
-  storeId: string,
-  curPage: number,
-  limit: number,
   type: string,
-  accessToken: string
+  accessToken: string,
+    storeId: string,
 ): Promise<string[]> => {
 
-  console.log('EEEE fetchAllPrds type===', type);
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}${type}?page=${curPage}&limit=${limit}`;
+  console.log('XXXXX fetchAllWeeks type===', type);
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}?type=${type}`;
 
-    console.log("EEEE fetchAllPrds BackApi===", BackApi)
+    console.log("XXXXX fetchAllWeeks BackApi===", BackApi)
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {
@@ -328,13 +346,13 @@ export const fetchAllWeeks = async (
       }
       throw new Error("Failed to fetchAllPrds data");
     }
-  const responseData = await response.json() as ApiResponse;
-        console.log('EEEE fetchAllPrds responseData===', responseData);
-  const uniquePrds = Array.from(
-    new Set(responseData.data.data.map((item: ProductData) => item.prd))
+  const responseData = await response.json() as ApiResponseWeek;
+        console.log('XXXXX fetchAllPrds responseData===', responseData);
+  const uniqueWeeks = Array.from<string>(
+    new Set(responseData.data.data?.map((item: ProductData) => item.week))
   );
-      console.log('EEEE fetchAllPrds uniquePrds===', uniquePrds);
-    return ['all',...uniquePrds];
+      console.log('XXXXX fetchAllPrds uniqueWeeks===', uniqueWeeks);
+    return ['all',...uniqueWeeks];
 }
 
 

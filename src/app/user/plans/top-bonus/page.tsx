@@ -2,7 +2,7 @@ import { authConfig } from "@/app/configs/authConfig";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import TopBonusList from "@/components/Tables/TopBonusListTable/TopBonusListTable";
-import { fetchTopBonusesById } from "@/utils/fetchData";
+// import { fetchTopBonusesById } from "@/utils/fetchData";
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -31,14 +31,18 @@ export default async function UserTopBonusPage() {
   // } catch (e: string | unknown) {
   //   console.error("Error fetching UserTopBonusPage:", e);
   // }
-  // const type = session.user.userType || "";
+  const type = session.user.userType || "";
+  const accessToken = session.accessToken || "";
+  const storeId = session.user.shop || "";
   return (
     <>
       <ComponentWrapper title="Top Bonus list">
         <TopBonusList
           // shopBonuses={shopBonuses}
-          // type={type}
-          session={session}
+          type={type}
+          accessToken={accessToken}
+          storeId={storeId}
+          // session={session}
         />
       </ComponentWrapper>
       <ButtonBox option="link" href="/user/plans/">
