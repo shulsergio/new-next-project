@@ -63,21 +63,21 @@ interface ApiResponse {
   };
 }
 
-interface WeekData {
-  _id: string;
-  sku: string;
-  prd: string;  
-  rrp: string;
-  focus: number;
-  type: string;
-  topFocus: number;
-}
-interface ApiResponseWeek {
-  data: {
-    BonusData: WeekData[];
-  };
-  storeId: string;
-}
+// interface WeekData {
+//   _id: string;
+//   sku: string;
+//   prd: string;  
+//   rrp: string;
+//   focus: number;
+//   type: string;
+//   topFocus: number;
+// }
+// interface ApiResponseWeek {
+//   data: {
+//     BonusData: WeekData[];
+//   };
+//   storeId: string;
+// }
 
 
 
@@ -345,14 +345,15 @@ export const fetchAllWeeks = async (
         throw new Error("Unauthorized access. Please log in again.");
       }
       throw new Error("Failed to fetchAllPrds data");
-    }
-  const responseData = await response.json() as ApiResponseWeek;
-        console.log('XXXXX fetchAllPrds responseData===', responseData);
-  const uniqueWeeks = Array.from<string>(
-    new Set(responseData.data.data?.map((item: ProductData) => item.week))
-  );
-      console.log('XXXXX fetchAllPrds uniqueWeeks===', uniqueWeeks);
-    return ['all',...uniqueWeeks];
+  }
+  const data = ['all']; //подставной для ретурна
+  // const responseData = await response.json() as ApiResponseWeek;
+  //       console.log('XXXXX fetchAllPrds responseData===', responseData);
+  // const uniqueWeeks = Array.from<string>(
+  //   new Set(responseData.data.data?.map((item: ProductData) => item.week))
+  // );
+      // console.log('XXXXX fetchAllPrds uniqueWeeks===', uniqueWeeks);
+  return data; // ['all', ...uniqueWeeks];
 }
 
 
