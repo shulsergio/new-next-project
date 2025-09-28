@@ -62,22 +62,22 @@ interface ApiResponse {
     totalCount: number;
   };
 }
-
-// interface WeekData {
-//   _id: string;
-//   sku: string;
-//   prd: string;  
-//   rrp: string;
-//   focus: number;
-//   type: string;
-//   topFocus: number;
-// }
-// interface ApiResponseWeek {
-//   data: {
-//     BonusData: WeekData[];
-//   };
-//   storeId: string;
-// }
+interface weekdata { 
+    _id: string;
+      item: string;
+      account: string;
+      bonus: number;
+      day: string;
+      prd: string;
+      soqty: number;
+      storeId: string;
+      week: string;
+}
+interface ApiResponseWeek {
+  data: {
+    bonuses: weekdata[];
+  }
+}
 
 
 
@@ -200,37 +200,36 @@ export async function fetchShopMatixData(storeId: string, accessToken: string) {
     return data;
   }
 
-  export async function fetchTopBonusesById(storeId: string, accessToken: string){
+  // export async function fetchTopBonusesById(storeId: string, accessToken: string){
 
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}`;
+  //   const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}`;
 
 
-    const response = await fetch(BackApi, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      cache: "no-store",
-    });
-    if (!response.ok) {
-    console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
+  //   const response = await fetch(BackApi, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //     cache: "no-store",
+  //   });
+  //   if (!response.ok) {
+  //   console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
 
-      if (response.status === 401 || response.status === 403) {
-        throw new Error("Unauthorized access. Please log in again.");
-      }
-      throw new Error("Failed to fetch IHS data");
-    }
-    const data = await response.json();
-    console.log('%%%% FILE fetchShopMatixData: ', data)
-    return data;
-  }
+  //     if (response.status === 401 || response.status === 403) {
+  //       throw new Error("Unauthorized access. Please log in again.");
+  //     }
+  //     throw new Error("Failed to fetch IHS data");
+  //   }
+  //   const data = await response.json();
+  //   console.log('%%%% FILE fetchShopMatixData: ', data)
+  //   return data;
+  // }
 
 
   export async function fetchShopsById(storeId: string, accessToken: string){
 
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/shops/${storeId}`;
-
 
     const response = await fetch(BackApi, {
       method: "GET",
@@ -288,8 +287,6 @@ export const fetchAllPrds = async (
   accessToken: string
 ): Promise<string[]> => {
 
-  // const type = Addtype === "AV" ? "AV" : "DA";
-  // console.log('EEEE fetchAllPrds Addtype===', Addtype);
     console.log('EEEE fetchAllPrds type===', type);
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}`;
 
@@ -319,15 +316,15 @@ export const fetchAllPrds = async (
     return ['all',...uniquePrds];
 }
 
-  
 export const fetchAllWeeks = async (
   type: string,
   accessToken: string,
-    storeId: string,
+  storeId: string,
+    week: string = "all"
 ): Promise<string[]> => {
 
   console.log('XXXXX fetchAllWeeks type===', type);
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}?type=${type}`;
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}?type=${type}&week=${week}`;
 
     console.log("XXXXX fetchAllWeeks BackApi===", BackApi)
     const response = await fetch(BackApi, {
@@ -344,23 +341,48 @@ export const fetchAllWeeks = async (
       if (response.status === 401 || response.status === 403) {
         throw new Error("Unauthorized access. Please log in again.");
       }
-      throw new Error("Failed to fetchAllPrds data");
+      throw new Error("Failed to fetchAllWeeks data");
   }
-  const data = ['all']; //подставной для ретурна
-  // const responseData = await response.json() as ApiResponseWeek;
-  //       console.log('XXXXX fetchAllPrds responseData===', responseData);
-  // const uniqueWeeks = Array.from<string>(
-  //   new Set(responseData.data.data?.map((item: ProductData) => item.week))
-  // );
-      // console.log('XXXXX fetchAllPrds uniqueWeeks===', uniqueWeeks);
-  return data; // ['all', ...uniqueWeeks];
+ // const data = ['all']; подставной для ретурна
+  const responseData = await response.json() as ApiResponseWeek;
+        console.log('XXXXX fetchAllWeeks responseData.data.BonusData===', responseData.data.bonuses);
+  const uniqueWeeks = Array.from<string>(
+    new Set(responseData.data.bonuses.map((item) => item.week))
+  );
+      console.log('XXXXX fetchAllWeeks uniqueWeeks===', uniqueWeeks);
+  return ['all', ...uniqueWeeks];
 }
 
+export async function fetchBonusModels(type: string, accessToken: string, storeId: string, week: string) {
+
+  console.log('XXXXX fetchBonusModels type===', type);
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}?type=${type}&week=${week}`;
+    console.log("WWWWW fetchBonusModels BackApi===", BackApi)
+    const response = await fetch(BackApi, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      cache: "no-store",
+    });
+    if (!response.ok) {
+    console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
+
+      if (response.status === 401 || response.status === 403) {
+        throw new Error("Unauthorized access. Please log in again.");
+      }
+      throw new Error("Failed to fetch IHS data");
+    }
+    const data = await response.json();
+    console.log('WWWWW DATAAAA fetchBonusModels: ', data)
+    return data;
+}
 
 export async function fetchDavDataClusters(selectedCluster: string, accessToken: string) {
   const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/motivation/davMotivation?cluster=${selectedCluster}`;
   console.log("%%%% FILE fetchDavDataClusters BackApi: ", BackApi)
- 
+
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {

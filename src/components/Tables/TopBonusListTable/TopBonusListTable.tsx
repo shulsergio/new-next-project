@@ -2,24 +2,28 @@
 
 import { useEffect, useState } from "react";
 import css from "./TopBonusListTable.module.css";
-import { fetchAllWeeks } from "@/utils/fetchData";
-// import Loader from "@/components/Loader/Loader";
+import { fetchAllWeeks, fetchBonusModels } from "@/utils/fetchData";
+import Loader from "@/components/Loader/Loader";
 
 export interface categorySchema {
+  storeId: string;
   account: string;
-  bonus: number;
   item: string;
+  soqty: number;
+  bonus: number;
+  prd: string;
   day: string;
   week: string;
-  prd: string;
-  soqty: number;
 }
 
 export interface TopBonusListProps {
   type: string;
   accessToken: string;
   storeId: string;
-  // session: object;
+}
+
+interface ApiResponseModel {
+  data: categorySchema[];
 }
 
 export default function TopBonusList({
@@ -27,26 +31,18 @@ export default function TopBonusList({
   accessToken,
   storeId,
 }: TopBonusListProps) {
-  // const filteredShopBonuses =
-  // type === "DA"
-  //   ? shopBonuses.filter((item) => item.prd === "SDA" || item.prd === "MDA")
-  //   : shopBonuses.filter((item) => item.prd === type);
-  // const type = session.user.userType || "";
-  // const accessToken = session.accessToken || "";
-  // const storeId = session.user.shop || "";
+  const [allModels, setAllModels] = useState<categorySchema[]>([]);
 
-  // const [allModels, setAllModels] = useState<[]>;
-
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState<string>("all");
 
-  const [weeks, setWeeks] = useState<string[]>([]);
+  const [week, setWeek] = useState<string[]>([]);
   useEffect(() => {
     const loadAllWeeks = async () => {
       try {
         const allWeeks = await fetchAllWeeks(type, accessToken, storeId);
-        setWeeks(allWeeks);
+        setWeek(allWeeks);
         console.log("*** data in FocusModelsManager::: allPrds:::", allWeeks);
         if (allWeeks.length > 0) {
           setSelectedWeek(allWeeks[0]);
@@ -57,41 +53,45 @@ export default function TopBonusList({
     };
     loadAllWeeks();
   }, [accessToken, type, storeId]);
-  console.log("*** data in TopBonusList weeks", weeks);
-  console.log("*** data in TopBonusList selectedWeek", selectedWeek);
-  // let shopBonuses = [];
-  // useEffect(() => {
-  //   const loadData = async () => {
-  //     setLoading(true);
-  //     setError(null);
-  //     try {
-  //       const fetchedData = await fetchAllWeeks(
-  //         1,
-  //         10000,
-  //         type,
-  //         accessToken,
-  //         storeId
-  //       );
-  //       // setAllModels(fetchedData);
-  //       console.log("***!!! shopBonuses fetchedData:", fetchedData);
-  //       // console.log("***!!! shopBonuses allModels:", allModels);
-  //     } catch (e) {
-  //       console.error("Ошибка при загрузке всех weeks:", e);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   loadData();
-  // }, [accessToken, type, storeId, selectedWeek]);
+  console.log("**!! data in TopBonusList weeks", week);
+  console.log("**!! data in TopBonusList selectedWeek", selectedWeek);
+  //----------------
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const fetchedData: ApiResponseModel = await fetchBonusModels(
+          type,
+          accessToken,
+          storeId,
+          selectedWeek
+        );
+        setAllModels(fetchedData.data);
+        console.log("***!!! shopBonuses fetchedData:", fetchedData);
+        // console.log("***!!! shopBonuses allModels:", allModels);
+      } catch (e) {
+        console.error("Ошибка при загрузке всех weeks:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, [accessToken, selectedWeek, setAllModels, storeId, type]);
+
+  //----------------
   const handleWeekChange = (week: string) => {
     setSelectedWeek(week);
   };
+
+  console.log("**!! data in TopBonusList allModels", allModels);
   return (
     <>
-      {/* {loading && <Loader isLoading={true} />}
-      {error && <p>Ошибка: {error}</p>} */}
+      {loading && <Loader isLoading={true} />}
+      {error && <p>Ошибка: {error}</p>}
       <WeekFilter
-        weeks={weeks}
+        weeks={week}
         onWeekChange={handleWeekChange}
         selectedWeek={selectedWeek}
       />
