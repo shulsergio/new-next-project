@@ -8,9 +8,9 @@ export default function Footer() {
   return (
     <footer className={css.footer}>
       <div className={css.content}>
-        <p>&copy; {currentYear} All rights reserved.</p>
-
-        <p> SAMS App. v1.1.{currentQtyCommits}</p>
+        <p>
+          &copy; {currentYear} SAMS App. v1.1.{currentQtyCommits}
+        </p>
         {/* <div>
  
           <a href="/privacy" className={css.link}>

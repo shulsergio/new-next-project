@@ -17,7 +17,7 @@ export default function AvDavMotivationTable({ motivationData }) {
             <tr>
               {/* <th>#</th> */}
               <th>mcsID</th>
-              <th>ID</th>
+              <th>Promoter</th>
               <th>SO</th>
               <th>Qty</th>
               <th>TTL</th>
