@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import css from "./TopBonusListTable.module.css";
+import css from "./TopBonusPageManager.module.css";
 import { fetchAllWeeks, fetchBonusModels } from "@/utils/fetchData";
 import Loader from "@/components/Loader/Loader";
+import TopBonusModelsTable from "../Tables/TopBonusModelsTable/page";
 
 export interface categorySchema {
   storeId: string;
@@ -16,23 +17,24 @@ export interface categorySchema {
   week: string;
 }
 
-export interface TopBonusListProps {
+export interface TopBonusPageManagerProps {
   type: string;
   accessToken: string;
   storeId: string;
 }
 
 interface ApiResponseModel {
-  data: categorySchema[];
+  data: {
+    bonuses: categorySchema[];
+  };
 }
 
-export default function TopBonusList({
+export default function TopBonusPageManager({
   type,
   accessToken,
   storeId,
-}: TopBonusListProps) {
+}: TopBonusPageManagerProps) {
   const [allModels, setAllModels] = useState<categorySchema[]>([]);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState<string>("all");
@@ -68,9 +70,16 @@ export default function TopBonusList({
           storeId,
           selectedWeek
         );
-        setAllModels(fetchedData.data);
-        console.log("***!!! shopBonuses fetchedData:", fetchedData);
-        // console.log("***!!! shopBonuses allModels:", allModels);
+        // Добавляем проверку
+        if (Array.isArray(fetchedData.data.bonuses)) {
+          setAllModels(fetchedData.data.bonuses);
+        } else {
+          console.error(
+            "fetchedData.data.bonuses не является массивом:",
+            fetchedData.data.bonuses
+          );
+          setAllModels([]); // устанавливаем пустой массив как fallback
+        }
       } catch (e) {
         console.error("Ошибка при загрузке всех weeks:", e);
       } finally {
@@ -86,39 +95,20 @@ export default function TopBonusList({
   };
 
   console.log("**!! data in TopBonusList allModels", allModels);
+  console.log("**!! data in TopBonusList typeof allModels", typeof allModels);
   return (
     <>
       {loading && <Loader isLoading={true} />}
       {error && <p>Ошибка: {error}</p>}
-      <WeekFilter
-        weeks={week}
-        onWeekChange={handleWeekChange}
-        selectedWeek={selectedWeek}
-      />
+      <div className={css.filterWrapperBox}>
+        <WeekFilter
+          weeks={week}
+          onWeekChange={handleWeekChange}
+          selectedWeek={selectedWeek}
+        />
+      </div>
       <div className={css.tableWrapper}>
-        <p>edit...</p>
-        {/* <table className={css.table}>
-          <thead>
-            <tr>
-              <th>SKU</th>
-              <th>Qty</th>
-              <th>Bonus</th>
-              <th>day</th>
-              <th>week</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredShopBonuses.map((item, index) => (
-              <tr key={index}>
-                <td>{item.item}</td>
-                <td>{item.soqty}</td>
-                <td>{item.bonus}</td>
-                <td>{item.day}</td>
-                <td>{item.week}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
+        <TopBonusModelsTable allModels={allModels} />
       </div>
     </>
   );
@@ -132,7 +122,7 @@ interface WeekFilterProps {
 
 function WeekFilter({ weeks, selectedWeek, onWeekChange }: WeekFilterProps) {
   return (
-    <div className={css.prdFilterBox}>
+    <div className={css.FilterBox}>
       <label htmlFor="prdSelect" className={css.selectLabel}>
         Filter by week:
       </label>

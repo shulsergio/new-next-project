@@ -1,16 +1,22 @@
 .filterWrapperBox {
+  width: 100%;
+  padding-left: 20px;
   display: flex;
   flex-direction: row;
   gap: 30px;
   flex-wrap: wrap;
 }
 
-.prdFilterBox {
+.FilterBox {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-
+.selectLabel {
+  /* font-weight: 600; */
+  font-size: 14px;
+  color: var(--color-text-main);
+}
 .selectBox {
   width: 90px;
   padding: 3px;
@@ -24,20 +30,4 @@
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-.focusFilterBox {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-content: center;
-}
-.selectLabel {
-  font-size: 14px;
-  color: var(--color-text-main);
-}
-.inputLabel {
-  margin: 0;
-  text-align: center;
-  transform: scale(1.1);
-  cursor: pointer;
 }

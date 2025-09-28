@@ -1,7 +1,7 @@
 import { authConfig } from "@/app/configs/authConfig";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
-import TopBonusList from "@/components/Tables/TopBonusListTable/TopBonusListTable";
+import TopBonusList from "@/components/TopBonusPageManager/TopBonusPageManager";
 // import { fetchTopBonusesById } from "@/utils/fetchData";
 
 import { getServerSession } from "next-auth";
