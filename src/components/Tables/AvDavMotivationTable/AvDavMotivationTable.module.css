@@ -87,17 +87,26 @@
   }
   .table {
     width: 98%;
+  }
+  .table th {
     font-size: 16px;
-    /* min-width: 380px; */
+  }
+  .table td {
+    font-size: 16px;
   }
 }
+
 @media (min-width: 1200px) {
   .tableWrapper {
     width: 100%;
   }
   .table {
-    width: 100%;
+    width: 98%;
+  }
+  .table th {
+    font-size: 20px;
+  }
+  .table td {
     font-size: 18px;
-    /* min-width: 380px; */
   }
 }

@@ -45,11 +45,14 @@ export default function MotivationBox({ accessToken }) {
       {error && <p>Ошибка: {error}</p>}
       {!loading && !error && (
         <>
-          <ClusterFilter
-            clusters={selectClusters}
-            onClusterChange={handleSelectChange}
-            selectedCluster={selectedCluster}
-          />
+          {" "}
+          <div className={css.filterWrapperBox}>
+            <ClusterFilter
+              clusters={selectClusters}
+              onClusterChange={handleSelectChange}
+              selectedCluster={selectedCluster}
+            />
+          </div>
           {<AvDavMotivationTable motivationData={data} />}
         </>
       )}
@@ -69,15 +72,15 @@ function ClusterFilter({
   onClusterChange,
 }: ClusterFilterProps) {
   return (
-    <div>
-      <label htmlFor="clusterSelect" className={css.modalLabel}>
+    <div className={css.FilterBox}>
+      <label htmlFor="clusterSelect" className={css.selectLabel}>
         Filter by Cluster:
       </label>
       <select
         id="clusterSelect"
         value={selectedCluster || ""}
         onChange={(e) => onClusterChange(e.target.value)}
-        className={css.modalSelect}
+        className={css.selectBox}
       >
         {clusters.map((prd) => (
           <option key={prd} value={prd}>

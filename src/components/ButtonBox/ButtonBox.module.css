@@ -37,3 +37,10 @@
     padding: 18px 10px;
   }
 }
+@media (min-width: 1200px) {
+  .linkBox {
+    min-width: 220px;
+    font-size: 20px;
+    padding: 18px 10px;
+  }
+}

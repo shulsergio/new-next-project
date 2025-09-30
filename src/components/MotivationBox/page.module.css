@@ -1,19 +1,49 @@
-.modalSelect {
+.filterWrapperBox {
+  width: 100%;
+  padding: 0 0 10px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.FilterBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.selectBox {
   width: 60px;
-  padding: 8px 8px;
+  padding: 3px;
   border: 1px solid #b3d9ff;
   border-radius: 5px;
   background-color: #e6f2ff;
+  font-size: 13px;
   color: #333;
 }
-.modalSelect:focus {
+.selectBox:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-.modalLabel {
+
+.selectLabel {
   /* font-weight: 600; */
-  padding-right: 10px;
-  /* padding-bottom: 20px; */
-  color: #0056b3;
+  font-size: 14px;
+  color: var(--color-text-main);
+}
+
+@media (min-width: 768px) {
+  .selectLabel {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .selectLabel {
+    font-size: 20px;
+  }
+  .selectBox {
+    width: 80px;
+    font-size: 18px;
+  }
 }

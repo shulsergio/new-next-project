@@ -10,7 +10,10 @@
   flex-direction: column;
   gap: 6px;
 }
-
+.selectLabel {
+  font-size: 14px;
+  color: var(--color-text-main);
+}
 .selectBox {
   width: 90px;
   padding: 3px;
@@ -31,13 +34,25 @@
   gap: 10px;
   justify-content: center;
 }
-.selectLabel {
-  font-size: 14px;
-  color: var(--color-text-main);
-}
+
 .inputLabel {
   margin: 0;
   text-align: center;
   transform: scale(1.1);
   cursor: pointer;
+}
+@media (min-width: 768px) {
+  .selectLabel {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .selectLabel {
+    font-size: 20px;
+  }
+  .selectBox {
+    width: 120px;
+    font-size: 18px;
+  }
 }
