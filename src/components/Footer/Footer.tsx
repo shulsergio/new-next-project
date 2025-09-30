@@ -2,14 +2,14 @@ import React from "react";
 import css from "./Footer.module.css";
 
 export default function Footer() {
-  const currentQtyCommits = "025";
+  const currentQtyCommits = "028";
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className={css.footer}>
       <div className={css.content}>
         <p>
-          &copy; {currentYear} SAMS App. v1.1.{currentQtyCommits}
+          &copy; {currentYear} new App. v1.1.{currentQtyCommits}
         </p>
         {/* <div>
  

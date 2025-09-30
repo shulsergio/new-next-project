@@ -28,8 +28,16 @@ export default async function Profile() {
 
       {userProfile === "av.prom" ? (
         <>
-          <ProfileUserBox />
-          <ProfileUserShopBox />
+          <ComponentWrapper>
+
+            <ButtonBox option="link" href="user/motivation">
+              Motivation
+            </ButtonBox>
+            <ButtonBox option="link" href="user/focus-models">
+              Focus Models
+            </ButtonBox>
+
+          </ComponentWrapper>
         </>
       ) : (
         <>

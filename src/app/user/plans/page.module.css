@@ -45,7 +45,20 @@
   color: var(--color-text-headers);
   font-weight: 700;
 }
-/* .plansBox h2 {
-  padding-bottom: 20px;
-  text-align: center;
-} */
+
+@media screen and (min-width: 768px) {
+  .plansBox p {
+    font-size: 24px;
+    padding-bottom: 20px;
+  }
+  .formatUah {
+    font-size: 25px;
+  }
+  .newDataBox p {
+    font-size: 24px;
+  }
+  .circularProgressBar {
+    width: 160px;
+    height: 160px;
+  }
+}

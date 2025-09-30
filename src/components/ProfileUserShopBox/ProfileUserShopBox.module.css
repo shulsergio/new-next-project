@@ -3,3 +3,8 @@
   color: var(--color-text-headers);
   padding-left: 10px;
 }
+@media (min-width: 1200px) {
+  .span {
+    font-size: 24px;
+  }
+}
