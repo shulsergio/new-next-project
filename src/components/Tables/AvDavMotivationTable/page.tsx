@@ -16,7 +16,8 @@ export default function AvDavMotivationTable({ motivationData }) {
           <thead>
             <tr>
               {/* <th>#</th> */}
-              <th>mcsID</th>
+              <th>Acc</th>
+              <th>Region</th>
               <th>Promoter</th>
               <th>SO</th>
               <th>Qty</th>
@@ -28,12 +29,15 @@ export default function AvDavMotivationTable({ motivationData }) {
             {motivationData.map((item) => (
               <tr key={item._id}>
                 {/* <td>{item.cluster}</td> */}
-                <td>{item.storeId}</td>
+                <td className={css.infoStyle}>{item.account}</td>
+                <td className={css.infoStyle}>{item.region}</td>
                 <td>{item.mcsId}</td>
                 <td>{item.soar}</td>
                 <td>{item.soqty}</td>
                 <td>{item.ttlar}</td>
-                <td>{item.rank}</td>
+                <td className={item.rank <= 3 ? css.rankWinner : ""}>
+                  {item.rank}
+                </td>
               </tr>
             ))}
           </tbody>
