@@ -1,18 +1,18 @@
 .tableWrapper {
-  /* padding: 15px; */
   width: 100%;
   overflow-x: auto;
-  background-color: #fff;
+  /* background-color: #fff; */
+  /* 1111 */
+  background-color: #060d1b;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(251, 229, 229, 0.1);
   padding: 0;
 }
 .table {
   width: 100%;
-  /* border-collapse: collapse; */
-  /* border: 1px solid #a4a4a4; */
   font-size: 11px;
-  /* min-width: 380px; */
+  /* 1111 */
+  color: #f2f2f2;
   table-layout: fixed;
   margin: 0 auto;
   padding: 0;
@@ -20,28 +20,37 @@
 .table td {
   padding: 5px 2px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  /* 1111 */
+  /* border-bottom: 1px solid #ddd; */
+  border-bottom: 1px solid #1b2c70;
 }
 
 .table th {
-  background-color: #f2f2f2;
+  /* 1111 */
+  /* background-color: #f2f2f2; */
+  background-color: #12246d;
   font-size: 10px;
   padding: 8px 3px;
   text-align: center;
-  color: #232323;
+  /* 1111 */
+  color: #f2f2f2;
+  /* color: #232323; */
   font-weight: 700;
-  /* text-transform: uppercase; */
+  /* border-bottom: 1px solid #1b2c70; */
 }
 .infoStyle {
   font-size: 10px;
 }
 .rankWinner {
   color: #f2f2f2;
-  background-color: var(--color-text-main);
+  background-color: #ff00ff;
+  /* background-color: var(--color-text-main); */
   font-weight: 700;
 }
 .table tbody tr:hover {
-  background-color: #f5f5f5;
+  /* 1111 */
+  /* background-color: #f5f5f5; */
+  background-color: #12246d;
 }
 
 .table th:nth-child(1),
