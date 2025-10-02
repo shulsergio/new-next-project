@@ -22,6 +22,9 @@
   font-size: 13px;
   color: #333;
 }
+.updtext {
+  font-size: 10px;
+}
 .selectBox:focus {
   outline: none;
   /* 1111 */

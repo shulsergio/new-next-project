@@ -73,6 +73,7 @@ function ClusterFilter({
 }: ClusterFilterProps) {
   return (
     <div className={css.FilterBox}>
+      <p className={css.updtext}>update data- 28.09.2025</p>
       <label htmlFor="clusterSelect" className={css.selectLabel}>
         Filter by Cluster:
       </label>
