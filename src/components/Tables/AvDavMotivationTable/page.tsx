@@ -19,9 +19,9 @@ export default function AvDavMotivationTable({ motivationData }) {
               <th>Acc</th>
               <th>Region</th>
               <th>Promoter</th>
-              <th>SO</th>
+              {/* <th>SO</th>
               <th>Qty</th>
-              <th>TTL</th>
+              <th>TTL</th> */}
               <th>Rank</th>
             </tr>
           </thead>
@@ -32,9 +32,9 @@ export default function AvDavMotivationTable({ motivationData }) {
                 <td className={css.infoStyle}>{item.account}</td>
                 <td className={css.infoStyle}>{item.region}</td>
                 <td>{item.mcsId}</td>
-                <td>{item.soar}</td>
+                {/* <td>{item.soar}</td>
                 <td>{item.soqty}</td>
-                <td>{item.ttlar}</td>
+                <td>{item.ttlar}</td> */}
                 <td className={item.rank <= 3 ? css.rankWinner : ""}>
                   {item.rank}
                 </td>
