@@ -26,17 +26,19 @@ export default async function Profile() {
     <div className={css.container}>
       {/* <FirstModalData /> */}
 
-      {userProfile === "av.prom" ? (
+      {userProfile === "av.prom" ||
+      "av.dnipro" ||
+      "av.kyiv" ||
+      "av.lviv" ||
+      "av.odesa" ? (
         <>
           <ComponentWrapper>
-
             <ButtonBox option="link" href="user/motivation">
               Motivation
             </ButtonBox>
             <ButtonBox option="link" href="user/focus-models">
               Focus Models
             </ButtonBox>
-
           </ComponentWrapper>
         </>
       ) : (
