@@ -19,18 +19,22 @@ import { getServerSession } from "next-auth";
  */
 export default async function Profile() {
   const session = await getServerSession(authConfig);
+  const userProfile = session?.user.mcsId ?? "";
+  const allowedAvProfiles = [
+    "av.prom",
+    "av.dnipro",
+    "av.kyiv",
+    "av.lviv",
+    "av.odesa",
+  ];
 
-  const userProfile = session?.user.mcsId;
+  const isAvProfile = allowedAvProfiles.includes(userProfile);
   console.log("User Profile DATA IN PROFILE PAGE:", userProfile);
   return (
     <div className={css.container}>
       {/* <FirstModalData /> */}
 
-      {userProfile === "av.prom" ||
-      "av.dnipro" ||
-      "av.kyiv" ||
-      "av.lviv" ||
-      "av.odesa" ? (
+      {isAvProfile ? (
         <>
           <ComponentWrapper>
             <ButtonBox option="link" href="user/motivation">
