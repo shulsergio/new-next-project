@@ -21,7 +21,7 @@ export default async function UsersMotivationPage() {
       {userProfile !== "AV" ? (
         <TextBox option="text">{"No motivation now"}</TextBox>
       ) : (
-        <MotivationBox accessToken={session.accessToken} />
+        <MotivationBox />
       )}
     </>
   );

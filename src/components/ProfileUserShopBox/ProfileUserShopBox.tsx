@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import ComponentWrapper from "../ComponentWrapper/ComponentWrapper";
 import TextBox from "../TextBox/TextBox";
 import { fetchShopsById } from "@/utils/fetchData";
+import { useApiClient } from "@/app/configs/useApiClient";
 
 interface shopsData {
   chain: string;
@@ -12,6 +13,7 @@ interface shopsData {
 }
 
 export function ProfileUserShopBox() {
+  const { apiClient } = useApiClient();
   const { data: session } = useSession();
   const userProfile = session?.user;
   console.log("User Profile DATA IN ProfileUserShopBox:", userProfile);
@@ -20,15 +22,13 @@ export function ProfileUserShopBox() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (userProfile?.shop && session?.accessToken) {
+    if (userProfile?.shop) {
       const getShopData = async () => {
         try {
           setIsLoading(true);
 
-          const data = await fetchShopsById(
-            userProfile.shop || "",
-            session.accessToken || ""
-          );
+          const data = await fetchShopsById(apiClient, userProfile.shop || "");
+
           console.log("Fetched shops data:", data.data);
 
           setShopsData(data.data.shops);
@@ -45,7 +45,7 @@ export function ProfileUserShopBox() {
       setIsLoading(false);
       setShopsData(null);
     }
-  }, [userProfile?.shop, session?.accessToken]);
+  }, [userProfile?.shop, apiClient]);
 
   if (isLoading) {
     return (

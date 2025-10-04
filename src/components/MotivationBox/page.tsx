@@ -2,33 +2,43 @@
 import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import css from "./page.module.css";
-import { fetchDavDataClusters } from "@/utils/fetchData";
+// import { fetchDavDataClusters } from "@/utils/fetchData";
 import AvDavMotivationTable from "../Tables/AvDavMotivationTable/page";
+import { useApiClient } from "@/app/configs/useApiClient";
 
 const selectClusters = ["1", "2", "3", "4", "5"];
 
-export default function MotivationBox({ accessToken }) {
+interface DavMotivationResponse {
+  data: {
+    davMotivations: unknown;
+  };
+}
+
+export default function MotivationBox() {
+  const { apiClient } = useApiClient();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedCluster, setSelectedCluster] = useState(selectClusters[0]);
-  const [data, setData] = useState(null);
-  //  setSelectedCluster(selectClusters[0]);
+  const [data, setData] = useState<unknown | null>(null);
 
   const handleSelectChange = (clusterName) => {
     setSelectedCluster(clusterName);
   };
 
   useEffect(() => {
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/motivation/davMotivation?cluster=${selectedCluster}`;
+
     const loadData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const fetchedData = await fetchDavDataClusters(
-          selectedCluster,
-          accessToken
-        );
+        const fetchedData = await apiClient<DavMotivationResponse>(BackApi, {
+          method: "GET",
+          cache: "no-store",
+        });
         console.log("*** data in MotivationBox clusters:::", fetchedData);
-        setData(fetchedData.data.davMotivations);
+        setData(fetchedData?.data?.davMotivations);
       } catch (e) {
         console.error("Error loading DAV data clusters:", e);
       } finally {
@@ -36,7 +46,7 @@ export default function MotivationBox({ accessToken }) {
       }
     };
     loadData();
-  }, [accessToken, selectedCluster]);
+  }, [apiClient, selectedCluster]);
 
   console.log("*** data in MotivationBox clusters:::", data);
   return (

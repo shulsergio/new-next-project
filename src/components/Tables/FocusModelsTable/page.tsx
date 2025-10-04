@@ -3,7 +3,7 @@ import css from "./FocusModelsTable.module.css";
 export interface FocusModel {
   _id: string;
   year: number;
-  month: number;
+  month: string;
   sku: string;
   prd: string;
   rrp: string;

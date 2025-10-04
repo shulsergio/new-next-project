@@ -28,20 +28,40 @@ export default function FocusModelsManager({
   const [focusModels, setFocusModels] = useState<FocusModel[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [curPage, setCurPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
   const [selectedPrd, setSelectedPrd] = useState<string>("all");
+  const [selectedMonth, setSelectedMonth] = useState<string>("all");
   const [prds, setPrds] = useState<string[]>([]);
+  const [months, setMonths] = useState<string[]>([]);
   const [isFocusOnly, setIsFocusOnly] = useState(false);
   const [isBonusOnly, setIsBonusOnly] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const loadAllPrds = async () => {
       try {
-        const allPrds = await fetchAllPrds(1, 10000, type, accessToken);
-        setPrds(allPrds);
-        console.log("*** data in FocusModelsManager::: allPrds:::", allPrds);
-        if (allPrds.length > 0) {
-          setSelectedPrd(allPrds[0]);
+        const allFilterData = await fetchAllPrds(1, 10000, type, accessToken);
+
+        setPrds(allFilterData.productIds);
+
+        if (allFilterData.productIds.length > 0) {
+          setSelectedPrd(allFilterData.productIds[0]);
+        }
+
+        console.log(
+          "*** data in FocusModelsManager::: allFilterData.months",
+          allFilterData.months
+        );
+        console.log(
+          "*** data in FocusModelsManager::: allFilterData.months.length",
+          allFilterData.months.length
+        );
+        setMonths(allFilterData.months);
+        if (allFilterData.months.length > 0) {
+          setSelectedMonth(
+            allFilterData.months[allFilterData.months.length - 1]
+          );
         }
       } catch (e) {
         console.error("Ошибка при загрузке всех PRD:", e);
@@ -62,6 +82,7 @@ export default function FocusModelsManager({
           type,
           accessToken,
           selectedPrd,
+          selectedMonth,
           isFocusOnly,
           isBonusOnly
         );
@@ -85,10 +106,15 @@ export default function FocusModelsManager({
     selectedPrd,
     isFocusOnly,
     isBonusOnly,
+    selectedMonth,
   ]);
 
   const handlePrdChange = (prd: string) => {
     setSelectedPrd(prd);
+    setCurPage(1);
+  };
+  const handleMonthChange = (month: string) => {
+    setSelectedMonth(month);
     setCurPage(1);
   };
   const handleFocusChange = (isChecked: boolean) => {
@@ -121,13 +147,19 @@ export default function FocusModelsManager({
       {!loading && !error && (
         <>
           <div className={css.filterWrapperBox}>
+            <MonthFilter
+              months={months}
+              onMonthChange={handleMonthChange}
+              selectedMonth={selectedMonth}
+            />
+
             <PrdFilter
               prds={prds}
               onPrdChange={handlePrdChange}
               selectedPrd={selectedPrd}
             />
+
             <div className={css.focusFilterBox}>
-              {" "}
               <FocusFilter
                 isFocusOnly={isFocusOnly}
                 onFocusChange={handleFocusChange}
@@ -160,7 +192,7 @@ function PrdFilter({ prds, selectedPrd, onPrdChange }: PrdFilterProps) {
   return (
     <div className={css.prdFilterBox}>
       <label htmlFor="prdSelect" className={css.selectLabel}>
-        Filter by Group:
+        Filter group:
       </label>
       <select
         id="prdSelect"
@@ -171,6 +203,38 @@ function PrdFilter({ prds, selectedPrd, onPrdChange }: PrdFilterProps) {
         {prds.map((prd) => (
           <option key={prd} value={prd}>
             {prd}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+interface MonthFilterProps {
+  months: string[];
+  selectedMonth: string | null;
+  onMonthChange: (month: string) => void;
+}
+
+function MonthFilter({
+  months,
+  selectedMonth,
+  onMonthChange,
+}: MonthFilterProps) {
+  return (
+    <div className={css.prdFilterBox}>
+      <label htmlFor="prdSelect" className={css.selectLabel}>
+        Filter month:
+      </label>
+      <select
+        id="prdSelect"
+        value={selectedMonth || ""}
+        onChange={(e) => onMonthChange(e.target.value)}
+        className={css.selectBox}
+      >
+        {months.map((item) => (
+          <option key={item} value={item}>
+            {item}
           </option>
         ))}
       </select>

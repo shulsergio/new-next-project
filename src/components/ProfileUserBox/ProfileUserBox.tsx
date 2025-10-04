@@ -6,13 +6,17 @@ import TextBox from "../TextBox/TextBox";
 import Modal from "../Modal/Modal";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { useApiClient } from "@/app/configs/useApiClient";
 
 // -- UniformSizeData --
 const UniformSizeData = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
 
 export function ProfileUserBox() {
+  const { apiClient } = useApiClient();
+
   const { data: session, update } = useSession();
   const userProfile = session?.user;
+  console.log("User apiClient DATA IN PROFILE:", apiClient);
   console.log("User Profile DATA IN PROFILE:", userProfile);
 
   const profileTitle = `${userProfile?.role} profile`;
@@ -44,37 +48,24 @@ export function ProfileUserBox() {
   const handleSaveBtn = async () => {
     setIsSave(true);
 
-    if (!session?.accessToken || !userProfile?.id) {
-      toast.error("Ошибка: Нет доступа или ID пользователя.");
+    if (!userProfile?.id) {
+      toast.error("Ошибка: Нет ID пользователя.");
       setIsSave(false);
       return;
     }
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/${userProfile.id}/uniform`;
+
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/${userProfile.id}/uniform`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session.accessToken}`,
-          },
-          body: JSON.stringify({ newUniformValue: uniformEditValue.trim() }),
-        }
-      );
-      if (!response.ok) {
-        const errorData = await response
-          .json()
-          .catch(() => ({ message: "Unknown error" }));
-        throw new Error(
-          errorData.message || "Не удалось обновить размер униформы."
-        );
-      }
-      const result = await response.json();
+      const result = await apiClient(BackApi, {
+        method: "PATCH",
+        body: JSON.stringify({ newUniformValue: uniformEditValue.trim() }),
+      });
+
       console.log("result FROM BACKEND (после PATCH):", result);
 
       await update({
         user: {
-          ...session.user,
+          ...session!.user,
           uniform: uniformEditValue.trim(),
         },
       });
@@ -82,7 +73,12 @@ export function ProfileUserBox() {
       toast.success("Size changed!");
       closeModal();
     } catch (error: unknown) {
-      console.error("ERR UNIFORM:", error);
+      if (
+        error instanceof Error &&
+        !error.message.includes("Session expired")
+      ) {
+        toast.error(error.message || "Не удалось обновить размер униформы.");
+      }
     } finally {
       setIsModalOpen(false);
       setIsSave(false);
