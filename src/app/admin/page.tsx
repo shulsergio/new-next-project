@@ -62,8 +62,8 @@ export default function Admin() {
               Motivation
             </ButtonBox>
 
-            <ButtonBox option="link" href="admin/competitors">
-              competitors
+            <ButtonBox option="link" href="user/focus-models">
+              Focus Models
             </ButtonBox>
           </ComponentAdminWrapper>
         </div>
