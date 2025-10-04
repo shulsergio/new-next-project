@@ -6,14 +6,16 @@ import css from "./AuthStatus.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
-export default function AuthStatus() {
+export default function AuthStatus({ onMenuAction }) {
   const { data: session, status } = useSession();
   const name = session?.user?.name || "";
 
   if (status === "unauthenticated") {
     return (
       <>
-        <Link href="/signin" className={css.link}>Login</Link>
+        <Link href="/signin" className={css.link} onClick={onMenuAction}>
+          Login
+        </Link>
       </>
     );
   }
