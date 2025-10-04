@@ -58,13 +58,10 @@ export default function Admin() {
             >
               promoters plans
             </ButtonBox>
-            <ButtonBox
-              option="link"
-              // href="admin/shops"
-              onClick={() => setCurrentPage("promoters/motivation")}
-            >
-              motivation
+            <ButtonBox option="link" href="user/motivation">
+              Motivation
             </ButtonBox>
+
             <ButtonBox option="link" href="admin/competitors">
               competitors
             </ButtonBox>
