@@ -4,6 +4,7 @@ import AuthStatus from "../AuthStatus/AuthStatus";
 import Link from "next/link";
 import css from "./Navigation.module.css";
 import { useCallback, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 const FontAwesomeIcon = ({ icon }) => {
   const iconMap = {
@@ -18,6 +19,10 @@ const faBars = "faBars";
 const faXmark = "faXmark";
 
 export default function Navigation() {
+  const { data: session } = useSession();
+  const navName = session?.user?.name || "";
+  // const navName = "VASYA";
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = useCallback(() => {
@@ -67,6 +72,7 @@ export default function Navigation() {
         >
           <FontAwesomeIcon icon={isOpen ? faXmark : faBars} />
         </button>
+        <div className={css.navName}> {navName}</div>
       </nav>
 
       <div
@@ -74,10 +80,10 @@ export default function Navigation() {
         className={`${css.mobileMenu} ${isOpen ? css.mobileMenuOpen : ""}`}
         aria-hidden={!isOpen}
       >
-        {navItems}
         <div className={css.mobileAuthStatus}>
           <AuthStatus onMenuAction={toggleMenu} />
         </div>
+        {navItems}
       </div>
     </header>
   );

@@ -20,11 +20,13 @@ export default function AuthStatus({ onMenuAction }) {
     );
   }
   return (
-    <p className={css.userName}>
-      {name}
-      <button onClick={clientSideSignOut} className={css.logoutLinkButton}>
-        <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
-      </button>
-    </p>
+    <>
+      <p className={css.userName}>
+        {name}
+        <button onClick={clientSideSignOut} className={css.logoutLinkButton}>
+          <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
+        </button>
+      </p>
+    </>
   );
 }
