@@ -95,13 +95,13 @@
 }
 
 .mobileMenu .link {
-  padding: 20px 0 0 37px;
+  padding: 20px 0 0 30px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mobileAuthStatus {
   /* margin-top: auto; */
-  padding: 40px 0 0 30px;
+  padding: 10px 0 0 30px;
   /* border-top: 1px solid rgba(255, 255, 255, 0.2); */
 }
 /* ------------------------------------------------------------------- */

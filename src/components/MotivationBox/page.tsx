@@ -84,7 +84,7 @@ function ClusterFilter({
   return (
     <div className={css.FilterBox}>
       <p className={css.updtext}>
-        Selout data- <span>03.10.2025</span>
+        Selout data- <span>05.10.2025</span>
       </p>
       <label htmlFor="clusterSelect" className={css.selectLabel}>
         Filter by Cluster:
