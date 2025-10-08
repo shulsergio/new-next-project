@@ -1,7 +1,4 @@
 import css from "./profile.module.css";
-// import { authConfig } from "../configs/authConfig";
-// import { getServerSession } from "next-auth";
-import { ProfileUserBox } from "@/components/ProfileUserBox/ProfileUserBox";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 import { ProfileUserShopBox } from "@/components/ProfileUserShopBox/ProfileUserShopBox";
@@ -47,7 +44,6 @@ export default async function Profile() {
         </>
       ) : (
         <>
-          <ProfileUserBox />
           <ProfileUserShopBox />
           <ComponentWrapper>
             <ButtonBox option="link" href="user/plans">

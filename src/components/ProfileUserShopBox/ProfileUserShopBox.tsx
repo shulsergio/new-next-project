@@ -6,6 +6,8 @@ import ComponentWrapper from "../ComponentWrapper/ComponentWrapper";
 import TextBox from "../TextBox/TextBox";
 import { fetchShopsById } from "@/utils/fetchData";
 import { useApiClient } from "@/app/configs/useApiClient";
+import ButtonBox from "../ButtonBox/ButtonBox";
+import Modal from "../Modal/Modal";
 
 interface shopsData {
   chain: string;
@@ -20,6 +22,16 @@ export function ProfileUserShopBox() {
 
   const [shopsData, setShopsData] = useState<shopsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
+  useEffect(() => {
+    const hasShownWelcomeModal = sessionStorage.getItem("welcomeModalShown");
+    console.log("!!! hasShownWelcomeModal:", hasShownWelcomeModal);
+    if (hasShownWelcomeModal !== "1" && !hasShownWelcomeModal) {
+      console.log("!!! hasShownWelcomeModal IN IF:", hasShownWelcomeModal);
+      setIsWelcomeModalOpen(true);
+      sessionStorage.setItem("welcomeModalShown", "1");
+    }
+  }, []);
 
   useEffect(() => {
     if (userProfile?.shop) {
@@ -54,17 +66,47 @@ export function ProfileUserShopBox() {
       </ComponentWrapper>
     );
   }
+  const profileTitle = `${userProfile?.role} profile`;
+
+  const closeWelcomeModal = () => {
+    setIsWelcomeModalOpen(false);
+  };
+
   return (
-    <ComponentWrapper>
-      <TextBox option="static">
-        Shop: <span className={css.span}>{userProfile?.shop || "-"}</span>
-      </TextBox>
-      <TextBox option="static">
-        Chain: <span className={css.span}>{shopsData?.chain || "-"}</span>
-      </TextBox>
-      <TextBox option="static">
-        Addr: <span className={css.span}>{shopsData?.address || "-"}</span>
-      </TextBox>
+    <ComponentWrapper title={profileTitle}>
+      <div className={css.box}>
+        <ButtonBox option="link" href="user/userInfo">
+          🔑 User Info
+        </ButtonBox>
+        <div className={css.boxSmall}>
+          <TextBox option="static">
+            Role: <span className={css.span}>{userProfile?.role || "-"}</span>
+          </TextBox>
+          <TextBox option="static">
+            User type:{" "}
+            <span className={css.span}>{userProfile?.userType || "-"}</span>
+          </TextBox>
+          <TextBox option="static">
+            Shop: <span className={css.span}>{userProfile?.shop || "-"}</span>
+          </TextBox>
+          <TextBox option="static">
+            Chain: <span className={css.span}>{shopsData?.chain || "-"}</span>
+          </TextBox>
+          <TextBox option="static">
+            Addr: <span className={css.span}>{shopsData?.address || "-"}</span>
+          </TextBox>
+        </div>
+        <Modal
+          isOpen={isWelcomeModalOpen}
+          onClose={closeWelcomeModal}
+          title="Hello!"
+        >
+          <p>Селаут оновлено по 28.09 включно (all sept)</p>
+          <button className={css.modalSaveButton} onClick={closeWelcomeModal}>
+            ОК
+          </button>
+        </Modal>
+      </div>
     </ComponentWrapper>
   );
 }
