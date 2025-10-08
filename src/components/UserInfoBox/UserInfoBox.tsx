@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import css from "./UserInfoBox.module.css";
 import ComponentWrapper from "../ComponentWrapper/ComponentWrapper";
 import TextBox from "../TextBox/TextBox";
@@ -28,7 +28,77 @@ export function UserInfoBox() {
   );
   const [isSave, setIsSave] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // Состояния для изменения пароля
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  // -- и изменение пароля --
+  const passwordsMatch = newPassword === confirmPassword;
+  const isConfirmError = confirmPassword && !passwordsMatch;
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      setError(null);
 
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        toast.error("Все поля пароля должны быть заполнены.");
+        console.error("Validation Error: All password fields must be filled.");
+        return;
+      }
+
+      if (!passwordsMatch) {
+        console.log("Пароли не совпадают");
+        return;
+      }
+
+      if (newPassword.length < 3) {
+        console.log("Пароль должен быть не менее 3 символов");
+        return;
+      }
+
+      // 2. Имитация отправки данных
+      setIsLoading(true);
+
+      const dataToSend = {
+        outDatePassword: currentPassword,
+        newPassword: newPassword,
+      };
+
+      try {
+        const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/password`;
+        const result = await apiClient(BackApi, {
+          method: "PATCH",
+          body: JSON.stringify(dataToSend),
+        });
+        console.log("result FROM BACKEND (PATCH):", result);
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      } catch (err: unknown) {
+        console.error("Ошибка при обновлении пароля:", err);
+        if (err instanceof Error) {
+          toast.error(
+            err.message.includes("Details:")
+              ? err.message.split("Details:")[1].trim()
+              : "Не удалось обновить пароль. Проверьте старый пароль."
+          );
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [apiClient, currentPassword, newPassword, confirmPassword, passwordsMatch]
+  );
+  const handlePasswordChange = (
+    setter: React.Dispatch<React.SetStateAction<string>>,
+    value: string
+  ) => {
+    setError(null);
+    setter(value);
+  };
+  //-------------------------
   useEffect(() => {
     console.log(
       "EFFECT: session.user.uniform changed to:",
@@ -89,6 +159,7 @@ export function UserInfoBox() {
 
   return (
     <>
+      {error && <p>Error</p>}
       <ComponentWrapper title={userInfoTitle}>
         <TextBox option="static">
           Role: <span className={css.span}>{userProfile?.role || "-"}</span>
@@ -155,6 +226,67 @@ export function UserInfoBox() {
         <TextBox option="static">
           Pass: <span className={css.span}>change</span>
         </TextBox>
+      </ComponentWrapper>
+      <ComponentWrapper title="change password">
+        {/* <TextBox option="static">
+          Pass: <span className={css.span}>change</span>
+        </TextBox> */}
+        <form id="passwordChangeForm" onSubmit={handleSubmit}>
+          <div className="form-data">
+            <label htmlFor="current_password"> old password</label>
+            <input
+              type="password"
+              onChange={(e) =>
+                handlePasswordChange(setCurrentPassword, e.target.value)
+              }
+              id="current_password"
+              value={currentPassword}
+              placeholder="enter pass"
+              required
+            />
+          </div>
+
+          <div className="form-data">
+            <label htmlFor="new_password">new password</label>
+            <input
+              type="password"
+              value={newPassword}
+              id="new_password"
+              onChange={(e) =>
+                handlePasswordChange(setNewPassword, e.target.value)
+              }
+              placeholder="enter pass"
+              required
+              autoComplete="new-password"
+            />
+          </div>
+
+          <div className="form-data">
+            <label htmlFor="confirm_password">confirm password</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              id="confirm_password"
+              onChange={(e) =>
+                handlePasswordChange(setConfirmPassword, e.target.value)
+              }
+              placeholder="enter pass"
+              required
+            />
+            {isConfirmError && (
+              <p className={css.errConfirmPassword}>Passwords do not match.</p>
+            )}
+          </div>
+          <button
+            type="submit"
+            id="submitButton"
+            className={css.formSubmitButton}
+            onClick={handleSubmit}
+            disabled={isLoading}
+          >
+            Change
+          </button>
+        </form>
       </ComponentWrapper>
       <ButtonBox option="link" href="/profile/">
         Back

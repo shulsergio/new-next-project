@@ -360,6 +360,11 @@ export async function fetchBonusModels(type: string, accessToken: string, storeI
     return data;
 }
 
+
+
+
+
+
 // export async function fetchDavDataClusters(selectedCluster: string, accessToken: string) {
 //   const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/motivation/davMotivation?cluster=${selectedCluster}`;
 //   console.log("%%%% FILE fetchDavDataClusters BackApi: ", BackApi)
