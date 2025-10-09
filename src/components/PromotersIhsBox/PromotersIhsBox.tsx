@@ -20,22 +20,22 @@ export default function PromotersIhsBox({
   IhsShopsData,
   sessionCategory,
 }: PromotersIhsBoxProps) {
-  console.log("&&& PromotersIhsBox- ", IhsShopsData);
-  console.log("&&& typeof IhsShopsData:", typeof IhsShopsData);
-  console.log(
-    "&&&  IhsShopData Array.isArray(IhsShopsData):",
-    Array.isArray(IhsShopsData)
-  );
+  // console.log("&&& PromotersIhsBox- ", IhsShopsData);
+  // console.log("&&& typeof IhsShopsData:", typeof IhsShopsData);
+  // console.log(
+  //   "&&&  IhsShopData Array.isArray(IhsShopsData):",
+  //   Array.isArray(IhsShopsData)
+  // );
   const weekNumberofMonth = ["w32", "w33", "w34", "w35"]; // !!!! WEEEKS !!!!   !!!! WEEEKS !!!!
 
   const weeksData = weekNumberofMonth.map((weekN) => {
     const newarray = IhsShopsData.find((item) => item.week === weekN);
-    console.log("&&& PromotersIhsBox- newarray - ", newarray);
+    // console.log("&&& PromotersIhsBox- newarray - ", newarray);
     if (newarray) {
       const IhsInCategory = newarray.categories.find(
         (catItem) => catItem.category === sessionCategory
       );
-      console.log("&&& PromotersIhsBox- IhsInCategory - ", IhsInCategory);
+      // console.log("&&& PromotersIhsBox- IhsInCategory - ", IhsInCategory);
       return IhsInCategory
         ? parseFloat((100 * IhsInCategory.share).toFixed(1))
         : 0;

@@ -104,10 +104,6 @@ export function UserInfoBox() {
   };
   //-------------------------
   useEffect(() => {
-    console.log(
-      "EFFECT: session.user.uniform changed to:",
-      session?.user?.uniform
-    );
     setUniformEditValue(session?.user?.uniform || "");
   }, [session?.user?.uniform]);
 

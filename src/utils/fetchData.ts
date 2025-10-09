@@ -147,7 +147,7 @@ export async function fetchAllPromoters(accessToken: string) {
     }
   }
   const data = await response.json();
-  console.log('ALL PROMOTERS DATA:', data);
+  // console.log('ALL PROMOTERS DATA:', data);
   return data;
 
   }
@@ -171,7 +171,7 @@ export async function fetchAllPromoters(accessToken: string) {
     }
   }
   const data = await response.json();
-  console.log('ALL PROMOTERS DATA:', data);
+  // console.log('ALL PROMOTERS DATA:', data);
   return data;
 
   }
@@ -197,7 +197,7 @@ export async function fetchShopMatixData(storeId: string, accessToken: string) {
       throw new Error("Failed to fetch IHS data");
     }
     const data = await response.json();
-    console.log('%%%% FILE fetchShopMatixData: ', data)
+    // console.log('%%%% FILE fetchShopMatixData: ', data)
     return data;
   }
 interface shopsData {
@@ -219,18 +219,18 @@ interface shopsData {
     cache: "no-store",
   });
 
-  console.log('%%%% FILE fetchShopsById (Cleaned Data): ', data);
+  // console.log('%%%% FILE fetchShopsById (Cleaned Data): ', data);
 
   return data;
 }
   
   export async function fetchFocusModels(curPage: number, limit: number, type: string, accessToken: string, selectedPrd: string, selectedMonth: string, isFocusOnly: boolean,isBonusOnly: boolean): Promise<ApiResponse> {
     // type = "AV";
-    console.log("WWWWW fetchFocusModels selectedPrd===", selectedPrd)
-        console.log("WWWWW fetchFocusModels selectedMonth===", selectedMonth)
+    // console.log("WWWWW fetchFocusModels selectedPrd===", selectedPrd)
+        // console.log("WWWWW fetchFocusModels selectedMonth===", selectedMonth)
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}&selectedPrd=${selectedPrd}&selectedMonth=${selectedMonth}&isFocusOnly=${isFocusOnly}&isBonusOnly=${isBonusOnly}`;
 
-    console.log("WWWWW fetchFocusModels BackApi===", BackApi)
+    // console.log("WWWWW fetchFocusModels BackApi===", BackApi)
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {
@@ -248,7 +248,7 @@ interface shopsData {
       throw new Error("Failed to fetch IHS data");
     }
     const data = await response.json();
-    console.log('%%%% FILE fetchShopMatixData: ', data)
+    // console.log('%%%% FILE fetchShopMatixData: ', data)
     return data;
 }
   interface FocusFilterModelData {
@@ -262,10 +262,10 @@ export const fetchAllPrds = async (
   accessToken: string
 ): Promise<FocusFilterModelData> => {
 
-    console.log('EEEE fetchAllPrds type===', type);
+    // console.log('EEEE fetchAllPrds type===', type);
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}`;
 
-    console.log("EEEE fetchAllPrds BackApi===", BackApi)
+    // console.log("EEEE fetchAllPrds BackApi===", BackApi)
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {
@@ -283,14 +283,14 @@ export const fetchAllPrds = async (
       throw new Error("Failed to fetchAllPrds data");
     }
   const responseData = await response.json() as ApiResponse;
-        console.log('EEEE fetchAllPrds responseData===', responseData);
+        // console.log('EEEE fetchAllPrds responseData===', responseData);
   const uniquePrds = Array.from(
     new Set(responseData.data.data.map((item: ProductData) => item.prd))
   );
     const uniqueMonths = Array.from(
     new Set(responseData.data.data.map((item: ProductData) => item.month))
   );
-      console.log('EEEE fetchAllPrds uniqueMonth===', uniqueMonths);
+      // console.log('EEEE fetchAllPrds uniqueMonth===', uniqueMonths);
     return {
     productIds: ['all', ...uniquePrds],
     months: uniqueMonths,
@@ -304,10 +304,10 @@ export const fetchAllWeeks = async (
     week: string = "all"
 ): Promise<string[]> => {
 
-  console.log('XXXXX fetchAllWeeks type===', type);
+  // console.log('XXXXX fetchAllWeeks type===', type);
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}?type=${type}&week=${week}`;
 
-    console.log("XXXXX fetchAllWeeks BackApi===", BackApi)
+    // console.log("XXXXX fetchAllWeeks BackApi===", BackApi)
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {
@@ -326,19 +326,19 @@ export const fetchAllWeeks = async (
   }
  // const data = ['all']; подставной для ретурна
   const responseData = await response.json() as ApiResponseWeek;
-        console.log('XXXXX fetchAllWeeks responseData.data.BonusData===', responseData.data.bonuses);
+        // console.log('XXXXX fetchAllWeeks responseData.data.BonusData===', responseData.data.bonuses);
   const uniqueWeeks = Array.from<string>(
     new Set(responseData.data.bonuses.map((item) => item.week))
   );
-      console.log('XXXXX fetchAllWeeks uniqueWeeks===', uniqueWeeks);
+      // console.log('XXXXX fetchAllWeeks uniqueWeeks===', uniqueWeeks);
   return ['all', ...uniqueWeeks];
 }
 
 export async function fetchBonusModels(type: string, accessToken: string, storeId: string, week: string) {
 
-  console.log('XXXXX fetchBonusModels type===', type);
+  // console.log('XXXXX fetchBonusModels type===', type);
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/topBonus/${storeId}?type=${type}&week=${week}`;
-    console.log("WWWWW fetchBonusModels BackApi===", BackApi)
+    // console.log("WWWWW fetchBonusModels BackApi===", BackApi)
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {
@@ -356,7 +356,7 @@ export async function fetchBonusModels(type: string, accessToken: string, storeI
       throw new Error("Failed to fetch IHS data");
     }
     const data = await response.json();
-    console.log('WWWWW DATAAAA fetchBonusModels: ', data)
+    // console.log('WWWWW DATAAAA fetchBonusModels: ', data)
     return data;
 }
 

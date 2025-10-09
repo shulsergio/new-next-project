@@ -19,16 +19,16 @@ export function ProfileUserShopBox() {
   const { apiClient } = useApiClient();
   const { data: session } = useSession();
   const userProfile = session?.user;
-  console.log("User Profile DATA IN ProfileUserShopBox:", userProfile);
+  // console.log("User Profile DATA IN ProfileUserShopBox:", userProfile);
 
   const [shopsData, setShopsData] = useState<shopsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
   useEffect(() => {
     const hasShownWelcomeModal = sessionStorage.getItem("welcomeModalShown");
-    console.log("!!! hasShownWelcomeModal:", hasShownWelcomeModal);
+    // console.log("!!! hasShownWelcomeModal:", hasShownWelcomeModal);
     if (hasShownWelcomeModal !== "1" && !hasShownWelcomeModal) {
-      console.log("!!! hasShownWelcomeModal IN IF:", hasShownWelcomeModal);
+      // console.log("!!! hasShownWelcomeModal IN IF:", hasShownWelcomeModal);
       setIsWelcomeModalOpen(true);
       sessionStorage.setItem("welcomeModalShown", "1");
     }
@@ -42,7 +42,7 @@ export function ProfileUserShopBox() {
 
           const data = await fetchShopsById(apiClient, userProfile.shop || "");
 
-          console.log("Fetched shops data:", data.data);
+          // console.log("Fetched shops data:", data.data);
 
           setShopsData(data.data.shops);
         } catch (error) {

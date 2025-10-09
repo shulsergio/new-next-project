@@ -45,7 +45,7 @@ export default function TopBonusPageManager({
       try {
         const allWeeks = await fetchAllWeeks(type, accessToken, storeId);
         setWeek(allWeeks);
-        console.log("*** data in FocusModelsManager::: allPrds:::", allWeeks);
+        // console.log("*** data in FocusModelsManager::: allPrds:::", allWeeks);
         if (allWeeks.length > 0) {
           setSelectedWeek(allWeeks[0]);
         }
@@ -55,8 +55,8 @@ export default function TopBonusPageManager({
     };
     loadAllWeeks();
   }, [accessToken, type, storeId]);
-  console.log("**!! data in TopBonusList weeks", week);
-  console.log("**!! data in TopBonusList selectedWeek", selectedWeek);
+  // console.log("**!! data in TopBonusList weeks", week);
+  // console.log("**!! data in TopBonusList selectedWeek", selectedWeek);
   //----------------
 
   useEffect(() => {
@@ -70,15 +70,12 @@ export default function TopBonusPageManager({
           storeId,
           selectedWeek
         );
-        // Добавляем проверку
+     
         if (Array.isArray(fetchedData.data.bonuses)) {
           setAllModels(fetchedData.data.bonuses);
         } else {
-          console.error(
-            "fetchedData.data.bonuses не является массивом:",
-            fetchedData.data.bonuses
-          );
-          setAllModels([]); // устанавливаем пустой массив как fallback
+
+          setAllModels([]);  
         }
       } catch (e) {
         console.error("Ошибка при загрузке всех weeks:", e);
@@ -94,8 +91,8 @@ export default function TopBonusPageManager({
     setSelectedWeek(week);
   };
 
-  console.log("**!! data in TopBonusList allModels", allModels);
-  console.log("**!! data in TopBonusList typeof allModels", typeof allModels);
+  // console.log("**!! data in TopBonusList allModels", allModels);
+  // console.log("**!! data in TopBonusList typeof allModels", typeof allModels);
   return (
     <>
       {loading && <Loader isLoading={true} />}

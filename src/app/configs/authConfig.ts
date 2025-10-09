@@ -43,7 +43,12 @@ export const authConfig: NextAuthOptions = {
                             gender: backendResponse.data.user.gender,
                             uniform: backendResponse.data.user.uniform,
                             region: backendResponse.data.user.region,
+                            city: backendResponse.data.user.city,
                             shop: backendResponse.data.user.shop,
+                            INN: backendResponse.data.user.INN,
+                            mobile: backendResponse.data.user.mobile,
+                            dateOfHied: backendResponse.data.user.dateOfHied,
+                            dateOfFired: backendResponse.data.user.dateOfFired,
                             lastVisit: backendResponse.data.user.lastVisit,
                             accessToken: backendResponse.data.accessToken,
                             };
@@ -81,6 +86,11 @@ export const authConfig: NextAuthOptions = {
                 token.shop = user.shop;
                 token.uniform = user.uniform;
                 token.region = user.region;
+                token.city = user.city;
+                token.INN = user.INN;
+                token.mobile = user.mobile;
+                token.dateOfHied = user.dateOfHied;
+                token.dateOfFired = user.dateOfFired;
                 token.lastVisit = user.lastVisit;
 
                 if (user.accessToken) {
@@ -114,6 +124,11 @@ export const authConfig: NextAuthOptions = {
                             token.gender = userData.data.user.gender;
                             token.uniform = userData.data.user.uniform; 
                             token.region = userData.data.user.region;
+                            token.city = userData.data.user.city;
+                            token.INN = userData.data.user.INN;
+                            token.mobile = userData.data.user.mobile;
+                            token.dateOfHied = userData.data.user.dateOfHied;
+                            token.dateOfFired = userData.data.user.dateOfFired;
                             token.lastVisit = userData.data.user.lastVisit;
                 
                         } else {
@@ -137,6 +152,11 @@ export const authConfig: NextAuthOptions = {
                  session.user.shop = token.shop as string;
                  session.user.uniform = token.uniform as string;
                  session.user.region = token.region as string;
+            session.user.city = token.city as string;
+            session.user.INN = token.INN as string;
+         session.user.mobile = token.mobile as string;
+        session.user.dateOfHied = token.dateOfHied as string;
+          session.user.dateOfFired = token.dateOfFired as string;
                     session.user.lastVisit = token.lastVisit as string;
              }
              if (token.accessToken) {   
@@ -167,6 +187,11 @@ declare module "next-auth" {
             shop?: string;
             uniform?: string;
             region?: string;
+            city?: string;
+            INN?: string;
+            mobile?: string;
+            dateOfHied?: string;
+            dateOfFired?: string;
             lastVisit?: string;
         } & DefaultSession["user"];
 
@@ -185,21 +210,30 @@ declare module "next-auth" {
         shop?: string;
         uniform?: string;
         region?: string;
-        lastVisit?: string;
+            city?: string;
+            INN?: string;
+            mobile?: string;
+            dateOfHied?: string;
+            dateOfFired?: string;
+            lastVisit?: string;
 
     }
 
     interface JWT {
-        id: string;
+         id: string;
         email: string;
         name?: string;
-        role?: string;
         mcsId: string;
+        role?: string;
         userType?: string;
-        uniform?: string;
         shop?: string;
-        accessToken?: string;
+        uniform?: string;
         region?: string;
-        lastVisit?: string;
+            city?: string;
+            INN?: string;
+            mobile?: string;
+            dateOfHied?: string;
+            dateOfFired?: string;
+            lastVisit?: string;
     }
 }

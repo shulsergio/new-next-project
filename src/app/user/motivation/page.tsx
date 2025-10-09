@@ -15,7 +15,7 @@ export default async function UsersMotivationPage() {
   }
 
   const userProfile = session?.user.userType;
-  console.log("User Profile DATA IN COMPETITORS PAGE:", userProfile);
+  // console.log("User Profile DATA IN COMPETITORS PAGE:", userProfile);
   return (
     <>
       {userProfile !== "AV" ? (
