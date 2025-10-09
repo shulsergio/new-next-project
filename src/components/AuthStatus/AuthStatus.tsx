@@ -9,16 +9,20 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 export default function AuthStatus({ onMenuAction }) {
   const { data: session, status } = useSession();
   const name = session?.user?.name || "";
+  const email = session?.user?.email || "";
+  console.log("AuthStatus session:", session);
+  console.log("AuthStatus status:", status);
 
-  // if (status === "unauthenticated") {
-  //   return (
-  //     <>
-  //       <Link href="/signin" className={css.link} onClick={onMenuAction}>
-  //         Login
-  //       </Link>
-  //     </>
-  //   );
-  // }
+  if (status === "unauthenticated") {
+    return (
+      <>
+        <Link href="/signin" className={css.link} onClick={onMenuAction}>
+          Login
+        </Link>
+      </>
+    );
+  }
+
   return (
     <>
       <div className={css.logout}>
