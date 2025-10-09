@@ -19,8 +19,8 @@ export function UserInfoBox() {
 
   const { data: session, update } = useSession();
   const userProfile = session?.user;
-  console.log("User apiClient DATA IN PROFILE:", apiClient);
-  console.log("User Profile DATA IN PROFILE:", userProfile);
+  // console.log("User apiClient DATA IN PROFILE:", apiClient);
+  // console.log("User Profile DATA IN PROFILE:", userProfile);
 
   const userInfoTitle = `User info`;
 
@@ -44,17 +44,19 @@ export function UserInfoBox() {
       setError(null);
 
       if (!currentPassword || !newPassword || !confirmPassword) {
-        toast.error("Все поля пароля должны быть заполнены.");
+        toast.error("All password fields must be filled");
         console.error("Validation Error: All password fields must be filled.");
         return;
       }
 
       if (!passwordsMatch) {
-        console.log("Пароли не совпадают");
+        toast.error("New and confirm pass do not match");
+        console.log("New and confirm pass do not match");
         return;
       }
 
       if (newPassword.length < 3) {
+        toast.error("New pass < 3 characters");
         console.log("Пароль должен быть не менее 3 символов");
         return;
       }

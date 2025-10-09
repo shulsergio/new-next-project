@@ -14,7 +14,7 @@ export default async function UsersFocusModels() {
     redirect("/signin");
   }
 
-  console.log("!!!!!!! UsersFocusModels!!! session:", session.user.userType);
+  // console.log("!!!!!!! UsersFocusModels!!! session:", session.user.userType);
   const limit = 20;
   const type = session.user.userType || "";
   return (

@@ -4,7 +4,7 @@ import css from "./DataTable.module.css";
 
 export default function DataTable({ data }: { data: Record<string, number> }) {
   const entries = Object.entries(data);
-  console.log("DataTable entries:", entries);
+  // console.log("DataTable entries:", entries);
   return (
     <div className={css.tableWrapper}>
       <table className={css.table}>

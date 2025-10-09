@@ -35,8 +35,8 @@ export default function FocusModelsManager({
   const [months, setMonths] = useState<string[]>([]);
   const [isFocusOnly, setIsFocusOnly] = useState(false);
   const [isBonusOnly, setIsBonusOnly] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadAllPrds = async () => {
@@ -49,14 +49,14 @@ export default function FocusModelsManager({
           setSelectedPrd(allFilterData.productIds[0]);
         }
 
-        console.log(
-          "*** data in FocusModelsManager::: allFilterData.months",
-          allFilterData.months
-        );
-        console.log(
-          "*** data in FocusModelsManager::: allFilterData.months.length",
-          allFilterData.months.length
-        );
+        // console.log(
+        //   "*** data in FocusModelsManager::: allFilterData.months",
+        //   allFilterData.months
+        // );
+        // console.log(
+        //   "*** data in FocusModelsManager::: allFilterData.months.length",
+        //   allFilterData.months.length
+        // );
         setMonths(allFilterData.months);
         if (allFilterData.months.length > 0) {
           setSelectedMonth(
@@ -69,7 +69,7 @@ export default function FocusModelsManager({
     };
     loadAllPrds();
   }, [accessToken, type]);
-  console.log("*** data in FocusModelsManager prds", prds);
+  // console.log("*** data in FocusModelsManager prds", prds);
 
   useEffect(() => {
     const loadData = async () => {
@@ -133,12 +133,12 @@ export default function FocusModelsManager({
   const handleNextClick = () => setCurPage((prevPage) => prevPage + 1);
   const handlePrevClick = () => setCurPage((prevPage) => prevPage - 1);
 
-  console.log("*** FocusModelsManager curPage:", curPage);
-  console.log("*** FocusModelsManager totalCount:", totalCount);
-  console.log("***  FocusModelsManager handlePrevClick:", handlePrevClick);
-  console.log("*** FocusModelsManager handleNextClick:", handleNextClick);
-  console.log("*** FocusModelsManager hasPrevPage:", hasPrevPage);
-  console.log("*** FocusModelsManager hasNextPage:", hasNextPage);
+  // console.log("*** FocusModelsManager curPage:", curPage);
+  // console.log("*** FocusModelsManager totalCount:", totalCount);
+  // console.log("***  FocusModelsManager handlePrevClick:", handlePrevClick);
+  // console.log("*** FocusModelsManager handleNextClick:", handleNextClick);
+  // console.log("*** FocusModelsManager hasPrevPage:", hasPrevPage);
+  // console.log("*** FocusModelsManager hasNextPage:", hasNextPage);
 
   return (
     <>

@@ -10,9 +10,9 @@ interface PromotersTableProps {
 }
 
 export default function PromotersTable({ promoters }: PromotersTableProps) {
-  const newDate = promoters[0].lastVisit;
-  console.log("LASTVISIT date:", newDate);
-  console.log("LASTVISIT date:", newDate?.toString());
+  // const newDate = promoters[0].lastVisit;
+  // console.log("LASTVISIT date:", newDate);
+  // console.log("LASTVISIT date:", newDate?.toString());
   return (
     <div className={css.tableWrapper}>
       <table className={css.table}>

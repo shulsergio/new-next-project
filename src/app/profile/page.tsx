@@ -26,7 +26,7 @@ export default async function Profile() {
   ];
 
   const isAvProfile = allowedAvProfiles.includes(userProfile);
-  console.log("User Profile DATA IN PROFILE PAGE:", userProfile);
+  // console.log("User Profile DATA IN PROFILE PAGE:", userProfile);
   return (
     <div className={css.container}>
       {/* <FirstModalData /> */}

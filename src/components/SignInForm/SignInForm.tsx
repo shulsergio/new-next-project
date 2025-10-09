@@ -26,10 +26,11 @@ export const SignInForm = () => {
         toast.success("You are signed");
         router.push("/");
       } else {
-        toast.error(res?.error || "Sign in failed");
+        // console.log("Sign in failed 111");
+        toast.error("McsID or Password- incorrect");
       }
     } catch (error: unknown) {
-      console.error("Sign in error:", error);
+      // console.log("Sign in failed 222");
       if (error instanceof Error) {
         toast.error(error.message || "An unexpected error occurred");
       } else {

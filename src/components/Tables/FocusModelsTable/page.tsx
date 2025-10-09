@@ -19,9 +19,8 @@ interface FocusModelsTableProps {
 export default function FocusModelsTable({
   focusModels,
 }: FocusModelsTableProps) {
-  console.log("ALLL FocusModelsTable focusModels:", focusModels);
+  // console.log("ALLL FocusModelsTable focusModels:", focusModels);
   return (
-    // <p>NEWWW</p>
     <div className={css.tableWrapper}>
       <table className={css.table}>
         <thead>
