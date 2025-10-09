@@ -39,9 +39,11 @@
 }
 
 .userName {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--color-text-white);
+  font-size: 18px;
+  font-weight: 700;
+  color: #00067d;
+  /* color: var(--color-text-white); */
+  padding-bottom: 15px;
 }
 @media screen and (min-width: 768px) {
   .logout {
@@ -58,6 +60,7 @@
 
   .userName {
     font-size: 22px;
+    padding-bottom: 0;
   }
   .link {
     font-size: 22px;
