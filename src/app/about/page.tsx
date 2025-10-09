@@ -23,6 +23,7 @@ export default function About() {
       <TextBox option="text">
         <p>Sales Achievement Monitoring System</p>
         <p>Information data for SS FF</p>
+        <p>Any questions, write:</p>
         <a href="mailto:project.ss.helper@gmail.com">
           project.ss.helper@gmail.com
         </a>

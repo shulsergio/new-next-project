@@ -32,6 +32,7 @@ export default function AuthStatus({ onMenuAction }) {
         </button>
       </div>
       <p className={css.userName}>{name}</p>
+      {/* <p className={css.userName}>{name}</p> */}
     </>
   );
 }

@@ -19,7 +19,7 @@ const faBars = "faBars";
 const faXmark = "faXmark";
 
 export default function Navigation() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const navName = session?.user?.name || "";
   // const navName = "VASYA";
 
@@ -54,7 +54,24 @@ export default function Navigation() {
       </Link>
     </>
   );
-
+  const navUserItems = (
+    <>
+      <Link
+        href="/user/plans"
+        className={css.link}
+        onClick={isOpen ? toggleMenu : undefined}
+      >
+        Promoter plans
+      </Link>
+      <Link
+        href="/user/focus-models"
+        className={css.link}
+        onClick={isOpen ? toggleMenu : undefined}
+      >
+        Focus Models
+      </Link>
+    </>
+  );
   return (
     <header className={css.header}>
       <nav className={css.nav}>
@@ -83,6 +100,7 @@ export default function Navigation() {
         <div className={css.mobileAuthStatus}>
           <AuthStatus onMenuAction={toggleMenu} />
         </div>
+        {status === "unauthenticated" ? "" : navUserItems}
         {navItems}
       </div>
     </header>
