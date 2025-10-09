@@ -2,7 +2,7 @@ import React from "react";
 import css from "./Footer.module.css";
 
 export default function Footer() {
-  const currentQtyCommits = "028";
+  const currentQtyCommits = "033";
   const currentYear = new Date().getFullYear();
 
   return (
@@ -11,6 +11,7 @@ export default function Footer() {
         <p>
           &copy; {currentYear} new App. v1.1.{currentQtyCommits}
         </p>
+
         {/* <div>
  
           <a href="/privacy" className={css.link}>

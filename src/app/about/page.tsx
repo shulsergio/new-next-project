@@ -18,9 +18,16 @@ export const viewport = {
 };
 
 export default function About() {
-  return <><TextBox option="text">
-    <p>Sales Achievement Monitoring System</p>
-    <p>Information data for SS FF</p></TextBox>
-  {/* <TextBox option="text">{"Information data for SS FF"}</TextBox> */}
-  </>;
+  return (
+    <>
+      <TextBox option="text">
+        <p>Sales Achievement Monitoring System</p>
+        <p>Information data for SS FF</p>
+        <a href="mailto:project.ss.helper@gmail.com">
+          project.ss.helper@gmail.com
+        </a>
+      </TextBox>
+      {/* <TextBox option="text">{"Information data for SS FF"}</TextBox> */}
+    </>
+  );
 }
