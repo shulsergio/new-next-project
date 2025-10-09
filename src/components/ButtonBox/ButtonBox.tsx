@@ -6,14 +6,16 @@ import Link from "next/link";
 
 interface ButtonBoxProps {
   option: "link" | "button";
+  type?: "submit" | "button";
   children?: React.ReactNode;
   href?: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | (() => void);
   disabled?: boolean;
 }
 
 export default function ButtonBox({
   option = "button",
+  type = "button",
   href = "",
   onClick,
   children = null,
@@ -29,7 +31,7 @@ export default function ButtonBox({
   if (option === "button") {
     return (
       <button
-        type="button"
+        type={type}
         onClick={onClick}
         className={css.linkBox}
         disabled={disabled}

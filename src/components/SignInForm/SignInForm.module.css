@@ -30,12 +30,14 @@
   background-color: #e6f2ff;
   color: #333;
   font-size: 16px;
-}
-
-.input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  &:hover {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
 }
 
 .button {
@@ -55,23 +57,23 @@
 
 @media (min-width: 1200px) {
   .container {
-  padding: 40px;
-width: 450px;
-}
-.label {
-  margin-top: 15px;
-  color: #0056b3;
-  font-size: 20px;
-}
+    padding: 40px;
+    width: 450px;
+  }
+  .label {
+    margin-top: 15px;
+    color: #0056b3;
+    font-size: 20px;
+  }
 
-.input {
-  padding: 12px;
-  margin-top: 10px;
-  font-size: 20px;
-}
-.button {
-  padding: 15px 20px;
-  margin-top: 40px;
-  font-size: 24px;
-}
+  .input {
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 20px;
+  }
+  .button {
+    padding: 15px 20px;
+    margin-top: 40px;
+    font-size: 24px;
+  }
 }

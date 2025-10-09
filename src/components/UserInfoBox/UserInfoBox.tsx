@@ -223,17 +223,17 @@ export function UserInfoBox() {
             </div>
           </Modal>
         </TextBox>
-        <TextBox option="static">
+        {/* <TextBox option="static">
           Pass: <span className={css.span}>change</span>
-        </TextBox>
+        </TextBox> */}
       </ComponentWrapper>
       <ComponentWrapper title="change password">
         {/* <TextBox option="static">
           Pass: <span className={css.span}>change</span>
         </TextBox> */}
         <form id="passwordChangeForm" onSubmit={handleSubmit}>
-          <div className="form-data">
-            <label htmlFor="current_password"> old password</label>
+          <div className={css.formData}>
+            <label htmlFor="current_password"> old pass</label>
             <input
               type="password"
               onChange={(e) =>
@@ -246,7 +246,7 @@ export function UserInfoBox() {
             />
           </div>
 
-          <div className="form-data">
+          <div className={css.formData}>
             <label htmlFor="new_password">new password</label>
             <input
               type="password"
@@ -261,7 +261,7 @@ export function UserInfoBox() {
             />
           </div>
 
-          <div className="form-data">
+          <div className={css.formData}>
             <label htmlFor="confirm_password">confirm password</label>
             <input
               type="password"
@@ -277,15 +277,14 @@ export function UserInfoBox() {
               <p className={css.errConfirmPassword}>Passwords do not match.</p>
             )}
           </div>
-          <button
+          <ButtonBox
+            option="button"
             type="submit"
-            id="submitButton"
-            className={css.formSubmitButton}
             onClick={handleSubmit}
             disabled={isLoading}
           >
             Change
-          </button>
+          </ButtonBox>
         </form>
       </ComponentWrapper>
       <ButtonBox option="link" href="/profile/">
