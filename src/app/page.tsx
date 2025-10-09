@@ -6,7 +6,7 @@ import TextBox from "@/components/TextBox/TextBox";
 
 export default async function Home() {
   const session = await getServerSession(authConfig);
-  console.log("*1*1* Сессия на главной странице:", session);
+  // console.log("*1*1* Сессия на главной странице:", session);
 
   if (!session) {
     return (

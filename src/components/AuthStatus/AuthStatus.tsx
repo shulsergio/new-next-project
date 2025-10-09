@@ -10,15 +10,15 @@ export default function AuthStatus({ onMenuAction }) {
   const { data: session, status } = useSession();
   const name = session?.user?.name || "";
 
-  if (status === "unauthenticated") {
-    return (
-      <>
-        <Link href="/signin" className={css.link} onClick={onMenuAction}>
-          Login
-        </Link>
-      </>
-    );
-  }
+  // if (status === "unauthenticated") {
+  //   return (
+  //     <>
+  //       <Link href="/signin" className={css.link} onClick={onMenuAction}>
+  //         Login
+  //       </Link>
+  //     </>
+  //   );
+  // }
   return (
     <>
       <div className={css.logout}>
