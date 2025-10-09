@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useApiClient } from "@/app/configs/useApiClient";
 import ButtonBox from "../ButtonBox/ButtonBox";
+import Loader from "../Loader/Loader";
 // import ButtonBox from "../ButtonBox/ButtonBox";
 
 // -- UniformSizeData --
@@ -58,7 +59,6 @@ export function UserInfoBox() {
         return;
       }
 
-      // 2. Имитация отправки данных
       setIsLoading(true);
 
       const dataToSend = {
@@ -72,11 +72,13 @@ export function UserInfoBox() {
           method: "PATCH",
           body: JSON.stringify(dataToSend),
         });
+        toast.success("Password changed!");
         console.log("result FROM BACKEND (PATCH):", result);
         setCurrentPassword("");
         setNewPassword("");
         setConfirmPassword("");
       } catch (err: unknown) {
+        toast.error("Error!");
         console.error("Ошибка при обновлении пароля:", err);
         if (err instanceof Error) {
           toast.error(
@@ -160,6 +162,7 @@ export function UserInfoBox() {
   return (
     <>
       {error && <p>Error</p>}
+      {isLoading && <Loader isLoading={true} />}
       <ComponentWrapper title={userInfoTitle}>
         <TextBox option="static">
           Role: <span className={css.span}>{userProfile?.role || "-"}</span>
@@ -218,7 +221,7 @@ export function UserInfoBox() {
                 className={css.modalSaveButton}
                 disabled={isSave}
               >
-                {isSave ? "Save..." : "Save"}
+                {isSave ? <Loader isLoading={true} /> : "Save"}
               </button>
             </div>
           </Modal>

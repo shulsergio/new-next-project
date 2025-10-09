@@ -8,6 +8,7 @@ import { fetchShopsById } from "@/utils/fetchData";
 import { useApiClient } from "@/app/configs/useApiClient";
 import ButtonBox from "../ButtonBox/ButtonBox";
 import Modal from "../Modal/Modal";
+import Loader from "../Loader/Loader";
 
 interface shopsData {
   chain: string;
@@ -60,11 +61,7 @@ export function ProfileUserShopBox() {
   }, [userProfile?.shop, apiClient]);
 
   if (isLoading) {
-    return (
-      <ComponentWrapper>
-        <p> Loading shop data...</p>
-      </ComponentWrapper>
-    );
+    return <Loader isLoading={true} />;
   }
   const profileTitle = `${userProfile?.role} profile`;
 
