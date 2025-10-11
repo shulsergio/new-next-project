@@ -26,7 +26,7 @@ export default function PromotersIhsBox({
   //   "&&&  IhsShopData Array.isArray(IhsShopsData):",
   //   Array.isArray(IhsShopsData)
   // );
-  const weekNumberofMonth = ["w32", "w33", "w34", "w35"]; // !!!! WEEEKS !!!!   !!!! WEEEKS !!!!
+  const weekNumberofMonth = ["w40", "w41", "w42", "w43", "w44"]; // !!!! WEEEKS !!!!   !!!! WEEEKS !!!!
 
   const weeksData = weekNumberofMonth.map((weekN) => {
     const newarray = IhsShopsData.find((item) => item.week === weekN);
