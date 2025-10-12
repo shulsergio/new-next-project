@@ -40,9 +40,6 @@
   font-size: 18px;
   font-weight: 700;
   color: var(--color-text-headers);
-  /* color: #00067d; */
-  /* color: var(--color-text-white); */
-  /* padding-bottom: 15px; */
 }
 
 /* ------------------------------------------------------------------- */
@@ -53,7 +50,12 @@
   .logout {
     display: none;
   }
+  .logoutTablet {
+    display: flex;
+    /* flex-direction: row; */
 
+    gap: 5px;
+  }
   .logoutLinkButton {
     font-size: 22px;
   }
@@ -69,13 +71,17 @@
   .logoutTabletButton {
     display: block;
     background: none;
-    border: var(--color-text-white) 1px solid;
+    border: var(--bg-color-footer-navigation-hover) 1px solid;
     color: var(--color-text-white);
     border-radius: 4px;
     text-decoration: none;
     cursor: pointer;
-    padding: 6px 6px;
+    padding: 10px 16px;
 
-    transition: color 0.4s ease-in-out, 0.4s border ease-in-out;
+    transition: color 0.35s ease-in-out, 0.35s border ease-in-out;
+    &:hover {
+      color: var(--bg-color-footer-navigation-hover);
+      border: var(--color-text-white) 1px solid;
+    }
   }
 }

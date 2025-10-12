@@ -122,23 +122,25 @@
   }
 
   .authStatusContainer {
+    display: flex;
     margin-left: auto;
     padding-right: 30px;
     flex-direction: row-reverse;
-    gap: 15px;
+    align-items: center;
+    gap: 20px;
   }
   .authStatusContainer .logout {
     display: none; /* Скрываем полный "logout" на десктопе */
   }
-  .authStatusContainer button {
+  /* .authStatusContainer button {
     background: none;
     border: none;
     color: var(--color-text-white);
     cursor: pointer;
-    padding: 8px 10px;
+
     border-radius: 4px;
     transition: background-color 0.2s ease;
-  }
+  } */
 
   /* .authStatusContainer button:hover {
     background-color: var(--bg-color-footer-navigation-hover);
