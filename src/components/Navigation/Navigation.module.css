@@ -36,22 +36,7 @@
   }
 }
 
-.authStatusContainer {
-  /* margin-left: auto; */
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.authStatusContainer .logout {
-  display: block; /* Показываем полный "logout" на мобильных */
-}
-.authStatusContainer .logoutTablet {
-  display: none;
-  padding: 10px 15px;
-}
-
 .authStatusContainer .userName {
-  /* Добавляем стили, чтобы имя пользователя отображалось корректно рядом с кнопкой */
   color: var(--color-text-white);
   font-weight: 600;
 }
@@ -111,7 +96,7 @@
 
 .mobileAuthStatus {
   /* margin-top: auto; */
-  padding: 10px 0 0 30px;
+  padding: 10px 20px 0 40px;
   /* border-top: 1px solid rgba(255, 255, 255, 0.2); */
 }
 /* ------------------------------------------------------------------- */

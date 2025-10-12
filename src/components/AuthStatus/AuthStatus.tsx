@@ -28,7 +28,7 @@ export default function AuthStatus({ onMenuAction }) {
         </button>
       </div>
       <div className={css.logoutTablet}>
-        <button onClick={clientSideSignOut} className={css.logoutLinkButton}>
+        <button onClick={clientSideSignOut} className={css.logoutTabletButton}>
           <FontAwesomeIcon icon={faRightFromBracket} size="lg" />
         </button>
       </div>

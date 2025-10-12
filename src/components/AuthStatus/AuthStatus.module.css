@@ -1,17 +1,23 @@
 .logoutLinkButton {
+  display: flex;
+  width: 72px;
   background: none;
-  border: #d21010 1px solid;
-  color: #d21010;
-  /* color: var(--color-text-white); */
+  border: var(--color-text-white) 1px solid;
+  color: var(--color-text-white);
   border-radius: 4px;
-  /* text-decoration: none; */
+  text-decoration: none;
   cursor: pointer;
   /* font-size: 16px; */
   padding: 6px 6px;
-
-  /* margin-left: 15px; */
+  margin-left: auto;
+  /* justify-content: center; */
+  align-items: center;
+  justify-content: space-between;
 
   transition: color 0.4s ease-in-out, 0.4s border ease-in-out;
+}
+.logoutTablet {
+  display: none;
 }
 
 .logoutLinkButton:hover {
@@ -33,10 +39,16 @@
 .userName {
   font-size: 18px;
   font-weight: 700;
-  color: #00067d;
+  color: var(--color-text-headers);
+  /* color: #00067d; */
   /* color: var(--color-text-white); */
-  padding-bottom: 15px;
+  /* padding-bottom: 15px; */
 }
+
+/* ------------------------------------------------------------------- */
+/* --- Планшет и выше --- */
+/* ------------------------------------------------------------------- */
+
 @media screen and (min-width: 768px) {
   .logout {
     display: none;
@@ -53,5 +65,17 @@
   .link {
     font-size: 22px;
     padding: 10px 20px;
+  }
+  .logoutTabletButton {
+    display: block;
+    background: none;
+    border: var(--color-text-white) 1px solid;
+    color: var(--color-text-white);
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 6px 6px;
+
+    transition: color 0.4s ease-in-out, 0.4s border ease-in-out;
   }
 }
