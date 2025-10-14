@@ -29,7 +29,7 @@ export const useApiClient = () => {
         if (response.status === 401 || response.status === 403) {
           console.error("Authentication failed or token expired. Signing out...");
           await signOut({ redirect: false }); 
-          router.push("/login");
+          router.push("/signin");
           
 throw new Error("Authentication failure or token expired.");
         }

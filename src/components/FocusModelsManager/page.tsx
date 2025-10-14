@@ -1,11 +1,17 @@
 "use client";
 
 import css from "./page.module.css";
-import { fetchAllPrds, fetchFocusModels } from "@/utils/fetchData";
+import { fetchFocusModels } from "@/utils/fetchData";
 import { useEffect, useState } from "react";
 import PaginationButtons from "../PaginationButtons/page";
 import FocusModelsTable, { FocusModel } from "../Tables/FocusModelsTable/page";
 import Loader from "../Loader/Loader";
+import { useSession } from "next-auth/react";
+
+const PRD_AV_DATA = ["MONITOR", "Sound Device", "TV", "TV projector"];
+const PRD_DA_DATA = ["B-in", "DW", "MWO", "REF", "VC", "WM"];
+
+const MONTH_DATA = ["09.2025", "10.2025"];
 
 interface FocusModelsManagerProps {
   limit: number;
@@ -25,51 +31,28 @@ export default function FocusModelsManager({
   type,
   accessToken,
 }: FocusModelsManagerProps) {
+  const { data: session } = useSession();
+  let prdData = [""];
+  if (session?.user.userType === "AV") {
+    prdData = [...["all"], ...PRD_AV_DATA];
+  }
+  if (session?.user.userType === "DA") {
+    prdData = [...["all"], ...PRD_DA_DATA];
+  }
+  if (session?.user.userType === "CE") {
+    prdData = [...PRD_DA_DATA, ...PRD_AV_DATA];
+  }
   const [focusModels, setFocusModels] = useState<FocusModel[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [curPage, setCurPage] = useState(1);
-
-  const [selectedPrd, setSelectedPrd] = useState<string>("all");
-  const [selectedMonth, setSelectedMonth] = useState<string>("all");
-  const [prds, setPrds] = useState<string[]>([]);
-  const [months, setMonths] = useState<string[]>([]);
+  const [selectedPrd, setSelectedPrd] = useState<string>(prdData[0]);
+  const [selectedMonth, setSelectedMonth] = useState<string>(
+    MONTH_DATA[MONTH_DATA.length - 1]
+  );
   const [isFocusOnly, setIsFocusOnly] = useState(false);
   const [isBonusOnly, setIsBonusOnly] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadAllPrds = async () => {
-      try {
-        const allFilterData = await fetchAllPrds(1, 10000, type, accessToken);
-
-        setPrds(allFilterData.productIds);
-
-        if (allFilterData.productIds.length > 0) {
-          setSelectedPrd(allFilterData.productIds[0]);
-        }
-
-        // console.log(
-        //   "*** data in FocusModelsManager::: allFilterData.months",
-        //   allFilterData.months
-        // );
-        // console.log(
-        //   "*** data in FocusModelsManager::: allFilterData.months.length",
-        //   allFilterData.months.length
-        // );
-        setMonths(allFilterData.months);
-        if (allFilterData.months.length > 0) {
-          setSelectedMonth(
-            allFilterData.months[allFilterData.months.length - 1]
-          );
-        }
-      } catch (e) {
-        console.error("Ошибка при загрузке всех PRD:", e);
-      }
-    };
-    loadAllPrds();
-  }, [accessToken, type]);
-  // console.log("*** data in FocusModelsManager prds", prds);
 
   useEffect(() => {
     const loadData = async () => {
@@ -125,20 +108,13 @@ export default function FocusModelsManager({
     setIsBonusOnly(isChecked);
     setCurPage(1);
   };
-  console.log("data in FocusModelsManager prds:", prds);
+  // console.log("data in FocusModelsManager prds:", prds);
 
   const hasPrevPage = curPage > 1;
   const hasNextPage = curPage * limit < totalCount;
 
   const handleNextClick = () => setCurPage((prevPage) => prevPage + 1);
   const handlePrevClick = () => setCurPage((prevPage) => prevPage - 1);
-
-  // console.log("*** FocusModelsManager curPage:", curPage);
-  // console.log("*** FocusModelsManager totalCount:", totalCount);
-  // console.log("***  FocusModelsManager handlePrevClick:", handlePrevClick);
-  // console.log("*** FocusModelsManager handleNextClick:", handleNextClick);
-  // console.log("*** FocusModelsManager hasPrevPage:", hasPrevPage);
-  // console.log("*** FocusModelsManager hasNextPage:", hasNextPage);
 
   return (
     <>
@@ -148,13 +124,13 @@ export default function FocusModelsManager({
         <>
           <div className={css.filterWrapperBox}>
             <MonthFilter
-              months={months}
+              months={MONTH_DATA}
               onMonthChange={handleMonthChange}
               selectedMonth={selectedMonth}
             />
 
             <PrdFilter
-              prds={prds}
+              prdData={prdData}
               onPrdChange={handlePrdChange}
               selectedPrd={selectedPrd}
             />
@@ -183,12 +159,12 @@ export default function FocusModelsManager({
   );
 }
 interface PrdFilterProps {
-  prds: string[];
+  prdData: string[];
   selectedPrd: string | null;
   onPrdChange: (prd: string) => void;
 }
 
-function PrdFilter({ prds, selectedPrd, onPrdChange }: PrdFilterProps) {
+function PrdFilter({ prdData, selectedPrd, onPrdChange }: PrdFilterProps) {
   return (
     <div className={css.prdFilterBox}>
       <label htmlFor="prdSelect" className={css.selectLabel}>
@@ -200,7 +176,7 @@ function PrdFilter({ prds, selectedPrd, onPrdChange }: PrdFilterProps) {
         onChange={(e) => onPrdChange(e.target.value)}
         className={css.selectBox}
       >
-        {prds.map((prd) => (
+        {prdData.map((prd) => (
           <option key={prd} value={prd}>
             {prd}
           </option>

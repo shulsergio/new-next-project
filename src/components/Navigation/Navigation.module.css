@@ -132,19 +132,6 @@
   .authStatusContainer .logout {
     display: none; /* Скрываем полный "logout" на десктопе */
   }
-  /* .authStatusContainer button {
-    background: none;
-    border: none;
-    color: var(--color-text-white);
-    cursor: pointer;
-
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-  } */
-
-  /* .authStatusContainer button:hover {
-    background-color: var(--bg-color-footer-navigation-hover);
-  } */
 
   .hamburgerButton {
     display: none;
