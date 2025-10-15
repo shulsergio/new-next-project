@@ -15,7 +15,7 @@ const MONTH_DATA = ["09.2025", "10.2025"];
 
 interface FocusModelsManagerProps {
   limit: number;
-  type: string;
+  // newType: string;
   accessToken: string;
 }
 
@@ -28,20 +28,22 @@ interface ApiResponseModel {
 
 export default function FocusModelsManager({
   limit,
-  type,
+  // newType,
   accessToken,
 }: FocusModelsManagerProps) {
   const { data: session } = useSession();
   let prdData = [""];
-  if (session?.user.userType === "AV") {
+  const newType = session?.user.userType || "";
+  if (newType === "AV") {
     prdData = [...["all"], ...PRD_AV_DATA];
   }
-  if (session?.user.userType === "DA") {
+  if (newType === "DA") {
     prdData = [...["all"], ...PRD_DA_DATA];
   }
-  if (session?.user.userType === "CE") {
+  if (newType === "CE") {
     prdData = [...PRD_DA_DATA, ...PRD_AV_DATA];
   }
+  console.log("----newType-----", newType);
   const [focusModels, setFocusModels] = useState<FocusModel[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [curPage, setCurPage] = useState(1);
@@ -49,6 +51,7 @@ export default function FocusModelsManager({
   const [selectedMonth, setSelectedMonth] = useState<string>(
     MONTH_DATA[MONTH_DATA.length - 1]
   );
+  const [type, setSelectedType] = useState<string>(newType);
   const [isFocusOnly, setIsFocusOnly] = useState(false);
   const [isBonusOnly, setIsBonusOnly] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -58,6 +61,7 @@ export default function FocusModelsManager({
     const loadData = async () => {
       setLoading(true);
       setError(null);
+      console.log("------ type 111 -------", type);
       try {
         const fetchedData: ApiResponseModel = await fetchFocusModels(
           curPage,
@@ -94,6 +98,8 @@ export default function FocusModelsManager({
 
   const handlePrdChange = (prd: string) => {
     setSelectedPrd(prd);
+    setSelectedType(PRD_AV_DATA.includes(prd) ? "AV" : "DA");
+    console.log("------ type 222 -------", type);
     setCurPage(1);
   };
   const handleMonthChange = (month: string) => {

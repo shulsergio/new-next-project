@@ -30,9 +30,13 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "auto";
+    if (isOpen) {
+      document.body.classList.add(css.noScroll);
+    } else {
+      document.body.classList.remove(css.noScroll);
+    }
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.classList.remove(css.noScroll);
     };
   }, [isOpen]);
 

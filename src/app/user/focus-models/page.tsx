@@ -16,12 +16,12 @@ export default async function UsersFocusModels() {
 
   // console.log("!!!!!!! UsersFocusModels!!! session:", session.user.userType);
   const limit = 20;
-  const type = session.user.userType || "";
+  // const type = session.user.userType || "";
   return (
     <ComponentWrapper>
       <FocusModelsManager
         limit={limit}
-        type={type}
+        // type={type}
         accessToken={session.accessToken}
       />
     </ComponentWrapper>

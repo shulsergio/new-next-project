@@ -43,6 +43,9 @@
 /* ------------------------------------------------------------------- */
 /* --- Мобильная навигация (по умолчанию) --- */
 /* ------------------------------------------------------------------- */
+.noScroll {
+  overflow: hidden !important;
+}
 .desktopLinks {
   display: none;
 }
@@ -130,7 +133,7 @@
     gap: 20px;
   }
   .authStatusContainer .logout {
-    display: none; /* Скрываем полный "logout" на десктопе */
+    display: none;
   }
 
   .hamburgerButton {
