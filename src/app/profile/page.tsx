@@ -58,6 +58,9 @@ export default async function Profile() {
             <ButtonBox option="link" href="user/shopMatrix">
               Shop matrix
             </ButtonBox>
+            <ButtonBox option="link" href="user/lemon">
+              <p className={css.lemon}>Lemon Here</p>
+            </ButtonBox>
           </ComponentWrapper>
         </>
       )}
