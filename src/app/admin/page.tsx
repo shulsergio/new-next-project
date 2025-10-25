@@ -9,6 +9,7 @@ import AdminPromotersPage from "./promoters/page";
 import AdminPlansPage from "./promoters/plans/page";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 import AdminPromotersMotivationPage from "./promoters/motivation/page";
+import { useAccess } from "@/hooks/useAccess";
 // import { getServerSession } from "next-auth";
 // import { authConfig } from "../configs/authConfig";
 
@@ -22,6 +23,7 @@ import AdminPromotersMotivationPage from "./promoters/motivation/page";
  */
 export default function Admin() {
   const [currentPage, setCurrentPage] = useState<string | null>(null);
+  const { hasPermission } = useAccess();
 
   const renderContent = () => {
     switch (currentPage) {
@@ -44,13 +46,15 @@ export default function Admin() {
       <div className={css.mainContainer}>
         <div className={css.buttonBox}>
           <ComponentAdminWrapper>
-            <ButtonBox
-              option="button"
-              // href="admin/promoters"
-              onClick={() => setCurrentPage("promoters")}
-            >
-              promoters data
-            </ButtonBox>
+            {hasPermission("canViewUsersData") && (
+              <ButtonBox
+                option="button"
+                // href="admin/promoters"
+                onClick={() => setCurrentPage("promoters")}
+              >
+                promoters data
+              </ButtonBox>
+            )}
             <ButtonBox
               option="button"
               // href="admin/promoters/plans"
