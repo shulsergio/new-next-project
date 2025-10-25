@@ -4,7 +4,7 @@ import Loader from "../Loader/Loader";
 import css from "./page.module.css";
 // import { fetchDavDataClusters } from "@/utils/fetchData";
 import AvDavMotivationTable from "../Tables/AvDavMotivationTable/page";
-import { useApiClient } from "@/app/configs/useApiClient";
+import { useApiClient } from "@/hooks/useApiClient";
 
 const selectClusters = ["1", "2", "3", "4", "5"];
 

@@ -6,7 +6,7 @@ import TextBox from "../TextBox/TextBox";
 import Modal from "../Modal/Modal";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import { useApiClient } from "@/app/configs/useApiClient";
+import { useApiClient } from "@/hooks/useApiClient";
 import ButtonBox from "../ButtonBox/ButtonBox";
 import Loader from "../Loader/Loader";
 // import ButtonBox from "../ButtonBox/ButtonBox";

@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import ComponentWrapper from "../ComponentWrapper/ComponentWrapper";
 import TextBox from "../TextBox/TextBox";
 import { fetchShopsById } from "@/utils/fetchData";
-import { useApiClient } from "@/app/configs/useApiClient";
+import { useApiClient } from "@/hooks/useApiClient";
 import ButtonBox from "../ButtonBox/ButtonBox";
 import Modal from "../Modal/Modal";
 import Loader from "../Loader/Loader";
