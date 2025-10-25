@@ -20,12 +20,12 @@ import PromotersIhsBox, {
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
 
-  // console.log("***Сессия на странице UserPlansPage:", session);
-  // console.log(
-  //   "***Access Token на странице UserPlansPage:",
-  //   session?.accessToken
-  // );
-  // console.log("***Access SHOP на странице UserPlansPage:", session?.user.shop);
+  console.log("***Сессия на странице UserPlansPage:", session);
+  console.log(
+    "***Access Token на странице UserPlansPage:",
+    session?.accessToken
+  );
+  console.log("***Access SHOP на странице UserPlansPage:", session?.user.shop);
 
   if (!session || !session.accessToken) {
     console.log(
@@ -36,9 +36,9 @@ export default async function UserPlansPage() {
   let plansData: Plan[] = [];
   try {
     const fetchedData = await fetchUserPlans(session.accessToken);
-    // console.log("fetchedData PLANS DATA:", fetchedData);
+    console.log("fetchedData PLANS DATA:", fetchedData);
     plansData = fetchedData.data.plans;
-    // console.log("plansData PLANS DATA:", plansData);
+    console.log("plansData PLANS DATA:", plansData);
   } catch (e: string | unknown) {
     console.error("Error fetching user plans:", e);
     plansData = [];

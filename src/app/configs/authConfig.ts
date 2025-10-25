@@ -51,6 +51,7 @@ export const authConfig: NextAuthOptions = {
                             dateOfFired: backendResponse.data.user.dateOfFired,
                             lastVisit: backendResponse.data.user.lastVisit,
                             accessToken: backendResponse.data.accessToken,
+                            permissions: backendResponse.data.user.permissions,
                             };
                     } else {
                         return null; 
@@ -92,6 +93,7 @@ export const authConfig: NextAuthOptions = {
                 token.dateOfHied = user.dateOfHied;
                 token.dateOfFired = user.dateOfFired;
                 token.lastVisit = user.lastVisit;
+                 token.permissions = user.permissions;
 
                 if (user.accessToken) {
                     token.accessToken = user.accessToken;
@@ -130,6 +132,7 @@ export const authConfig: NextAuthOptions = {
                             token.dateOfHied = userData.data.user.dateOfHied;
                             token.dateOfFired = userData.data.user.dateOfFired;
                             token.lastVisit = userData.data.user.lastVisit;
+                            token.permissions = userData.data.user.permissions;
                 
                         } else {
                             console.error("JWT Callback: Failed to re-fetch user data:", userResponse.status);
@@ -157,7 +160,8 @@ export const authConfig: NextAuthOptions = {
          session.user.mobile = token.mobile as string;
         session.user.dateOfHied = token.dateOfHied as string;
           session.user.dateOfFired = token.dateOfFired as string;
-                    session.user.lastVisit = token.lastVisit as string;
+                 session.user.lastVisit = token.lastVisit as string;
+                 session.user.permissions = token.permissions as Record<string, boolean>;
              }
              if (token.accessToken) {   
                  session.accessToken = token.accessToken as string;
@@ -193,6 +197,7 @@ declare module "next-auth" {
             dateOfHied?: string;
             dateOfFired?: string;
             lastVisit?: string;
+            permissions?: Record<string, boolean>;
         } & DefaultSession["user"];
 
 
@@ -215,7 +220,8 @@ declare module "next-auth" {
             mobile?: string;
             dateOfHied?: string;
             dateOfFired?: string;
-            lastVisit?: string;
+        lastVisit?: string;
+   permissions?: Record<string, boolean>;
 
     }
 
@@ -234,6 +240,7 @@ declare module "next-auth" {
             mobile?: string;
             dateOfHied?: string;
             dateOfFired?: string;
-            lastVisit?: string;
+        lastVisit?: string;
+        permissions?: Record<string, boolean>;
     }
 }
