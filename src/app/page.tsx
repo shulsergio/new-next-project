@@ -30,9 +30,12 @@ export default async function Home() {
   }
   console.log("*** session.user:", session.user);
   console.log("*** session.user?.role:", session.user?.role);
-  if (session.user?.role === "admin") {
-    redirect("/admin");
-  } else {
-    redirect("/profile");
-  }
+const hasAdminAccess =
+  session.user?.permissions?.["canAccessAdminPanel"] === true;
+
+if (hasAdminAccess) {
+  redirect("/admin");
+} else {
+  redirect("/profile");
+}
 }
