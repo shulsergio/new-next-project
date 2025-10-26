@@ -25,7 +25,7 @@ export default function AdminPromotersPage() {
       return;
     }
 
-    if (status === "unauthenticated" || session?.user?.role !== "admin") {
+    if (status === "unauthenticated") {
       console.log(
         "Доступ запрещен: пользователь не аутентифицирован или не является админом."
       );
@@ -35,11 +35,7 @@ export default function AdminPromotersPage() {
 
   useEffect(() => {
     const loadPromoters = async () => {
-      if (
-        status === "authenticated" &&
-        session?.user?.role === "admin" &&
-        session.accessToken
-      ) {
+      if (status === "authenticated" && session.accessToken) {
         setLoading(true);
         setError(null);
         try {
