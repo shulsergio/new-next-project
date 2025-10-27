@@ -4,3 +4,22 @@
   padding: 20px 10px;
   gap: 15px;
 }
+
+.regionFilterBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.selectLabel {
+  font-size: 12px;
+  color: var(--color-text-main);
+}
+.selectBox {
+  width: 75px;
+  padding: 3px;
+  border: 1px solid #b3d9ff;
+  border-radius: 5px;
+  background-color: #e6f2ff;
+  font-size: 11px;
+  color: #333;
+}

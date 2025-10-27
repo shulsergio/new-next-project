@@ -7,11 +7,7 @@ import PaginationButtons from "../PaginationButtons/page";
 import FocusModelsTable, { FocusModel } from "../Tables/FocusModelsTable/page";
 import Loader from "../Loader/Loader";
 import { useSession } from "next-auth/react";
-
-const PRD_AV_DATA = ["MONITOR", "Sound Device", "TV", "TV projector"];
-const PRD_DA_DATA = ["B-in", "DW", "MWO", "REF", "VC", "WM"];
-
-const MONTH_DATA = ["09.2025", "10.2025"];
+import { MONTH_DATA, PRD_AV_DATA, PRD_DA_DATA } from "@/constants/constants";
 
 interface FocusModelsManagerProps {
   limit: number;

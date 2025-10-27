@@ -130,7 +130,7 @@ export async function fetchUserPlans(accessToken: string) {
 
 export async function fetchAllPromoters(accessToken: string) {
 
-  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/promoters`;
+  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/allPromoters`;
   const response = await fetch(BackApi, {
     method: "GET",
     headers: {
@@ -151,6 +151,34 @@ export async function fetchAllPromoters(accessToken: string) {
   return data;
 
   }
+
+export async function fetchSamePromoters(selectedPromType: string, selectedRegion: string, accessToken: string) {
+
+  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/promoters?userType=${selectedPromType}&region=${selectedRegion}`;
+  const response = await fetch(BackApi, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      console.error("fetchAllPromoters error:", response.status);
+      throw new Error(`Failed to fetch promoters: ${response.statusText}`);
+    }
+  }
+  const data = await response.json();
+  // console.log('ALL PROMOTERS DATA:', data);
+  return data;
+
+  }
+
+
+
+
 
   export async function fetchAllPlans(accessToken: string) {
 
