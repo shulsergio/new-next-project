@@ -13,22 +13,24 @@ export default function PaginationButtons({
   hasPreviousPage,
   hasNextPage,
 }: PaginationButtonsProps) {
+  console.log("*** PaginationButtons hasPreviousPage:", hasPreviousPage);
+
   return (
     <div>
-      <ButtonBox
-        option={"button"}
-        onClick={onPreviousClick}
-        disabled={!hasPreviousPage}
-      >
-        &larr; Назад
-      </ButtonBox>
-      <ButtonBox
-        option={"button"}
-        onClick={onNextClick}
-        disabled={!hasNextPage}
-      >
-        Вперёд &rarr;
-      </ButtonBox>
+      {hasPreviousPage && (
+        <ButtonBox option={"button"} onClick={onPreviousClick}>
+          &larr; Back
+        </ButtonBox>
+      )}
+      {hasNextPage && (
+        <ButtonBox
+          option={"button"}
+          onClick={onNextClick}
+          disabled={!hasNextPage}
+        >
+          Next &rarr;
+        </ButtonBox>
+      )}
     </div>
   );
 }
