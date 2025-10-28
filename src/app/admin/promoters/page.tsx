@@ -11,6 +11,8 @@ import Loader from "@/components/Loader/Loader";
 import Modal from "@/components/Modal/Modal";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 import DataTable from "@/components/Tables/DataTable/DataTable";
+import { useAccess } from "@/hooks/useAccess";
+import PromotersTableAllData from "@/components/Tables/PromotersTableAllData/page";
 
 export default function AdminPromotersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,6 +21,8 @@ export default function AdminPromotersPage() {
   const [loading, setLoading] = useState<boolean>(true);
 
   const { data: session, status } = useSession();
+
+  const { hasPermission } = useAccess();
 
   useEffect(() => {
     if (status === "loading") {
@@ -55,6 +59,7 @@ export default function AdminPromotersPage() {
 
     loadPromoters();
   }, [session, status]);
+
   const PromsByUserType = promotersData.reduce((acc, promoter) => {
     if (promoter.userType) {
       acc[promoter.userType] = (acc[promoter.userType] || 0) + 1;
@@ -84,21 +89,26 @@ export default function AdminPromotersPage() {
             <Loader isLoading={true} />
           ) : error ? (
             <p>Error: {error}</p>
-          ) : (
+          ) : hasPermission("canVisiblePromsListAllData") ? (
+            <PromotersTableAllData promoters={promotersData} />
+          ) : hasPermission("canVisiblePromsListData") ? (
             <PromotersTable promoters={promotersData} />
+          ) : (
+            <p>У вас нет прав для просмотра данных промоутеров.</p>
           )}
-
-          <div className={css.buttonGroup}>
-            <Link
-              href="/admin/promoters/register"
-              className={css.registerButton}
-            >
-              Register New Promoter (Page)
-            </Link>
-            <button onClick={openModal} className={css.openModalButton}>
-              Register New Promoter (Modal)
-            </button>
-          </div>
+          {hasPermission("canVisiblePromsListAllData") && (
+            <div className={css.buttonGroup}>
+              <Link
+                href="/admin/promoters/register"
+                className={css.registerButton}
+              >
+                Register New Promoter (Page)
+              </Link>
+              <button onClick={openModal} className={css.openModalButton}>
+                Register New Promoter (Modal)
+              </button>
+            </div>
+          )}
         </ComponentAdminWrapper>
       </div>
       <div className={css.promsData}>

@@ -46,7 +46,7 @@ export default function Admin() {
       <div className={css.mainContainer}>
         <div className={css.buttonBox}>
           <ComponentAdminWrapper>
-            {hasPermission("canViewUsersData") && (
+            {hasPermission("canAccessPromsListData") && (
               <ButtonBox
                 option="button"
                 // href="admin/promoters"
