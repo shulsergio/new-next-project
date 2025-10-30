@@ -94,7 +94,7 @@ export default function AdminPromotersPage() {
           ) : hasPermission("canVisiblePromsListData") ? (
             <PromotersTable promoters={promotersData} />
           ) : (
-            <p>У вас нет прав для просмотра данных промоутеров.</p>
+            <p>No data</p>
           )}
           {hasPermission("canVisiblePromsListAllData") && (
             <div className={css.buttonGroup}>

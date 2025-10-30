@@ -41,9 +41,6 @@ export default function PromotersAllPlansTable({
         </thead>
         <tbody>
           {promotersAllPlans.map((promoter) => {
-            // --- УПРОЩЕННАЯ ЛОГИКА (ЕСЛИ ВСЕГДА ОДИН ПЛАН) ---
-
-            // Защита: проверяем, есть ли планы вообще
             if (promoter.plans.length === 0) {
               return (
                 <tr key={promoter._id}>
@@ -67,7 +64,6 @@ export default function PromotersAllPlansTable({
                 <td>{promoter.region}</td>
                 <td>{promoter.name}</td>
                 <td>{promoter.userType}</td>
-                {/* Применяем форматирование */}
                 <td>{getFormatUahFromNumber(totalPlan, "decimal")}</td>
                 <td>{getFormatUahFromNumber(totalFact, "decimal")}</td>
                 <td>{totalAR}</td>

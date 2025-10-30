@@ -60,7 +60,7 @@ export function getFormatUahFromNumber(value: number,  format: "currency" | "dec
     return "0";
   }
   const baseOptions: Intl.NumberFormatOptions = {
-    style: format, // 'currency' або 'decimal'
+    style: format,  
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
     useGrouping: true,

@@ -16,6 +16,7 @@ import Loader from "@/components/Loader/Loader";
 import PromotersAllPlansTable from "@/components/Tables/PromotersAllPlansTable/PromotersAllPlansTable";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 import { PROMS_TYPE_SELECT, REGION } from "@/constants/constants";
+import DataTable from "@/components/Tables/DataTable/DataTable";
 
 interface Promoter {
   _id: string;
@@ -62,36 +63,18 @@ export default function AdminPlansPage() {
         setLoading(true);
         setError(null);
         try {
-          console.log(
-            "API CALL PARAMS: PromType =",
-            selectedPromType,
-            "| Region =",
-            selectedRegion
-          );
           const [fetchedPlans, fetchedPromoters] = await Promise.all([
             fetchAllPlans(session.accessToken),
             fetchSamePromoters(
               selectedPromType,
               selectedRegion,
-              // regionParam,
+              // selectedChain
               session.accessToken
             ),
           ]);
           console.log("FFFFFF fetchedPlans data:", fetchedPlans);
-
           console.log("FFFFFF fetchedPromoters data:", fetchedPromoters);
 
-          // const promoterMap = new Map<
-          //   string,
-          //   Pick<Promoter, "name" | "region" | "userType">
-          // >();
-          // fetchedPromoters.forEach((p) =>
-          //   promoterMap.set(p._id, {
-          //     name: p.name,
-          //     region: p.region,
-          //     userType: p.userType,
-          //   })
-          // );
           const plansByUserId = new Map<string, Plan[]>();
 
           fetchedPlans.forEach((plan) => {
@@ -103,10 +86,6 @@ export default function AdminPlansPage() {
 
           console.log("Plans Grouped Map:", plansByUserId);
 
-          // const enrichedData = fetchedPlans.map((plan) => ({
-          //   ...plan,
-          //   promoterName: promoterMap.get(plan.userId) || "Неизвестный",
-          // }));
           const enrichedPromoters: EnrichedPromoter[] = fetchedPromoters.map(
             (promoter) => {
               const plans = plansByUserId.get(promoter._id) || [];
@@ -118,7 +97,6 @@ export default function AdminPlansPage() {
             }
           );
 
-          // console.log("FFFFFF enrichedData data:", enrichedData);
           setPlansData(enrichedPromoters);
         } catch (e: unknown) {
           console.error("Error fetching PLANS:", e);
@@ -147,28 +125,64 @@ export default function AdminPlansPage() {
     setselectedRegion(region);
   };
 
+  let totalPlan = 0,
+    totalFact = 0;
+
+  const TotalPlans = plansData.reduce((acc, promoter) => {
+    const region = promoter.region;
+    const plan = promoter.plans.length > 0 ? promoter.plans[0] : null;
+
+    if (plan) {
+      totalPlan += plan.totalSOplan;
+      totalFact += plan.totalSOfact;
+      acc[region] = Number(((totalFact / totalPlan) * 100).toFixed(1));
+    }
+    return acc;
+  }, {} as Record<string, number>);
+  console.log("**** TotalPlans ****:", TotalPlans);
+
   return (
-    <>
-      <ComponentAdminWrapper title="Promoters plans">
-        {loading && <Loader isLoading={true} />}
-        {error && <p>Ошибка: {error}</p>}
-        {!loading && !error && (
-          <>
-            <RegionFilter
-              regions={regionData}
-              onRegionChange={handleRegionChange}
-              selectedRegion={selectedRegion}
-            />
-            <PromTypeFilter
-              promTypes={PROMS_TYPE_SELECT}
-              onPromTypeChange={handlePromTypeChange}
-              selectedPromType={selectedPromType}
-            />
-            <PromotersAllPlansTable promotersAllPlans={plansData} />
-          </>
-        )}
-      </ComponentAdminWrapper>
-    </>
+    <div className={css.adminPromotersPage}>
+      <div className={css.promsList}>
+        <ComponentAdminWrapper title="Promoters plans">
+          {loading && <Loader isLoading={true} />}
+          {error && <p>Ошибка: {error}</p>}
+          {!loading && !error && (
+            <>
+              <RegionFilter
+                regions={regionData}
+                onRegionChange={handleRegionChange}
+                selectedRegion={selectedRegion}
+              />
+              <PromTypeFilter
+                promTypes={PROMS_TYPE_SELECT}
+                onPromTypeChange={handlePromTypeChange}
+                selectedPromType={selectedPromType}
+              />
+              {/* <ChainFilter
+                chains={chainData}
+                onRegionChange={handleChainChange}
+                selectedChain={selectedChain}
+              /> */}
+              <PromotersAllPlansTable promotersAllPlans={plansData} />
+            </>
+          )}
+        </ComponentAdminWrapper>
+      </div>
+      <div className={css.promsData}>
+        <div className={css.promsDatabyDep}>
+          <ComponentAdminWrapper title="Qty by type">
+            {loading ? (
+              <Loader isLoading={true} />
+            ) : error ? (
+              <p>Error: {error}</p>
+            ) : (
+              <DataTable data={TotalPlans} />
+            )}
+          </ComponentAdminWrapper>
+        </div>
+      </div>
+    </div>
   );
 }
 interface RegionFilterProps {

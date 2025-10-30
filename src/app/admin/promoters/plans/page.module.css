@@ -1,10 +1,3 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 10px;
-  gap: 15px;
-}
-
 .regionFilterBox {
   display: flex;
   flex-direction: column;
@@ -22,4 +15,41 @@
   background-color: #e6f2ff;
   font-size: 11px;
   color: #333;
+}
+
+.adminPromotersPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.promsList {
+  width: 100%;
+}
+.promsData {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .promsList {
+    width: 100%;
+  }
+  .promsData {
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .adminPromotersPage {
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+  }
+  .promsList {
+    width: 70%;
+  }
+  .promsData {
+    width: 30%;
+  }
 }
