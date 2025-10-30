@@ -18,9 +18,10 @@ export default function PromotersTable({ promoters }: PromotersTableProps) {
         <thead>
           <tr>
             <th>Region</th>
-            <th>Promoter</th>
+            <th>Name</th>
             <th>MCS id</th>
             <th>Type</th>
+            <th>Hired</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,7 @@ export default function PromotersTable({ promoters }: PromotersTableProps) {
               <td>{promoter.name}</td>
               <td>{promoter.mcsId}</td>
               <td>{promoter.userType}</td>
+              <td>{promoter.DateOfHired}</td>
             </tr>
           ))}
         </tbody>

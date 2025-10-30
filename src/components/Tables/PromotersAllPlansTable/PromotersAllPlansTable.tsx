@@ -1,20 +1,21 @@
+import { Plan } from "@/utils/fetchData";
 import css from "./PromotersAllPlansTable.module.css";
+import { getFormatUahFromNumber } from "@/utils/calculations";
+// import { getFormatUahFromNumber } from "@/utils/calculations";
 
-// interface PromoterData {
-//   name: string;
-//   region: string;
-//   userType: string;
-// }
-
-interface Plan {
+interface Promoter {
   _id: string;
-  promoterName?: { name: string; region: string; userType: string };
-  totalSOplan: number;
-  totalSOfact: number;
+  name: string;
+  region: string;
+  userType: string;
+}
+
+interface EnrichedPromoter extends Promoter {
+  plans: Plan[];
 }
 
 interface promotersAllPlansProps {
-  promotersAllPlans: Plan[];
+  promotersAllPlans: EnrichedPromoter[];
 }
 
 const PercentDataForAdminData = (plan, fact) =>
@@ -32,24 +33,47 @@ export default function PromotersAllPlansTable({
             <th>Region</th>
             <th>ID</th>
             <th>Type</th>
+
             <th>TTL Plan</th>
             <th>TTL Fact</th>
             <th>TTL AR</th>
           </tr>
         </thead>
         <tbody>
-          {promotersAllPlans.map((plan) => (
-            <tr key={plan._id}>
-              <td>{plan.promoterName?.region}</td>
-              <td>{plan.promoterName?.name}</td>
-              <td>{plan.promoterName?.userType}</td>
-              <td>{plan.totalSOplan}</td>
-              <td>{plan.totalSOfact}</td>
-              <td>
-                {PercentDataForAdminData(plan.totalSOplan, plan.totalSOfact)}
-              </td>
-            </tr>
-          ))}
+          {promotersAllPlans.map((promoter) => {
+            // --- УПРОЩЕННАЯ ЛОГИКА (ЕСЛИ ВСЕГДА ОДИН ПЛАН) ---
+
+            // Защита: проверяем, есть ли планы вообще
+            if (promoter.plans.length === 0) {
+              return (
+                <tr key={promoter._id}>
+                  <td colSpan={6}>
+                    Нет данных плана для промоутера: {promoter.name}
+                  </td>
+                </tr>
+              );
+            }
+
+            const singlePlan = promoter.plans[0];
+
+            const totalPlan = singlePlan.totalSOplan;
+            const totalFact = singlePlan.totalSOfact;
+
+            const totalAR = PercentDataForAdminData(totalPlan, totalFact);
+            // ------------------------------------------------
+
+            return (
+              <tr key={promoter._id}>
+                <td>{promoter.region}</td>
+                <td>{promoter.name}</td>
+                <td>{promoter.userType}</td>
+                {/* Применяем форматирование */}
+                <td>{getFormatUahFromNumber(totalPlan)}</td>
+                <td>{getFormatUahFromNumber(totalFact)}</td>
+                <td>{totalAR}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

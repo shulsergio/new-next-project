@@ -15,7 +15,6 @@ export function needToARValue({ fact, plan, toAchive }: needToARValueProps) {
   if (total < 0) {
     return "DONE!";
   }
-
   return getFormatUahFromNumber(total);
 }
 
@@ -56,8 +55,8 @@ export function getFocusPercent({
  */
 export function getFormatUahFromNumber(value: number) {
     const formatInteger = new Intl.NumberFormat("uk-UA", {
-      style: "currency",
-      currency: "UAH",
+      style: "decimal",
+// currency: "UAH",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
       useGrouping: true,

@@ -17,9 +17,19 @@ import PromotersAllPlansTable from "@/components/Tables/PromotersAllPlansTable/P
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 import { PROMS_TYPE_SELECT, REGION } from "@/constants/constants";
 
+interface Promoter {
+  _id: string;
+  name: string;
+  region: string;
+  userType: string;
+}
+interface EnrichedPromoter extends Promoter {
+  plans: Plan[];
+}
+
 export default function AdminPlansPage() {
-  const regionData = [...["all"], ...REGION];
-  const [plansData, setPlansData] = useState<Plan[]>([]);
+  const regionData = ["all", ...REGION];
+  const [plansData, setPlansData] = useState<EnrichedPromoter[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedPromType, setSelectedPromType] = useState<string>(
@@ -28,13 +38,6 @@ export default function AdminPlansPage() {
   const [selectedRegion, setselectedRegion] = useState<string>(regionData[0]);
 
   const { data: session, status } = useSession();
-
-  interface Promoter {
-    _id: string;
-    name: string;
-    region: string;
-    userType: string;
-  }
 
   useEffect(() => {
     if (status === "loading") {
@@ -50,18 +53,27 @@ export default function AdminPlansPage() {
   }, [session, status]);
   console.log(",*** STATUS:", status);
   console.log("session.accessToken:", session?.accessToken);
+  console.log(",*** selectedRegion:", selectedRegion);
 
   useEffect(() => {
+    // const regionParam = selectedRegion === "all" ? "" : selectedRegion;
     const loadPlans = async () => {
       if (status === "authenticated" && session.accessToken) {
         setLoading(true);
         setError(null);
         try {
+          console.log(
+            "API CALL PARAMS: PromType =",
+            selectedPromType,
+            "| Region =",
+            selectedRegion
+          );
           const [fetchedPlans, fetchedPromoters] = await Promise.all([
             fetchAllPlans(session.accessToken),
             fetchSamePromoters(
               selectedPromType,
               selectedRegion,
+              // regionParam,
               session.accessToken
             ),
           ]);
@@ -69,26 +81,45 @@ export default function AdminPlansPage() {
 
           console.log("FFFFFF fetchedPromoters data:", fetchedPromoters);
 
-          const promoterMap = new Map<
-            string,
-            Pick<Promoter, "name" | "region" | "userType">
-          >();
-          fetchedPromoters.forEach((p) =>
-            promoterMap.set(p._id, {
-              name: p.name,
-              region: p.region,
-              userType: p.userType,
-            })
+          // const promoterMap = new Map<
+          //   string,
+          //   Pick<Promoter, "name" | "region" | "userType">
+          // >();
+          // fetchedPromoters.forEach((p) =>
+          //   promoterMap.set(p._id, {
+          //     name: p.name,
+          //     region: p.region,
+          //     userType: p.userType,
+          //   })
+          // );
+          const plansByUserId = new Map<string, Plan[]>();
+
+          fetchedPlans.forEach((plan) => {
+            const currentPlans = plansByUserId.get(plan.userId) || [];
+            currentPlans.push(plan);
+
+            plansByUserId.set(plan.userId, currentPlans);
+          });
+
+          console.log("Plans Grouped Map:", plansByUserId);
+
+          // const enrichedData = fetchedPlans.map((plan) => ({
+          //   ...plan,
+          //   promoterName: promoterMap.get(plan.userId) || "Неизвестный",
+          // }));
+          const enrichedPromoters: EnrichedPromoter[] = fetchedPromoters.map(
+            (promoter) => {
+              const plans = plansByUserId.get(promoter._id) || [];
+
+              return {
+                ...promoter,
+                plans: plans,
+              } as EnrichedPromoter;
+            }
           );
 
-          console.log("FFFFFF promoterMap data:", promoterMap);
-
-          const enrichedData = fetchedPlans.map((plan) => ({
-            ...plan,
-            promoterName: promoterMap.get(plan.userId) || "Неизвестный",
-          }));
-          console.log("FFFFFF enrichedData data:", enrichedData);
-          setPlansData(enrichedData);
+          // console.log("FFFFFF enrichedData data:", enrichedData);
+          setPlansData(enrichedPromoters);
         } catch (e: unknown) {
           console.error("Error fetching PLANS:", e);
           setError("Failed to load PLANS data.");
@@ -106,7 +137,7 @@ export default function AdminPlansPage() {
   if (status === "loading") {
     return <Loader isLoading={true} />;
   }
-  console.log("**** ALL PLANS data  ****:", plansData);
+  console.log("**** ALL plansData data  ****:", plansData);
 
   const handlePromTypeChange = (promType: string) => {
     setSelectedPromType(promType);
@@ -124,7 +155,7 @@ export default function AdminPlansPage() {
         {!loading && !error && (
           <>
             <RegionFilter
-              regions={REGION}
+              regions={regionData}
               onRegionChange={handleRegionChange}
               selectedRegion={selectedRegion}
             />
@@ -150,13 +181,14 @@ function RegionFilter({
   onRegionChange,
   selectedRegion,
 }: RegionFilterProps) {
+  const selectId = "regionSelect";
   return (
     <div className={css.regionFilterBox}>
-      <label htmlFor="prdSelect" className={css.selectLabel}>
+      <label htmlFor={selectId} className={css.selectLabel}>
         Filter region:
       </label>
       <select
-        id="regionSelect"
+        id={selectId}
         value={selectedRegion || ""}
         onChange={(e) => onRegionChange(e.target.value)}
         className={css.selectBox}
@@ -181,13 +213,14 @@ function PromTypeFilter({
   onPromTypeChange,
   selectedPromType,
 }: promTypeFilterProps) {
+  const selectId = "promTypeSelect";
   return (
     <div className={css.regionFilterBox}>
-      <label htmlFor="prdSelect" className={css.selectLabel}>
+      <label htmlFor={selectId} className={css.selectLabel}>
         Filter type:
       </label>
       <select
-        id="regionSelect"
+        id={selectId}
         value={selectedPromType || ""}
         onChange={(e) => onPromTypeChange(e.target.value)}
         className={css.selectBox}

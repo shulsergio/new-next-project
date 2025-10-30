@@ -28,6 +28,11 @@ export interface Plan {
     shop?: string;
     region?: string;
     lastVisit?: string;
+    DateOfHired?: string;
+    DateOfFired?: string;
+    INN: string;
+    phone?: string;
+
    }
   
    
@@ -154,6 +159,9 @@ export async function fetchAllPromoters(accessToken: string) {
 
 export async function fetchSamePromoters(selectedPromType: string, selectedRegion: string, accessToken: string) {
 
+  console.log('ZZZZ fetchSamePromoters selectedPromType', selectedPromType);
+    console.log('ZZZZ fetchSamePromoters selectedRegion', selectedRegion);
+  
   const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/promoters?userType=${selectedPromType}&region=${selectedRegion}`;
   const response = await fetch(BackApi, {
     method: "GET",
