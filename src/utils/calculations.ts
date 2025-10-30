@@ -53,16 +53,27 @@ export function getFocusPercent({
  * @param {number} value
  * @return {*} 
  */
-export function getFormatUahFromNumber(value: number) {
-    const formatInteger = new Intl.NumberFormat("uk-UA", {
-      style: "decimal",
-// currency: "UAH",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-      useGrouping: true,
-    });
-    return `${formatInteger.format(value)}`;
+export function getFormatUahFromNumber(value: number,  format: "currency" | "decimal" = "currency") {
+  if (format === undefined) { format = "currency"; }
+
+    if (value === null || value === undefined || isNaN(value)) {
+    return "0";
   }
+  const baseOptions: Intl.NumberFormatOptions = {
+    style: format, // 'currency' або 'decimal'
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+    useGrouping: true,
+  };
+ const finalOptions = format === "currency"
+    ? { ...baseOptions, currency: "UAH" } 
+    : baseOptions;  
+
+ 
+  const formatter = new Intl.NumberFormat("uk-UA", finalOptions);
+ return formatter.format(value);
+}
+
 
 export function getUkrFormatDate(DateString: string) {
 

@@ -68,8 +68,8 @@ export default function PromotersAllPlansTable({
                 <td>{promoter.name}</td>
                 <td>{promoter.userType}</td>
                 {/* Применяем форматирование */}
-                <td>{getFormatUahFromNumber(totalPlan)}</td>
-                <td>{getFormatUahFromNumber(totalFact)}</td>
+                <td>{getFormatUahFromNumber(totalPlan, "decimal")}</td>
+                <td>{getFormatUahFromNumber(totalFact, "decimal")}</td>
                 <td>{totalAR}</td>
               </tr>
             );
