@@ -33,7 +33,7 @@ export default function PromotersAllPlansTable({
             <th>Region</th>
             <th>ID</th>
             <th>Type</th>
-
+            {/* <th>Chain</th> */}
             <th>TTL Plan</th>
             <th>TTL Fact</th>
             <th>TTL AR</th>
@@ -64,6 +64,7 @@ export default function PromotersAllPlansTable({
                 <td>{promoter.region}</td>
                 <td>{promoter.name}</td>
                 <td>{promoter.userType}</td>
+                {/* <td>{"Epicentr"}</td> */}
                 <td>{getFormatUahFromNumber(totalPlan, "decimal")}</td>
                 <td>{getFormatUahFromNumber(totalFact, "decimal")}</td>
                 <td>{totalAR}</td>

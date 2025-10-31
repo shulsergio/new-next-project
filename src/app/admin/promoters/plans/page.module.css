@@ -39,6 +39,14 @@
   .promsData {
     width: 100%;
   }
+  .regionFilterBox {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .selectLabel {
+    font-size: 14px;
+  }
 }
 @media (min-width: 1200px) {
   .adminPromotersPage {
@@ -47,9 +55,12 @@
     width: 100%;
   }
   .promsList {
-    width: 70%;
+    width: 75%;
   }
   .promsData {
-    width: 30%;
+    width: 25%;
+  }
+  .selectLabel {
+    font-size: 16px;
   }
 }
