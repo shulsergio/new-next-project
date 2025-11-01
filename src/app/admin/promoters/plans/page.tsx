@@ -17,6 +17,7 @@ import PromotersAllPlansTable from "@/components/Tables/PromotersAllPlansTable/P
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 import { PROMS_TYPE_SELECT, REGION } from "@/constants/constants";
 import DataTable from "@/components/Tables/DataTable/DataTable";
+import Calendar from "@/components/Date_calendar/Calendar";
 
 interface Promoter {
   _id: string;
@@ -198,6 +199,7 @@ function RegionFilter({
   const selectId = "regionSelect";
   return (
     <div className={css.regionFilterBox}>
+      <Calendar />
       <label htmlFor={selectId} className={css.selectLabel}>
         Filter region:
       </label>
