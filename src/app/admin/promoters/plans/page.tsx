@@ -17,7 +17,7 @@ import PromotersAllPlansTable from "@/components/Tables/PromotersAllPlansTable/P
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 import { PROMS_TYPE_SELECT, REGION } from "@/constants/constants";
 import DataTable from "@/components/Tables/DataTable/DataTable";
-import Calendar from "@/components/Date_calendar/Calendar";
+// import Calendar from "@/components/Date_calendar/Calendar";
 
 interface Promoter {
   _id: string;
@@ -38,6 +38,7 @@ export default function AdminPlansPage() {
     PROMS_TYPE_SELECT[0]
   );
   const [selectedRegion, setselectedRegion] = useState<string>(regionData[0]);
+  // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const { data: session, status } = useSession();
 
@@ -141,7 +142,7 @@ export default function AdminPlansPage() {
     return acc;
   }, {} as Record<string, number>);
   console.log("**** TotalPlans ****:", TotalPlans);
-
+  console.log("**** TotalPlans ****:", TotalPlans);
   return (
     <div className={css.adminPromotersPage}>
       <div className={css.promsList}>
@@ -199,7 +200,6 @@ function RegionFilter({
   const selectId = "regionSelect";
   return (
     <div className={css.regionFilterBox}>
-      <Calendar />
       <label htmlFor={selectId} className={css.selectLabel}>
         Filter region:
       </label>

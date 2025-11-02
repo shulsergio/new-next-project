@@ -13,6 +13,7 @@ import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentA
 import DataTable from "@/components/Tables/DataTable/DataTable";
 import { useAccess } from "@/hooks/useAccess";
 import PromotersTableAllData from "@/components/Tables/PromotersTableAllData/page";
+import Calendar from "@/components/Date_calendar/Calendar";
 
 export default function AdminPromotersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +24,7 @@ export default function AdminPromotersPage() {
   const { data: session, status } = useSession();
 
   const { hasPermission } = useAccess();
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
     if (status === "loading") {
@@ -76,11 +78,15 @@ export default function AdminPromotersPage() {
   console.log("Promoters by user type:", PromsByRegion);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    console.log("OK:", date ? date.toISOString().split("T")[0] : "null");
+  };
 
   if (status === "loading") {
     return <Loader isLoading={true} />;
   }
-
+  console.log("-----selectedDate: ", selectedDate);
   return (
     <div className={css.adminPromotersPage}>
       <div className={css.promsList}>
@@ -90,9 +96,21 @@ export default function AdminPromotersPage() {
           ) : error ? (
             <p>Error: {error}</p>
           ) : hasPermission("canVisiblePromsListAllData") ? (
-            <PromotersTableAllData promoters={promotersData} />
+            <>
+              <Calendar
+                selectedDate={selectedDate}
+                setSelectedDate={handleDateChange}
+              />
+              <PromotersTableAllData promoters={promotersData} />
+            </>
           ) : hasPermission("canVisiblePromsListData") ? (
-            <PromotersTable promoters={promotersData} />
+            <>
+              <Calendar
+                selectedDate={selectedDate}
+                setSelectedDate={handleDateChange}
+              />
+              <PromotersTable promoters={promotersData} />
+            </>
           ) : (
             <p>No data</p>
           )}
