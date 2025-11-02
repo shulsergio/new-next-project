@@ -173,13 +173,13 @@ export default function AdminPlansPage() {
       </div>
       <div className={css.promsData}>
         <div className={css.promsDatabyDep}>
-          <ComponentAdminWrapper title="Qty by type">
+          <ComponentAdminWrapper title="AR% by Region">
             {loading ? (
               <Loader isLoading={true} />
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <DataTable data={TotalPlans} />
+              <DataTable data={TotalPlans} dataHeader={["Region", "%"]} />
             )}
           </ComponentAdminWrapper>
         </div>

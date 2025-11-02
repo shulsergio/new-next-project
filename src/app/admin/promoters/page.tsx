@@ -137,7 +137,10 @@ export default function AdminPromotersPage() {
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <DataTable data={PromsByUserType} />
+              <DataTable
+                data={PromsByUserType || {}}
+                dataHeader={["Type", "Qty"]}
+              />
             )}
           </ComponentAdminWrapper>
         </div>
@@ -148,7 +151,7 @@ export default function AdminPromotersPage() {
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <DataTable data={PromsByRegion} />
+              <DataTable data={PromsByRegion} dataHeader={["Region", "Qty"]} />
             )}
           </ComponentAdminWrapper>
         </div>{" "}
@@ -159,7 +162,7 @@ export default function AdminPromotersPage() {
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <p>---</p>
+              <DataTable data={PromsByRegion} dataHeader={["Chain", "Qty"]} />
             )}
           </ComponentAdminWrapper>
         </div>
