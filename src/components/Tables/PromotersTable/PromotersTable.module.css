@@ -38,29 +38,37 @@
 
 .table th:nth-child(1),
 .table td:nth-child(1) {
-  width: 17%;
+  width: 11%;
 }
 .table th:nth-child(2),
 .table td:nth-child(2) {
-  width: 38%;
+  width: 11%;
 }
 .table th:nth-child(3),
 .table td:nth-child(3) {
-  width: 32%;
+  width: 25%;
 }
 .table th:nth-child(4),
 .table td:nth-child(4) {
-  width: 12%;
+  width: 20%;
 }
 .table th:nth-child(5),
 .table td:nth-child(5) {
-  width: 21%;
+  width: 7%;
+}
+.table th:nth-child(6),
+.table td:nth-child(6) {
+  width: 13%;
+}
+.table th:nth-child(7),
+.table td:nth-child(7) {
+  width: 13%;
 }
 
 @media (min-width: 375px) {
   .table {
     /* width: 110%; */
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
@@ -79,5 +87,18 @@
     font-size: 16px;
     /* min-width: 380px; */
     table-layout: fixed;
+  }
+
+  .table th:nth-child(5),
+  .table td:nth-child(5) {
+    font-size: 15px;
+  }
+  .table th:nth-child(6),
+  .table td:nth-child(6) {
+    font-size: 15px;
+  }
+  .table th:nth-child(7),
+  .table td:nth-child(7) {
+    font-size: 15px;
   }
 }
