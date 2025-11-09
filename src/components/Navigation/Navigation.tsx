@@ -5,6 +5,7 @@ import Link from "next/link";
 import css from "./Navigation.module.css";
 import { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useAccess } from "@/hooks/useAccess";
 
 const FontAwesomeIcon = ({ icon }) => {
   const iconMap = {
@@ -19,8 +20,10 @@ const faBars = "faBars";
 const faXmark = "faXmark";
 
 export default function Navigation() {
-  const { data: session, status } = useSession();
+  const { hasPermission } = useAccess();
+  const { data: session } = useSession();
   const navName = session?.user?.name || "";
+  // const userPermissions = session?.user?.permissions || [];
   // const navName = "VASYA";
 
   const [isOpen, setIsOpen] = useState(false);
@@ -40,6 +43,51 @@ export default function Navigation() {
     };
   }, [isOpen]);
 
+  const navPromoterItems = (
+    <>
+      <Link
+        href="/user/plans"
+        className={css.link}
+        onClick={isOpen ? toggleMenu : undefined}
+      >
+        Promoter plans
+      </Link>
+      <Link
+        href="/user/focus-models"
+        className={css.link}
+        onClick={isOpen ? toggleMenu : undefined}
+      >
+        Focus Models
+      </Link>
+    </>
+  );
+
+  const navAdminItems = (
+    <>
+      <Link
+        href="/admin/promoters"
+        className={css.link}
+        onClick={isOpen ? toggleMenu : undefined}
+      >
+        Proms Data
+      </Link>
+      <Link
+        href="/admin/promoters/plans"
+        className={css.link}
+        onClick={isOpen ? toggleMenu : undefined}
+      >
+        Proms Plans
+      </Link>
+      <Link
+        href="/user/focus-models"
+        className={css.link}
+        onClick={isOpen ? toggleMenu : undefined}
+      >
+        Focus Models
+      </Link>
+    </>
+  );
+
   const navItems = (
     <>
       <Link
@@ -58,24 +106,16 @@ export default function Navigation() {
       </Link>
     </>
   );
-  const navUserItems = (
-    <>
-      <Link
-        href="/user/plans"
-        className={css.link}
-        onClick={isOpen ? toggleMenu : undefined}
-      >
-        Promoter plans
-      </Link>
-      <Link
-        href="/user/focus-models"
-        className={css.link}
-        onClick={isOpen ? toggleMenu : undefined}
-      >
-        Focus Models
-      </Link>
-    </>
-  );
+
+  // const hasPermission = useCallback(
+  //   (permission) => {
+  //     if (status !== "authenticated") {
+  //       return false;
+  //     }
+  //     return userPermissions.includes(permission);
+  //   },
+  //   [status, userPermissions]
+  // );
 
   return (
     <header className={css.header}>
@@ -105,7 +145,9 @@ export default function Navigation() {
         <div className={css.mobileAuthStatus}>
           <AuthStatus onMenuAction={toggleMenu} />
         </div>
-        {status === "unauthenticated" ? "" : navUserItems}
+        {hasPermission("canAccessAdminPanel")
+          ? navAdminItems
+          : navPromoterItems}
         {navItems}
       </div>
     </header>
