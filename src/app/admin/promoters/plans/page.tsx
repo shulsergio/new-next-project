@@ -11,7 +11,7 @@ import {
 } from "@/utils/fetchData";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import css from "./page.module.css";
+import css from "./plans.module.css";
 // import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
 import PromotersAllPlansTable from "@/components/Tables/PromotersAllPlansTable/PromotersAllPlansTable";
