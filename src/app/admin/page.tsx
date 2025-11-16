@@ -52,7 +52,7 @@ export default function Admin() {
                 // href="admin/promoters"
                 onClick={() => setCurrentPage("promoters")}
               >
-                promoters data
+                Proms data
               </ButtonBox>
             )}
             <ButtonBox
@@ -60,7 +60,7 @@ export default function Admin() {
               // href="admin/promoters/plans"
               onClick={() => setCurrentPage("promoters/plans")}
             >
-              promoters plans
+              Proms plans
             </ButtonBox>
             <ButtonBox option="link" href="user/motivation">
               Motivation

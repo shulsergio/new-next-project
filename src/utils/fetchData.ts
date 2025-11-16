@@ -260,6 +260,22 @@ interface shopsData {
   return data;
 }
   
+  export async function fetchShopsById(apiClient: SafeApiClient<ShopResponse>, storeId: string): Promise<ShopResponse>{
+
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/shops/${storeId}`;
+
+  const data = await apiClient(BackApi, {
+    method: "GET",
+    cache: "no-store",
+  });
+
+  // console.log('%%%% FILE fetchShopsById (Cleaned Data): ', data);
+
+  return data;
+}
+
+
+
   export async function fetchFocusModels(curPage: number, limit: number, type: string, accessToken: string, selectedPrd: string, selectedMonth: string, isFocusOnly: boolean,isBonusOnly: boolean): Promise<ApiResponse> {
     // type = "AV";
     // console.log("WWWWW fetchFocusModels selectedPrd===", selectedPrd)

@@ -15,7 +15,7 @@ import css from "./page.module.css";
 import Loader from "@/components/Loader/Loader";
 import PromotersAllPlansTable from "@/components/Tables/PromotersAllPlansTable/PromotersAllPlansTable";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
-import { PROMS_TYPE_SELECT, REGION } from "@/constants/constants";
+import { CHAIN, PROMS_TYPE_SELECT, REGION } from "@/constants/constants";
 import DataTable from "@/components/Tables/DataTable/DataTable";
 // import Calendar from "@/components/Date_calendar/Calendar";
 
@@ -31,6 +31,7 @@ interface EnrichedPromoter extends Promoter {
 
 export default function AdminPlansPage() {
   const regionData = ["all", ...REGION];
+  const chainData = ["all", ...CHAIN];
   const [plansData, setPlansData] = useState<EnrichedPromoter[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,6 +40,7 @@ export default function AdminPlansPage() {
   );
   const [selectedRegion, setselectedRegion] = useState<string>(regionData[0]);
   // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedChain, setSelectedChain] = useState<string>(chainData[0]);
 
   const { data: session, status } = useSession();
 
@@ -161,11 +163,11 @@ export default function AdminPlansPage() {
                 onPromTypeChange={handlePromTypeChange}
                 selectedPromType={selectedPromType}
               />
-              {/* <ChainFilter
+              <ChainFilter
                 chains={chainData}
-                onRegionChange={handleChainChange}
+                onChainChange={handleChainChange}
                 selectedChain={selectedChain}
-              /> */}
+              />
               <PromotersAllPlansTable promotersAllPlans={plansData} />
             </>
           )}
@@ -242,6 +244,38 @@ function PromTypeFilter({
         className={css.selectBox}
       >
         {promTypes.map((item) => (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+interface ChainFilterProps {
+  chains: string[];
+  onChainChange: (chain: string) => void;
+  selectedChain: string;
+}
+function ChainFilter({
+  chains,
+  onChainChange,
+  selectedChain,
+}: ChainFilterProps) {
+  const selectId = "promChainSelect";
+  return (
+    <div className={css.regionFilterBox}>
+      <label htmlFor={selectId} className={css.selectLabel}>
+        Filter type:
+      </label>
+      <select
+        id={selectId}
+        value={selectedChain || ""}
+        onChange={(e) => onChainChange(e.target.value)}
+        className={css.selectBox}
+      >
+        {chains.map((item) => (
           <option key={item} value={item}>
             {item}
           </option>

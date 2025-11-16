@@ -7,4 +7,5 @@ export const MONTH_DATA = ["m09y2025", "m10y2025", "m11w45-47", "m11w48"];
 // for Admin Plans Page
 
 export const REGION = ['Dnipro', 'Kharkiv', 'Kyiv', 'Lviv', 'Odesa'];
+export const CHAIN = ['Comfy', 'Epicentr', 'Foxtrot'];
 export const PROMS_TYPE_SELECT = ['AV', 'DA', 'MDA', 'SDA'];
