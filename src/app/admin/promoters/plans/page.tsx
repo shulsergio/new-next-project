@@ -28,6 +28,7 @@ interface Promoter {
 }
 interface EnrichedPromoter extends Promoter {
   plans: Plan[];
+  chain: string;
 }
 
 export default function AdminPlansPage() {
@@ -165,10 +166,15 @@ export default function AdminPlansPage() {
     setSelectedChain(chain);
   };
 
+  let filteredPlansData = plansData;
+
+  if (selectedChain !== "all") {
+    filteredPlansData = plansData.filter((p) => p.chain === selectedChain);
+  }
+
   let totalPlan = 0,
     totalFact = 0;
-
-  const TotalPlans = plansData.reduce((acc, promoter) => {
+  const totalRegionsPlan = filteredPlansData.reduce((acc, promoter) => {
     const region = promoter.region;
     const plan = promoter.plans.length > 0 ? promoter.plans[0] : null;
 
@@ -179,8 +185,24 @@ export default function AdminPlansPage() {
     }
     return acc;
   }, {} as Record<string, number>);
-  console.log("**** TotalPlans ****:", TotalPlans);
-  console.log("**** TotalPlans ****:", TotalPlans);
+
+  totalPlan = 0;
+  totalFact = 0;
+
+  const totalChainsPlan = filteredPlansData.reduce((acc, promoter) => {
+    const chain = promoter.chain;
+    const plan = promoter.plans.length > 0 ? promoter.plans[0] : null;
+
+    if (plan) {
+      totalPlan += plan.totalSOplan;
+      totalFact += plan.totalSOfact;
+      acc[chain] = Number(((totalFact / totalPlan) * 100).toFixed(1));
+    }
+    return acc;
+  }, {} as Record<string, number>);
+
+  // console.log("**** TotalPlans ****:", TotalPlans);
+  // console.log("**** TotalPlans ****:", TotalPlans);
   return (
     <div className={css.adminPromotersPage}>
       <div className={css.promsList}>
@@ -204,7 +226,7 @@ export default function AdminPlansPage() {
                 onChainChange={handleChainChange}
                 selectedChain={selectedChain}
               />
-              <PromotersAllPlansTable promotersAllPlans={plansData} />
+              <PromotersAllPlansTable promotersAllPlans={filteredPlansData} />
             </>
           )}
         </ComponentAdminWrapper>
@@ -217,7 +239,18 @@ export default function AdminPlansPage() {
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <DataTable data={TotalPlans} dataHeader={["Region", "%"]} />
+              <DataTable data={totalRegionsPlan} dataHeader={["Region", "%"]} />
+            )}
+          </ComponentAdminWrapper>
+        </div>
+        <div className={css.promsDatabyDep}>
+          <ComponentAdminWrapper title="AR% by Chain">
+            {loading ? (
+              <Loader isLoading={true} />
+            ) : error ? (
+              <p>Error: {error}</p>
+            ) : (
+              <DataTable data={totalChainsPlan} dataHeader={["Chain", "%"]} />
             )}
           </ComponentAdminWrapper>
         </div>
@@ -303,7 +336,7 @@ function ChainFilter({
   return (
     <div className={css.regionFilterBox}>
       <label htmlFor={selectId} className={css.selectLabel}>
-        Filter type:
+        Filter chain:
       </label>
       <select
         id={selectId}
