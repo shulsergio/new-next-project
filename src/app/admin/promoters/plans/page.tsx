@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 // import PromotersTable from "@/components/PromotersTable/PromotersTable";
 import {
   fetchAllPlans,
+  fetchAllShops,
   // fetchAllPromoters,
   fetchSamePromoters,
   Plan,
@@ -67,15 +68,21 @@ export default function AdminPlansPage() {
         setLoading(true);
         setError(null);
         try {
-          const [fetchedPlans, fetchedPromoters] = await Promise.all([
-            fetchAllPlans(session.accessToken),
-            fetchSamePromoters(
-              selectedPromType,
-              selectedRegion,
-              // selectedChain
-              session.accessToken
-            ),
-          ]);
+          const [fetchedShopsResponse, fetchedPlans, fetchedPromoters] =
+            await Promise.all([
+              fetchAllShops(session.accessToken),
+              fetchAllPlans(session.accessToken),
+              fetchSamePromoters(
+                selectedPromType,
+                selectedRegion,
+                // selectedChain
+                session.accessToken
+              ),
+            ]);
+          console.log(
+            "FFFFFF fetchedShopsResponse data:",
+            fetchedShopsResponse
+          );
           console.log("FFFFFF fetchedPlans data:", fetchedPlans);
           console.log("FFFFFF fetchedPromoters data:", fetchedPromoters);
 
@@ -89,18 +96,44 @@ export default function AdminPlansPage() {
           });
 
           console.log("Plans Grouped Map:", plansByUserId);
+          let fetchedShops = fetchedShopsResponse?.data?.shops;
+          console.log(
+            "!Array.isArray(fetchedShops):",
+            !Array.isArray(fetchedShops)
+          );
+          if (!Array.isArray(fetchedShops)) {
+            console.error(
+              "DEBUG: fetchedShops is NOT an array. Raw response:",
+              fetchedShopsResponse
+            );
+            fetchedShops = [];
+          }
+          console.log("FFFFFF fetchedShops data:", fetchedShops);
+          const promoterChainMap = new Map<string, string>();
+          fetchedShops.forEach((shop) => {
+            if (shop.storeId && !promoterChainMap.has(shop.storeId)) {
+              promoterChainMap.set(shop.storeId, shop.chain);
+            }
+          });
 
           const enrichedPromoters: EnrichedPromoter[] = fetchedPromoters.map(
             (promoter) => {
               const plans = plansByUserId.get(promoter._id) || [];
-
+              const storeId = promoter.shop;
+              const chain = storeId
+                ? promoterChainMap.get(storeId) || "-"
+                : "-";
               return {
                 ...promoter,
                 plans: plans,
+                chain: chain,
               } as EnrichedPromoter;
             }
           );
-
+          console.log(
+            "FFFFFF FINAL enrichedPromoters data:",
+            enrichedPromoters
+          );
           setPlansData(enrichedPromoters);
         } catch (e: unknown) {
           console.error("Error fetching PLANS:", e);
@@ -127,6 +160,9 @@ export default function AdminPlansPage() {
 
   const handleRegionChange = (region: string) => {
     setselectedRegion(region);
+  };
+  const handleChainChange = (chain: string) => {
+    setSelectedChain(chain);
   };
 
   let totalPlan = 0,

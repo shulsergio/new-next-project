@@ -260,19 +260,29 @@ interface shopsData {
   return data;
 }
   
-  export async function fetchShopsById(apiClient: SafeApiClient<ShopResponse>, storeId: string): Promise<ShopResponse>{
+  export async function fetchAllShops(accessToken: string) {
 
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/shops/${storeId}`;
-
-  const data = await apiClient(BackApi, {
+  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/shops`;
+  const response = await fetch(BackApi, {
     method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
     cache: "no-store",
   });
 
-  // console.log('%%%% FILE fetchShopsById (Cleaned Data): ', data);
-
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      console.error("fetchAllShops error:", response.status);
+      throw new Error(`Failed to fetch fetchAllShops: ${response.statusText}`);
+    }
+  }
+  const data = await response.json();
+  // console.log('fetch All Shops :', data);
   return data;
-}
+
+  }
 
 
 
