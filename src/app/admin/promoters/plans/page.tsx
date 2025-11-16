@@ -172,34 +172,55 @@ export default function AdminPlansPage() {
     filteredPlansData = plansData.filter((p) => p.chain === selectedChain);
   }
 
-  let totalPlan = 0,
-    totalFact = 0;
-  const totalRegionsPlan = filteredPlansData.reduce((acc, promoter) => {
-    const region = promoter.region;
-    const plan = promoter.plans.length > 0 ? promoter.plans[0] : null;
+  // let totalPlan = 0,
+  //   totalFact = 0;
+  const totalRegionsPlan = (data, addKey) => {
+    const allData = data.reduce((acc, promoter) => {
+      const key = promoter[addKey];
+      const plan = promoter.plans.length > 0 ? promoter.plans[0] : null;
 
-    if (plan) {
-      totalPlan += plan.totalSOplan;
-      totalFact += plan.totalSOfact;
-      acc[region] = Number(((totalFact / totalPlan) * 100).toFixed(1));
+      if (plan && key) {
+        if (!acc[key]) {
+          acc[key] = { totalPlan: 0, totalFact: 0 };
+        }
+
+        acc[key].totalPlan += plan.totalSOplan;
+        acc[key].totalFact += plan.totalSOfact;
+      }
+      return acc;
+    }, {});
+    const result: Record<string, number> = {};
+    for (const [key, totals] of Object.entries(allData)) {
+      const { totalPlan, totalFact } = totals as {
+        totalPlan: number;
+        totalFact: number;
+      };
+
+      if (totalPlan > 0) {
+        result[key] = Number(((totalFact / totalPlan) * 100).toFixed(1));
+      } else {
+        result[key] = 0;
+      }
     }
-    return acc;
-  }, {} as Record<string, number>);
+    return result;
+  };
 
-  totalPlan = 0;
-  totalFact = 0;
+  // const summOfPlans = totalRegionsPlan(filteredPlansData, "region");
+  // console.log("!!! summOfPlans !!!", summOfPlans);
+  // totalPlan = 0;
+  // totalFact = 0;
 
-  const totalChainsPlan = filteredPlansData.reduce((acc, promoter) => {
-    const chain = promoter.chain;
-    const plan = promoter.plans.length > 0 ? promoter.plans[0] : null;
+  // const totalChainsPlan = filteredPlansData.reduce((acc, promoter) => {
+  //   const chain = promoter.chain;
+  //   const plan = promoter.plans.length > 0 ? promoter.plans[0] : null;
 
-    if (plan) {
-      totalPlan += plan.totalSOplan;
-      totalFact += plan.totalSOfact;
-      acc[chain] = Number(((totalFact / totalPlan) * 100).toFixed(1));
-    }
-    return acc;
-  }, {} as Record<string, number>);
+  //   if (plan) {
+  //     totalPlan += plan.totalSOplan;
+  //     totalFact += plan.totalSOfact;
+  //     acc[chain] = Number(((totalFact / totalPlan) * 100).toFixed(1));
+  //   }
+  //   return acc;
+  // }, {} as Record<string, number>);
 
   // console.log("**** TotalPlans ****:", TotalPlans);
   // console.log("**** TotalPlans ****:", TotalPlans);
@@ -239,7 +260,10 @@ export default function AdminPlansPage() {
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <DataTable data={totalRegionsPlan} dataHeader={["Region", "%"]} />
+              <DataTable
+                data={totalRegionsPlan(filteredPlansData, "region")}
+                dataHeader={["Region", "%"]}
+              />
             )}
           </ComponentAdminWrapper>
         </div>
@@ -250,7 +274,10 @@ export default function AdminPlansPage() {
             ) : error ? (
               <p>Error: {error}</p>
             ) : (
-              <DataTable data={totalChainsPlan} dataHeader={["Chain", "%"]} />
+              <DataTable
+                data={totalRegionsPlan(filteredPlansData, "chain")}
+                dataHeader={["Chain", "%"]}
+              />
             )}
           </ComponentAdminWrapper>
         </div>
