@@ -39,33 +39,38 @@
 }
 .table th:nth-child(2),
 .table td:nth-child(2) {
-  width: 25%;
+  width: 30%;
 }
 .table th:nth-child(3),
 .table td:nth-child(3) {
-  width: 7%;
+  width: 8%;
 }
-/* .table th:nth-child(4),
-.table td:nth-child(4) {
-  text-align: right;
-  width: 10%;
-} */
 .table th:nth-child(4),
 .table td:nth-child(4) {
   text-align: right;
-  width: 14%;
+  width: 7%;
 }
 .table th:nth-child(5),
 .table td:nth-child(5) {
   text-align: right;
-  width: 14%;
+  width: 15%;
 }
 .table th:nth-child(6),
 .table td:nth-child(6) {
   text-align: right;
+  width: 15%;
+}
+.table th:nth-child(7),
+.table td:nth-child(7) {
+  text-align: right;
   width: 10%;
 }
-
+.redfill {
+  background-color: #ffcccc;
+}
+.greenfill {
+  background-color: #ccffcc;
+}
 @media (min-width: 768px) {
   .table {
     width: 100%;

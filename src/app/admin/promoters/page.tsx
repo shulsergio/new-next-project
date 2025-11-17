@@ -47,7 +47,7 @@ export default function AdminPromotersPage() {
         try {
           const fetchedData = await fetchAllPromoters(session.accessToken);
           setPromotersData(fetchedData);
-          console.log("Fetched promoters data:", fetchedData);
+          // console.log("Fetched promoters data:", fetchedData);
         } catch (e: unknown) {
           console.error("Error fetching promoters:", e);
           setError("Failed to load promoters data.");
@@ -68,14 +68,14 @@ export default function AdminPromotersPage() {
     }
     return acc;
   }, {} as Record<string, number>);
-  console.log("Promoters by user type:", PromsByUserType);
+  // console.log("Promoters by user type:", PromsByUserType);
   const PromsByRegion = promotersData.reduce((acc, promoter) => {
     if (promoter.region) {
       acc[promoter.region] = (acc[promoter.region] || 0) + 1;
     }
     return acc;
   }, {} as Record<string, number>);
-  console.log("Promoters by user type:", PromsByRegion);
+  // console.log("Promoters by user type:", PromsByRegion);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const handleDateChange = (date: Date | null) => {

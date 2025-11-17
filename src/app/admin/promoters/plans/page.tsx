@@ -41,7 +41,6 @@ export default function AdminPlansPage() {
     PROMS_TYPE_SELECT[0]
   );
   const [selectedRegion, setselectedRegion] = useState<string>(regionData[0]);
-  // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedChain, setSelectedChain] = useState<string>(chainData[0]);
 
   const { data: session, status } = useSession();
@@ -58,12 +57,11 @@ export default function AdminPlansPage() {
       redirect("/");
     }
   }, [session, status]);
-  console.log(",*** STATUS:", status);
-  console.log("session.accessToken:", session?.accessToken);
-  console.log(",*** selectedRegion:", selectedRegion);
+  // console.log(",*** STATUS:", status);
+  // console.log("session.accessToken:", session?.accessToken);
+  // console.log(",*** selectedRegion:", selectedRegion);
 
   useEffect(() => {
-    // const regionParam = selectedRegion === "all" ? "" : selectedRegion;
     const loadPlans = async () => {
       if (status === "authenticated" && session.accessToken) {
         setLoading(true);
@@ -80,12 +78,12 @@ export default function AdminPlansPage() {
                 session.accessToken
               ),
             ]);
-          console.log(
-            "FFFFFF fetchedShopsResponse data:",
-            fetchedShopsResponse
-          );
-          console.log("FFFFFF fetchedPlans data:", fetchedPlans);
-          console.log("FFFFFF fetchedPromoters data:", fetchedPromoters);
+          // console.log(
+          //   "FFFFFF fetchedShopsResponse data:",
+          //   fetchedShopsResponse
+          // );
+          // console.log("FFFFFF fetchedPlans data:", fetchedPlans);
+          // console.log("FFFFFF fetchedPromoters data:", fetchedPromoters);
 
           const plansByUserId = new Map<string, Plan[]>();
 
@@ -96,20 +94,16 @@ export default function AdminPlansPage() {
             plansByUserId.set(plan.userId, currentPlans);
           });
 
-          console.log("Plans Grouped Map:", plansByUserId);
+          // console.log("Plans Grouped Map:", plansByUserId);
           let fetchedShops = fetchedShopsResponse?.data?.shops;
-          console.log(
-            "!Array.isArray(fetchedShops):",
-            !Array.isArray(fetchedShops)
-          );
           if (!Array.isArray(fetchedShops)) {
-            console.error(
-              "DEBUG: fetchedShops is NOT an array. Raw response:",
-              fetchedShopsResponse
-            );
+            // console.error(
+            //   "DEBUG: fetchedShops is NOT an array. Raw response:",
+            //   fetchedShopsResponse
+            // );
             fetchedShops = [];
           }
-          console.log("FFFFFF fetchedShops data:", fetchedShops);
+          // console.log("FFFFFF fetchedShops data:", fetchedShops);
           const promoterChainMap = new Map<string, string>();
           fetchedShops.forEach((shop) => {
             if (shop.storeId && !promoterChainMap.has(shop.storeId)) {
@@ -131,10 +125,10 @@ export default function AdminPlansPage() {
               } as EnrichedPromoter;
             }
           );
-          console.log(
-            "FFFFFF FINAL enrichedPromoters data:",
-            enrichedPromoters
-          );
+          // console.log(
+          //   "FFFFFF FINAL enrichedPromoters data:",
+          //   enrichedPromoters
+          // );
           setPlansData(enrichedPromoters);
         } catch (e: unknown) {
           console.error("Error fetching PLANS:", e);
@@ -153,7 +147,7 @@ export default function AdminPlansPage() {
   if (status === "loading") {
     return <Loader isLoading={true} />;
   }
-  console.log("**** ALL plansData data  ****:", plansData);
+  // console.log("**** ALL plansData data  ****:", plansData);
 
   const handlePromTypeChange = (promType: string) => {
     setSelectedPromType(promType);
@@ -172,8 +166,6 @@ export default function AdminPlansPage() {
     filteredPlansData = plansData.filter((p) => p.chain === selectedChain);
   }
 
-  // let totalPlan = 0,
-  //   totalFact = 0;
   const totalRegionsPlan = (data, addKey) => {
     const allData = data.reduce((acc, promoter) => {
       const key = promoter[addKey];
@@ -205,25 +197,6 @@ export default function AdminPlansPage() {
     return result;
   };
 
-  // const summOfPlans = totalRegionsPlan(filteredPlansData, "region");
-  // console.log("!!! summOfPlans !!!", summOfPlans);
-  // totalPlan = 0;
-  // totalFact = 0;
-
-  // const totalChainsPlan = filteredPlansData.reduce((acc, promoter) => {
-  //   const chain = promoter.chain;
-  //   const plan = promoter.plans.length > 0 ? promoter.plans[0] : null;
-
-  //   if (plan) {
-  //     totalPlan += plan.totalSOplan;
-  //     totalFact += plan.totalSOfact;
-  //     acc[chain] = Number(((totalFact / totalPlan) * 100).toFixed(1));
-  //   }
-  //   return acc;
-  // }, {} as Record<string, number>);
-
-  // console.log("**** TotalPlans ****:", TotalPlans);
-  // console.log("**** TotalPlans ****:", TotalPlans);
   return (
     <div className={css.adminPromotersPage}>
       <div className={css.promsList}>

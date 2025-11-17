@@ -12,6 +12,7 @@ interface Promoter {
 
 interface EnrichedPromoter extends Promoter {
   plans: Plan[];
+  chain: string;
 }
 
 interface promotersAllPlansProps {
@@ -32,8 +33,9 @@ export default function PromotersAllPlansTable({
           <tr>
             <th>Region</th>
             <th>ID</th>
+            <th>Chain</th>
             <th>Type</th>
-            {/* <th>Chain</th> */}
+
             <th>TTL Plan</th>
             <th>TTL Fact</th>
             <th>TTL AR</th>
@@ -63,11 +65,18 @@ export default function PromotersAllPlansTable({
               <tr key={promoter._id}>
                 <td>{promoter.region}</td>
                 <td>{promoter.name}</td>
+                <td>{promoter.chain}</td>
                 <td>{promoter.userType}</td>
-                {/* <td>{"Epicentr"}</td> */}
+
                 <td>{getFormatUahFromNumber(totalPlan, "decimal")}</td>
                 <td>{getFormatUahFromNumber(totalFact, "decimal")}</td>
-                <td>{totalAR}</td>
+                <td
+                  className={
+                    totalFact / totalPlan < 0.8 ? css.redfill : css.greenfill
+                  }
+                >
+                  {totalAR}
+                </td>
               </tr>
             );
           })}
