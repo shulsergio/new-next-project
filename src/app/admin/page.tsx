@@ -46,6 +46,9 @@ export default function Admin() {
       <div className={css.mainContainer}>
         <div className={css.buttonBox}>
           <ComponentAdminWrapper>
+            <ButtonBox option="link" href="user/userInfo">
+              User Info
+            </ButtonBox>
             {hasPermission("canAccessPromsListData") && (
               <ButtonBox
                 option="button"
@@ -68,9 +71,6 @@ export default function Admin() {
 
             <ButtonBox option="link" href="user/focus-models">
               Focus Models
-            </ButtonBox>
-            <ButtonBox option="link" href="user/userInfo">
-              User Info
             </ButtonBox>
           </ComponentAdminWrapper>
         </div>
