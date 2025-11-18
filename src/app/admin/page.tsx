@@ -69,6 +69,9 @@ export default function Admin() {
             <ButtonBox option="link" href="user/focus-models">
               Focus Models
             </ButtonBox>
+            <ButtonBox option="link" href="user/userInfo">
+              User Info
+            </ButtonBox>
           </ComponentAdminWrapper>
         </div>
         <div className={css.dataBox}>{renderContent()}</div>
