@@ -80,13 +80,13 @@ export default function AdminPromotersPage() {
   const closeModal = () => setIsModalOpen(false);
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
-    console.log("OK:", date ? date.toISOString().split("T")[0] : "null");
+    // console.log("OK:", date ? date.toISOString().split("T")[0] : "null");
   };
 
   if (status === "loading") {
     return <Loader isLoading={true} />;
   }
-  console.log("-----selectedDate: ", selectedDate);
+  // console.log("-----selectedDate: ", selectedDate);
   return (
     <div className={css.adminPromotersPage}>
       <div className={css.promsList}>
