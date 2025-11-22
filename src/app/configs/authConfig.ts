@@ -42,6 +42,7 @@ export const authConfig: NextAuthOptions = {
                             userType: backendResponse.data.user.userType,
                             gender: backendResponse.data.user.gender,
                             uniform: backendResponse.data.user.uniform,
+                            dateOfBirth: backendResponse.data.user.dateOfBirth,
                             region: backendResponse.data.user.region,
                             city: backendResponse.data.user.city,
                             shop: backendResponse.data.user.shop,
@@ -86,6 +87,7 @@ export const authConfig: NextAuthOptions = {
                 token.userType = user.userType;
                 token.shop = user.shop;
                 token.uniform = user.uniform;
+                token.dateOfBirth= user.dateOfBirth;
                 token.region = user.region;
                 token.city = user.city;
                 token.INN = user.INN;
@@ -125,6 +127,7 @@ export const authConfig: NextAuthOptions = {
                             token.userType = userData.data.user.userType;
                             token.gender = userData.data.user.gender;
                             token.uniform = userData.data.user.uniform; 
+                            token.dateOfBirth= userData.data.user.dateOfBirth;
                             token.region = userData.data.user.region;
                             token.city = userData.data.user.city;
                             token.INN = userData.data.user.INN;
@@ -154,6 +157,7 @@ export const authConfig: NextAuthOptions = {
                  session.user.userType = token.userType as string;
                  session.user.shop = token.shop as string;
                  session.user.uniform = token.uniform as string;
+                 session.user.dateOfBirth = token.dateOfBirth as string;
                  session.user.region = token.region as string;
             session.user.city = token.city as string;
             session.user.INN = token.INN as string;
@@ -190,6 +194,7 @@ declare module "next-auth" {
             userType?: string;
             shop?: string;
             uniform?: string;
+   dateOfBirth?: string;
             region?: string;
             city?: string;
             INN?: string;
@@ -214,6 +219,7 @@ declare module "next-auth" {
         userType?: string;
         shop?: string;
         uniform?: string;
+           dateOfBirth?: string;
         region?: string;
             city?: string;
             INN?: string;
@@ -234,6 +240,7 @@ declare module "next-auth" {
         userType?: string;
         shop?: string;
         uniform?: string;
+           dateOfBirth?: string;
         region?: string;
             city?: string;
             INN?: string;

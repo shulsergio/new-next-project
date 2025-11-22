@@ -28,6 +28,13 @@ export function UserInfoBox() {
   );
   const [isSave, setIsSave] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [dateOfBirthEditValue, setDateOfBirthEditValue] = useState(
+    userProfile?.dateOfBirth ? userProfile.dateOfBirth.split("T")[0] : ""
+  );
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
+  const [isDateSave, setIsDateSave] = useState(false);
+
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -36,6 +43,7 @@ export function UserInfoBox() {
 
   const passwordsMatch = newPassword === confirmPassword;
   const isConfirmError = confirmPassword && !passwordsMatch;
+
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
@@ -102,8 +110,11 @@ export function UserInfoBox() {
   };
   //-------------------------
   useEffect(() => {
-    setUniformEditValue(session?.user?.uniform || "");
-  }, [session?.user?.uniform]);
+    setUniformEditValue(userProfile?.uniform || "");
+    setDateOfBirthEditValue(
+      userProfile?.dateOfBirth ? userProfile?.dateOfBirth?.split("T")[0] : ""
+    );
+  }, [userProfile?.uniform, userProfile?.dateOfBirth]);
 
   //--- модалка
   const openModal = () => {
@@ -113,6 +124,60 @@ export function UserInfoBox() {
   const closeModal = () => {
     setIsModalOpen(false);
     setIsSave(false);
+  };
+
+  const openDateModal = () => {
+    setDateOfBirthEditValue(
+      userProfile?.dateOfBirth ? userProfile.dateOfBirth.split("T")[0] : ""
+    );
+    setIsDateModalOpen(true);
+  };
+
+  const closeDateModal = () => {
+    setIsDateModalOpen(false);
+    setIsDateSave(false);
+  };
+
+  const handleDateSaveBtn = async () => {
+    setIsDateSave(true);
+
+    if (!userProfile?.id || !dateOfBirthEditValue) {
+      toast.error("Ошибка: Не выбрана дата или нет ID пользователя.");
+      setIsDateSave(false);
+      return;
+    }
+
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/${userProfile.id}/dateOfBirth`;
+    console.log("USRE INFO BOX userProfile.id", userProfile.id);
+    console.log("USRE INFO BOX BackApi", BackApi);
+    try {
+      const result = await apiClient(BackApi, {
+        method: "PATCH",
+        body: JSON.stringify({ newDateOfBirthValue: dateOfBirthEditValue }),
+      });
+
+      console.log("result FROM BACKEND (PATCH dateOfBirth):", result);
+
+      await update({
+        user: {
+          ...session!.user,
+          dateOfBirth: dateOfBirthEditValue,
+        },
+      });
+
+      toast.success("Date of Birth changed!");
+      closeDateModal();
+    } catch (error: unknown) {
+      if (
+        error instanceof Error &&
+        !error.message.includes("Session expired")
+      ) {
+        toast.error(error.message || "Не удалось обновить дату рождения.");
+      }
+    } finally {
+      setIsDateModalOpen(false);
+      setIsDateSave(false);
+    }
   };
 
   const handleSaveBtn = async () => {
@@ -172,6 +237,51 @@ export function UserInfoBox() {
         </TextBox>
         <TextBox option="static">
           mcsId: <span className={css.span}>{userProfile?.mcsId || "-"}</span>
+        </TextBox>
+
+        <TextBox option="static">
+          {" "}
+          Date of Birth:{" "}
+          <span className={css.span}>
+            {userProfile?.dateOfBirth
+              ? new Date(userProfile.dateOfBirth).toLocaleDateString("uk-UA")
+              : "-"}
+          </span>{" "}
+          <button
+            onClick={openDateModal}
+            className={css.editButton}
+            aria-label="дата рождения"
+          >
+            {" "}
+            &#10004;
+          </button>{" "}
+          <Modal
+            isOpen={isDateModalOpen}
+            onClose={closeDateModal}
+            title="Date of Birth"
+          >
+            {" "}
+            <div className={css.modalForm}>
+              <label htmlFor="dateOfBirth" className={css.modalLabel}>
+                New Date:
+              </label>{" "}
+              <input
+                id="dateOfBirth"
+                type="date" // 👈 Ключевой элемент для выбора даты
+                value={dateOfBirthEditValue}
+                onChange={(e) => setDateOfBirthEditValue(e.target.value)}
+                className={css.modalSelect} // Используем тот же стиль
+                disabled={isDateSave}
+              />
+              <button
+                onClick={handleDateSaveBtn} // 👈 Используем новую функцию сохранения
+                className={css.modalSaveButton}
+                disabled={isDateSave}
+              >
+                {isDateSave ? <Loader isLoading={true} /> : "Save"}
+              </button>
+            </div>
+          </Modal>
         </TextBox>
 
         <TextBox option="static">
