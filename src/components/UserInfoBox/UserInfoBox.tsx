@@ -9,10 +9,9 @@ import toast from "react-hot-toast";
 import { useApiClient } from "@/hooks/useApiClient";
 import ButtonBox from "../ButtonBox/ButtonBox";
 import Loader from "../Loader/Loader";
-// import ButtonBox from "../ButtonBox/ButtonBox";
+import { UniformSizeData } from "@/constants/constants";
 
 // -- UniformSizeData --
-const UniformSizeData = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
 
 export function UserInfoBox() {
   const { apiClient } = useApiClient();
@@ -29,13 +28,12 @@ export function UserInfoBox() {
   );
   const [isSave, setIsSave] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // Состояния для изменения пароля
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  // -- и изменение пароля --
+
   const passwordsMatch = newPassword === confirmPassword;
   const isConfirmError = confirmPassword && !passwordsMatch;
   const handleSubmit = useCallback(
@@ -191,14 +189,6 @@ export function UserInfoBox() {
               <label htmlFor="uniformSize" className={css.modalLabel}>
                 New size:
               </label>
-              {/* <input
-            id="uniformSize"
-            type="text"
-            value={uniformEditValue}
-            onChange={(e) => setUniformEditValue(e.target.value)}
-            className={css.modalInput}
-            disabled={isSave}  
-          /> */}
 
               <select
                 id="uniformSize"
@@ -224,14 +214,8 @@ export function UserInfoBox() {
             </div>
           </Modal>
         </TextBox>
-        {/* <TextBox option="static">
-          Pass: <span className={css.span}>change</span>
-        </TextBox> */}
       </ComponentWrapper>
       <ComponentWrapper title="change password">
-        {/* <TextBox option="static">
-          Pass: <span className={css.span}>change</span>
-        </TextBox> */}
         <form id="passwordChangeForm" onSubmit={handleSubmit}>
           <div className={css.formData}>
             <label htmlFor="current_password"> old pass</label>

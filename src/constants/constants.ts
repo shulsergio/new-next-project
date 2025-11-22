@@ -9,3 +9,7 @@ export const MONTH_DATA = ["m09y2025", "m10y2025", "m11w45-47", "m11w48"];
 export const REGION = ['Dnipro', 'Kharkiv', 'Kyiv', 'Lviv', 'Odesa'];
 export const CHAIN = ['Comfy', 'Epicentr', 'Foxtrot'];
 export const PROMS_TYPE_SELECT = ['AV', 'DA', 'MDA', 'SDA'];
+
+// for USer Info Box
+
+export const UniformSizeData = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
