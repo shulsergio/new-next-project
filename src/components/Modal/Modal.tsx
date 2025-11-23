@@ -15,7 +15,8 @@ export default function Modal({
   onClose,
   title,
   children,
-}: ModalProps) {
+}: // className,
+ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {

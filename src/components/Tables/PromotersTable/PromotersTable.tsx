@@ -23,25 +23,28 @@ export default function PromotersTable({ promoters }: PromotersTableProps) {
             <th>MCS id</th>
             <th>Type</th>
             <th>Hired</th>
-            <th>Dismiss</th>
+            <th>Gender</th>
+            <th>BirthDay</th>
           </tr>
         </thead>
         <tbody>
-          {promoters.map((promoter) => (
-            <tr key={promoter._id}>
-              <td>{promoter.region}</td>
-              <td>{promoter.region}</td>
-              <td>{promoter.name}</td>
-              <td>{promoter.mcsId}</td>
-              <td>{promoter.userType}</td>
-              <td>{promoter.DateOfHired}</td>
-              <td>
-                {Number(promoter.DateOfFired) === 0
-                  ? "-"
-                  : promoter.DateOfFired}
-              </td>
-            </tr>
-          ))}
+          {promoters.map((promoter) => {
+            const formattedDate = promoter.dateOfBirth
+              ? new Date(promoter.dateOfBirth).toISOString().split("T")[0]
+              : "";
+            return (
+              <tr key={promoter._id}>
+                <td>{promoter.region}</td>
+                <td>{promoter.region}</td>
+                <td>{promoter.name}</td>
+                <td>{promoter.mcsId}</td>
+                <td>{promoter.userType}</td>
+                <td>{promoter.DateOfHired}</td>
+                <td>{promoter.gender}</td>
+                <td>{formattedDate}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

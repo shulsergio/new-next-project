@@ -25,6 +25,7 @@ export interface Plan {
     userType?: string;
     gender?: string;
     uniform?: string;
+    dateOfBirth?: string;
     shop?: string;
     region?: string;
     lastVisit?: string;
