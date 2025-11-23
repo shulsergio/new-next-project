@@ -76,77 +76,80 @@ export const authConfig: NextAuthOptions = {
     },
 
    
-    callbacks: {
-     async jwt({ token, user, trigger, session }){
-            if (user) {
-                token.id = user.id;
-                token.email = user.email;
-                token.name = user.name;
-                token.role = user.role;
-                token.mcsId = user.mcsId;
-                token.userType = user.userType;
-                token.shop = user.shop;
-                token.uniform = user.uniform;
-                token.dateOfBirth= user.dateOfBirth;
-                token.region = user.region;
-                token.city = user.city;
-                token.INN = user.INN;
-                token.mobile = user.mobile;
-                token.dateOfHied = user.dateOfHied;
-                token.dateOfFired = user.dateOfFired;
-                token.lastVisit = user.lastVisit;
-                 token.permissions = user.permissions;
+callbacks: {
+ async jwt({ token, user, trigger, session }){
+ if (user) {
+token.id = user.id;
+token.email = user.email;
+token.name = user.name;
+token.role = user.role;
+token.mcsId = user.mcsId;
+token.userType = user.userType;
+token.shop = user.shop;
+token.uniform = user.uniform;
+token.dateOfBirth= user.dateOfBirth;
+token.region = user.region;
+token.city = user.city;
+token.INN = user.INN;
+token.mobile = user.mobile;
+token.dateOfHied = user.dateOfHied;
+token.dateOfFired = user.dateOfFired;
+token.lastVisit = user.lastVisit;
+token.permissions = user.permissions;
 
-                if (user.accessToken) {
-                    token.accessToken = user.accessToken;
-                }}
-       if (trigger === 'update' && session?.user?.uniform !== undefined) {
+ if (user.accessToken) {
+ token.accessToken = user.accessToken;
+ }}
+ if (trigger === 'update' && session?.user) {
             
-                    console.log("JWT Callback: Triggered by update, updating uniform directly from session data.");
-                    token.uniform = session.user.uniform;
-                } else if (trigger === 'update' && token.id) {
-       
-                    console.log("JWT Callback: Triggered by update, re-fetching user data from backend.");
-                    try {
-                        const userResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${token.id}`, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token.accessToken}`, 
-                            },
-                        });
+ if (session.user.uniform !== undefined) { 
+ console.log("JWT Callback: Updating uniform directly from session data.");
+token.uniform = session.user.uniform; }
+ if (session.user.dateOfBirth !== undefined) { 
+                console.log("JWT Callback: Updating dateOfBirth directly from session data.");
+                token.dateOfBirth = session.user.dateOfBirth;
+            }
+ } else if (trigger === 'update' && token.id) {
+ console.log("JWT Callback: Triggered by update, re-fetching user data from backend.");
+ try {
+ const userResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${token.id}`, {
+ method: 'GET',
+ headers: {
+ 'Content-Type': 'application/json',
+ 'Authorization': `Bearer ${token.accessToken}`, 
+ },
+ });
 
-                        if (userResponse.ok) {
-                            const userData = await userResponse.json();
-                            console.log("JWT Callback: Fetched fresh user data:", userData);
+ if (userResponse.ok) {
+ const userData = await userResponse.json();
+ console.log("JWT Callback: Fetched fresh user data:", userData);
 
-                            token.name = userData.data.user.name;
-                            token.email = userData.data.user.email;
-                            token.mcsId = userData.data.user.mcsId;
-                            token.role = userData.data.user.role;
-                            token.userType = userData.data.user.userType;
-                            token.gender = userData.data.user.gender;
-                            token.uniform = userData.data.user.uniform; 
-                            token.dateOfBirth= userData.data.user.dateOfBirth;
-                            token.region = userData.data.user.region;
-                            token.city = userData.data.user.city;
-                            token.INN = userData.data.user.INN;
-                            token.mobile = userData.data.user.mobile;
-                            token.dateOfHied = userData.data.user.dateOfHied;
-                            token.dateOfFired = userData.data.user.dateOfFired;
-                            token.lastVisit = userData.data.user.lastVisit;
-                            token.permissions = userData.data.user.permissions;
-                
-                        } else {
-                            console.error("JWT Callback: Failed to re-fetch user data:", userResponse.status);
-                        }
-                    } catch (error) {
-                        console.error("JWT Callback: Error re-fetching user data:", error);
-                    }
-                }
+ token.name = userData.data.user.name;
+ token.email = userData.data.user.email;
+token.mcsId = userData.data.user.mcsId;
+token.role = userData.data.user.role;
+token.userType = userData.data.user.userType;
+ token.gender = userData.data.user.gender;
+ token.uniform = userData.data.user.uniform; 
+ token.dateOfBirth= userData.data.user.dateOfBirth;
+ token.region = userData.data.user.region;
+ token.city = userData.data.user.city;
+ token.INN = userData.data.user.INN;
+ token.mobile = userData.data.user.mobile;
+ token.dateOfHied = userData.data.user.dateOfHied;
+ token.dateOfFired = userData.data.user.dateOfFired;
+ token.lastVisit = userData.data.user.lastVisit;
+ token.permissions = userData.data.user.permissions;
+ } else {
+ console.error("JWT Callback: Failed to re-fetch user data:", userResponse.status);
+ }
+ } catch (error) {
+ console.error("JWT Callback: Error re-fetching user data:", error);
+ }
+ }
 
-            return token;
-        },
+ return token;
+ },
          async session({ session, token }) {
              if (session.user) {
                 session.user.id = token.id as string;

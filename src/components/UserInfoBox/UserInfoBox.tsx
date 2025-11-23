@@ -11,6 +11,12 @@ import ButtonBox from "../ButtonBox/ButtonBox";
 import Loader from "../Loader/Loader";
 import { UniformSizeData } from "@/constants/constants";
 
+interface ApiPatchResponse {
+  data: {
+    dateOfBirth: string;
+  };
+}
+
 // -- UniformSizeData --
 
 export function UserInfoBox() {
@@ -29,6 +35,9 @@ export function UserInfoBox() {
   const [isSave, setIsSave] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // const [displayDateOfBirth, setDisplayDateOfBirth] = useState(
+  //   userProfile?.dateOfBirth || null
+  // );
   const [dateOfBirthEditValue, setDateOfBirthEditValue] = useState(
     userProfile?.dateOfBirth ? userProfile.dateOfBirth.split("T")[0] : ""
   );
@@ -114,6 +123,7 @@ export function UserInfoBox() {
     setDateOfBirthEditValue(
       userProfile?.dateOfBirth ? userProfile?.dateOfBirth?.split("T")[0] : ""
     );
+    // setDisplayDateOfBirth(userProfile?.dateOfBirth || null);
   }, [userProfile?.uniform, userProfile?.dateOfBirth]);
 
   //--- модалка
@@ -147,24 +157,36 @@ export function UserInfoBox() {
       return;
     }
 
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/${userProfile.id}/dateOfBirth`;
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userProfile.id}/dateOfBirth`;
     console.log("USRE INFO BOX userProfile.id", userProfile.id);
     console.log("USRE INFO BOX BackApi", BackApi);
+    console.log("USRE INFO BOX dateOfBirthEditValue", dateOfBirthEditValue);
     try {
       const result = await apiClient(BackApi, {
         method: "PATCH",
-        body: JSON.stringify({ newDateOfBirthValue: dateOfBirthEditValue }),
+        body: JSON.stringify({ dateOfBirth: dateOfBirthEditValue }),
       });
 
       console.log("result FROM BACKEND (PATCH dateOfBirth):", result);
-
+      const apiResult = result as ApiPatchResponse;
+      console.log("USRE INFO BOX apiResult ", apiResult);
+      console.log(
+        "USRE INFO BOX apiResult.data.dateOfBirth ",
+        apiResult.data.dateOfBirth
+      );
       await update({
         user: {
           ...session!.user,
-          dateOfBirth: dateOfBirthEditValue,
+          dateOfBirth: apiResult.data.dateOfBirth,
         },
       });
+      // setDisplayDateOfBirth(apiResult.data.dateOfBirth);
 
+      setDateOfBirthEditValue(apiResult.data.dateOfBirth.split("T")[0]);
+      console.log(
+        "Session updated №2. New dateOfBirth №2:",
+        session?.user?.dateOfBirth
+      );
       toast.success("Date of Birth changed!");
       closeDateModal();
     } catch (error: unknown) {
@@ -240,41 +262,38 @@ export function UserInfoBox() {
         </TextBox>
 
         <TextBox option="static">
-          {" "}
-          Date of Birth:{" "}
+          Date of Birth:
           <span className={css.span}>
-            {userProfile?.dateOfBirth
-              ? new Date(userProfile.dateOfBirth).toLocaleDateString("uk-UA")
+            {dateOfBirthEditValue
+              ? new Date(dateOfBirthEditValue).toLocaleDateString("uk-UA")
               : "-"}
-          </span>{" "}
+          </span>
           <button
             onClick={openDateModal}
             className={css.editButton}
             aria-label="дата рождения"
           >
-            {" "}
             &#10004;
-          </button>{" "}
+          </button>
           <Modal
             isOpen={isDateModalOpen}
             onClose={closeDateModal}
             title="Date of Birth"
           >
-            {" "}
             <div className={css.modalForm}>
               <label htmlFor="dateOfBirth" className={css.modalLabel}>
                 New Date:
-              </label>{" "}
+              </label>
               <input
                 id="dateOfBirth"
-                type="date" // 👈 Ключевой элемент для выбора даты
+                type="date"
                 value={dateOfBirthEditValue}
                 onChange={(e) => setDateOfBirthEditValue(e.target.value)}
-                className={css.modalSelect} // Используем тот же стиль
+                className={css.modalSelect}
                 disabled={isDateSave}
               />
               <button
-                onClick={handleDateSaveBtn} // 👈 Используем новую функцию сохранения
+                onClick={handleDateSaveBtn}
                 className={css.modalSaveButton}
                 disabled={isDateSave}
               >
