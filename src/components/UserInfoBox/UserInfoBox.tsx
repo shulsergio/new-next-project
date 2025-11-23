@@ -17,6 +17,11 @@ interface ApiPatchResponse {
     dateOfBirth: string;
   };
 }
+interface ApiPatchUniformResponse {
+  data: {
+    uniform: string;
+  };
+}
 
 // -- UniformSizeData --
 
@@ -62,13 +67,13 @@ export function UserInfoBox() {
 
       if (!passwordsMatch) {
         toast.error("New and confirm pass do not match");
-        console.log("New and confirm pass do not match");
+        // console.log("New and confirm pass do not match");
         return;
       }
 
       if (newPassword.length < 3) {
         toast.error("New pass < 3 characters");
-        console.log("Пароль должен быть не менее 3 символов");
+        // console.log("Пароль должен быть не менее 3 символов");
         return;
       }
 
@@ -86,7 +91,7 @@ export function UserInfoBox() {
           body: JSON.stringify(dataToSend),
         });
         toast.success("Password changed!");
-        console.log("result FROM BACKEND (PATCH):", result);
+        console.log(result);
         setCurrentPassword("");
         setNewPassword("");
         setConfirmPassword("");
@@ -157,26 +162,20 @@ export function UserInfoBox() {
     // console.log("USRE INFO BOX BackApi", BackApi);
     // console.log("USRE INFO BOX dateOfBirthEditValue", dateOfBirthEditValue);
     try {
-      const result = await apiClient(BackApi, {
+      const resultDateOfBirth = await apiClient(BackApi, {
         method: "PATCH",
         body: JSON.stringify({ dateOfBirth: dateToSend }),
       });
 
-      console.log("result FROM BACKEND (PATCH dateOfBirth):", result);
-      const apiResult = result as ApiPatchResponse;
-      console.log("USRE INFO BOX apiResult ", apiResult);
-      console.log(
-        "USRE INFO BOX apiResult.data.dateOfBirth ",
-        apiResult.data.dateOfBirth
-      );
+      // console.log("result FROM BACKEND (PATCH dateOfBirth):", result);
+      const apiBirthResult = resultDateOfBirth as ApiPatchResponse;
+      // console.log("USRE INFO BOX apiResult ", apiResult);
       await update({
         user: {
           ...session!.user,
-          dateOfBirth: apiResult.data.dateOfBirth,
+          dateOfBirth: apiBirthResult.data.dateOfBirth,
         },
       });
-
-      // setDateOfBirthEditValue(apiResult.data.dateOfBirth.split("T")[0]);
 
       toast.success("Date of Birth changed!");
       closeDateModal();
@@ -204,17 +203,17 @@ export function UserInfoBox() {
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/${userProfile.id}/uniform`;
 
     try {
-      const result = await apiClient(BackApi, {
+      const resultUniform = await apiClient(BackApi, {
         method: "PATCH",
         body: JSON.stringify({ newUniformValue: uniformEditValue.trim() }),
       });
 
-      console.log("result FROM BACKEND (после PATCH):", result);
-
+      // console.log("result FROM BACKEND (после PATCH):", result);
+      const apiUniformResult = resultUniform as ApiPatchUniformResponse;
       await update({
         user: {
           ...session!.user,
-          uniform: uniformEditValue.trim(),
+          uniform: apiUniformResult.data.uniform,
         },
       });
 
@@ -392,7 +391,7 @@ export function UserInfoBox() {
           </ButtonBox>
         </form>
       </ComponentWrapper>
-      <ButtonBox option="link" href="/profile/">
+      <ButtonBox option="link" href="/">
         Back
       </ButtonBox>
     </>
