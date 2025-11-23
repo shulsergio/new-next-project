@@ -45,7 +45,7 @@ export default function FocusModelsManager({
   const [curPage, setCurPage] = useState(1);
   const [selectedPrd, setSelectedPrd] = useState<string>(prdData[0]);
   const [selectedMonth, setSelectedMonth] = useState<string>(
-    MONTH_DATA[MONTH_DATA.length - 2]
+    MONTH_DATA[MONTH_DATA.length - 1]
   );
   const [type, setSelectedType] = useState<string>(newType);
   const [isFocusOnly, setIsFocusOnly] = useState(false);
