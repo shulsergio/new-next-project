@@ -10,6 +10,7 @@ import { useApiClient } from "@/hooks/useApiClient";
 import ButtonBox from "../ButtonBox/ButtonBox";
 import Loader from "../Loader/Loader";
 import { UniformSizeData } from "@/constants/constants";
+import Calendar from "../Date_calendar/Calendar";
 
 interface ApiPatchResponse {
   data: {
@@ -24,8 +25,6 @@ export function UserInfoBox() {
 
   const { data: session, update } = useSession();
   const userProfile = session?.user;
-  // console.log("User apiClient DATA IN PROFILE:", apiClient);
-  // console.log("User Profile DATA IN PROFILE:", userProfile);
 
   const userInfoTitle = `User info`;
 
@@ -35,11 +34,8 @@ export function UserInfoBox() {
   const [isSave, setIsSave] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // const [displayDateOfBirth, setDisplayDateOfBirth] = useState(
-  //   userProfile?.dateOfBirth || null
-  // );
-  const [dateOfBirthEditValue, setDateOfBirthEditValue] = useState(
-    userProfile?.dateOfBirth ? userProfile.dateOfBirth.split("T")[0] : ""
+  const [dateOfBirthEditValue, setDateOfBirthEditValue] = useState<Date | null>(
+    userProfile?.dateOfBirth ? new Date(userProfile.dateOfBirth) : null
   );
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
   const [isDateSave, setIsDateSave] = useState(false);
@@ -121,9 +117,8 @@ export function UserInfoBox() {
   useEffect(() => {
     setUniformEditValue(userProfile?.uniform || "");
     setDateOfBirthEditValue(
-      userProfile?.dateOfBirth ? userProfile?.dateOfBirth?.split("T")[0] : ""
+      userProfile?.dateOfBirth ? new Date(userProfile.dateOfBirth) : null
     );
-    // setDisplayDateOfBirth(userProfile?.dateOfBirth || null);
   }, [userProfile?.uniform, userProfile?.dateOfBirth]);
 
   //--- модалка
@@ -138,7 +133,7 @@ export function UserInfoBox() {
 
   const openDateModal = () => {
     setDateOfBirthEditValue(
-      userProfile?.dateOfBirth ? userProfile.dateOfBirth.split("T")[0] : ""
+      userProfile?.dateOfBirth ? new Date(userProfile.dateOfBirth) : null
     );
     setIsDateModalOpen(true);
   };
@@ -156,15 +151,15 @@ export function UserInfoBox() {
       setIsDateSave(false);
       return;
     }
-
+    const dateToSend = dateOfBirthEditValue.toISOString().split("T")[0];
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userProfile.id}/dateOfBirth`;
-    console.log("USRE INFO BOX userProfile.id", userProfile.id);
-    console.log("USRE INFO BOX BackApi", BackApi);
-    console.log("USRE INFO BOX dateOfBirthEditValue", dateOfBirthEditValue);
+    // console.log("USRE INFO BOX userProfile.id", userProfile.id);
+    // console.log("USRE INFO BOX BackApi", BackApi);
+    // console.log("USRE INFO BOX dateOfBirthEditValue", dateOfBirthEditValue);
     try {
       const result = await apiClient(BackApi, {
         method: "PATCH",
-        body: JSON.stringify({ dateOfBirth: dateOfBirthEditValue }),
+        body: JSON.stringify({ dateOfBirth: dateToSend }),
       });
 
       console.log("result FROM BACKEND (PATCH dateOfBirth):", result);
@@ -180,13 +175,9 @@ export function UserInfoBox() {
           dateOfBirth: apiResult.data.dateOfBirth,
         },
       });
-      // setDisplayDateOfBirth(apiResult.data.dateOfBirth);
 
-      setDateOfBirthEditValue(apiResult.data.dateOfBirth.split("T")[0]);
-      console.log(
-        "Session updated №2. New dateOfBirth №2:",
-        session?.user?.dateOfBirth
-      );
+      // setDateOfBirthEditValue(apiResult.data.dateOfBirth.split("T")[0]);
+
       toast.success("Date of Birth changed!");
       closeDateModal();
     } catch (error: unknown) {
@@ -284,13 +275,13 @@ export function UserInfoBox() {
               <label htmlFor="dateOfBirth" className={css.modalLabel}>
                 New Date:
               </label>
-              <input
-                id="dateOfBirth"
-                type="date"
-                value={dateOfBirthEditValue}
-                onChange={(e) => setDateOfBirthEditValue(e.target.value)}
-                className={css.modalSelect}
-                disabled={isDateSave}
+              <Calendar
+                selectedDate={dateOfBirthEditValue}
+                setSelectedDate={setDateOfBirthEditValue}
+                // withPortal={true}
+                // showYearDropdown
+                // scrollableYearDropdown
+                // yearDropdownItemNumber={100}
               />
               <button
                 onClick={handleDateSaveBtn}
