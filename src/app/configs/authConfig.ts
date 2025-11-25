@@ -42,6 +42,7 @@ export const authConfig: NextAuthOptions = {
                             userType: backendResponse.data.user.userType,
                             gender: backendResponse.data.user.gender,
                             uniform: backendResponse.data.user.uniform,
+                            activeUser: backendResponse.data.user.activeUser,
                             dateOfBirth: backendResponse.data.user.dateOfBirth,
                             region: backendResponse.data.user.region,
                             city: backendResponse.data.user.city,
@@ -86,7 +87,8 @@ token.role = user.role;
 token.mcsId = user.mcsId;
 token.userType = user.userType;
 token.shop = user.shop;
-token.uniform = user.uniform;
+     token.uniform = user.uniform;
+     token.activeUser = user.activeUser;
 token.dateOfBirth= user.dateOfBirth;
 token.region = user.region;
 token.city = user.city;
@@ -130,7 +132,8 @@ token.mcsId = userData.data.user.mcsId;
 token.role = userData.data.user.role;
 token.userType = userData.data.user.userType;
  token.gender = userData.data.user.gender;
- token.uniform = userData.data.user.uniform; 
+     token.uniform = userData.data.user.uniform; 
+     token.activeUser = userData.data.user.activeUser; 
  token.dateOfBirth= userData.data.user.dateOfBirth;
  token.region = userData.data.user.region;
  token.city = userData.data.user.city;
@@ -151,29 +154,29 @@ token.userType = userData.data.user.userType;
  return token;
  },
          async session({ session, token }) {
-             if (session.user) {
-                session.user.id = token.id as string;
-                 session.user.email = token.email as string;
-                 session.user.name = token.name as string;
-                 session.user.mcsId = token.mcsId as string;
-                 session.user.role = token.role as string;
-                 session.user.userType = token.userType as string;
-                 session.user.shop = token.shop as string;
-                 session.user.uniform = token.uniform as string;
-                 session.user.dateOfBirth = token.dateOfBirth as string;
-                 session.user.region = token.region as string;
+         if (session.user) {
+            session.user.id = token.id as string;
+            session.user.email = token.email as string;
+            session.user.name = token.name as string;
+            session.user.mcsId = token.mcsId as string;
+            session.user.role = token.role as string;
+            session.user.userType = token.userType as string;
+            session.user.shop = token.shop as string;
+            session.user.uniform = token.uniform as string;
+            session.user.dateOfBirth = token.dateOfBirth as string;
+            session.user.region = token.region as string;
+            session.user.activeUser = token.activeUser as boolean;
             session.user.city = token.city as string;
             session.user.INN = token.INN as string;
-         session.user.mobile = token.mobile as string;
-        session.user.dateOfHied = token.dateOfHied as string;
-          session.user.dateOfFired = token.dateOfFired as string;
-                 session.user.lastVisit = token.lastVisit as string;
-                 session.user.permissions = token.permissions as Record<string, boolean>;
-             }
-             if (token.accessToken) {   
-                 session.accessToken = token.accessToken as string;
-                 
-             }
+            session.user.mobile = token.mobile as string;
+            session.user.dateOfHied = token.dateOfHied as string;
+            session.user.dateOfFired = token.dateOfFired as string;
+            session.user.lastVisit = token.lastVisit as string;
+            session.user.permissions = token.permissions as Record<string, boolean>;
+            }
+            if (token.accessToken) {   
+            session.accessToken = token.accessToken as string;
+            }
             return session;
         }
     },
@@ -197,6 +200,7 @@ declare module "next-auth" {
             userType?: string;
             shop?: string;
             uniform?: string;
+            activeUser?: boolean;
    dateOfBirth?: string;
             region?: string;
             city?: string;
@@ -222,6 +226,7 @@ declare module "next-auth" {
         userType?: string;
         shop?: string;
         uniform?: string;
+        activeUser?: boolean;
            dateOfBirth?: string;
         region?: string;
             city?: string;
@@ -243,6 +248,7 @@ declare module "next-auth" {
         userType?: string;
         shop?: string;
         uniform?: string;
+        activeUser?: boolean;
            dateOfBirth?: string;
         region?: string;
             city?: string;

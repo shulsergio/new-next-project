@@ -47,7 +47,7 @@ export default function AdminPromotersPage() {
         try {
           const fetchedData = await fetchAllPromoters(session.accessToken);
           setPromotersData(fetchedData);
-          // console.log("Fetched promoters data:", fetchedData);
+          console.log("Fetched promoters data:", fetchedData);
         } catch (e: unknown) {
           console.error("Error fetching promoters:", e);
           setError("Failed to load promoters data.");
