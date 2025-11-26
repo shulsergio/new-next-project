@@ -198,66 +198,76 @@ export default function AdminPlansPage() {
   };
 
   return (
-    <div className={css.adminPromotersPage}>
-      <div className={css.promsList}>
-        <ComponentAdminWrapper title="Promoters plans">
-          {loading && <Loader isLoading={true} />}
-          {error && <p>Ошибка: {error}</p>}
-          {!loading && !error && (
-            <>
-              <RegionFilter
-                regions={regionData}
-                onRegionChange={handleRegionChange}
-                selectedRegion={selectedRegion}
-              />
-              <PromTypeFilter
-                promTypes={PROMS_TYPE_SELECT}
-                onPromTypeChange={handlePromTypeChange}
-                selectedPromType={selectedPromType}
-              />
-              <ChainFilter
-                chains={chainData}
-                onChainChange={handleChainChange}
-                selectedChain={selectedChain}
-              />
+    <>
+      <ComponentAdminWrapper title="Promoters plans">
+        {loading && <Loader isLoading={true} />}
+        {error && <p>Ошибка: {error}</p>}
+        {!loading && !error && (
+          <>
+            <RegionFilter
+              regions={regionData}
+              onRegionChange={handleRegionChange}
+              selectedRegion={selectedRegion}
+            />
+            <PromTypeFilter
+              promTypes={PROMS_TYPE_SELECT}
+              onPromTypeChange={handlePromTypeChange}
+              selectedPromType={selectedPromType}
+            />
+            <ChainFilter
+              chains={chainData}
+              onChainChange={handleChainChange}
+              selectedChain={selectedChain}
+            />
+          </>
+        )}
+      </ComponentAdminWrapper>
+      <div className={css.adminPromotersPage}>
+        {/* ----- */}
+        <div className={css.promsList}>
+          <ComponentAdminWrapper>
+            {loading && <Loader isLoading={true} />}
+            {error && <p>Ошибка: {error}</p>}
+            {!loading && !error && (
               <PromotersAllPlansTable promotersAllPlans={filteredPlansData} />
-            </>
-          )}
-        </ComponentAdminWrapper>
-      </div>
-      <div className={css.promsData}>
-        <div className={css.promsDatabyDep}>
-          <ComponentAdminWrapper title="AR% by Region">
-            {loading ? (
-              <Loader isLoading={true} />
-            ) : error ? (
-              <p>Error: {error}</p>
-            ) : (
-              <DataTable
-                data={totalRegionsPlan(filteredPlansData, "region")}
-                dataHeader={["Region", "%"]}
-              />
             )}
           </ComponentAdminWrapper>
         </div>
-        <div className={css.promsDatabyDep}>
-          <ComponentAdminWrapper title="AR% by Chain">
-            {loading ? (
-              <Loader isLoading={true} />
-            ) : error ? (
-              <p>Error: {error}</p>
-            ) : (
-              <DataTable
-                data={totalRegionsPlan(filteredPlansData, "chain")}
-                dataHeader={["Chain", "%"]}
-              />
-            )}
-          </ComponentAdminWrapper>
+        <div className={css.promsData}>
+          <div className={css.promsDatabyDep}>
+            <ComponentAdminWrapper title="AR% by Region">
+              {loading ? (
+                <Loader isLoading={true} />
+              ) : error ? (
+                <p>Error: {error}</p>
+              ) : (
+                <DataTable
+                  data={totalRegionsPlan(filteredPlansData, "region")}
+                  dataHeader={["Region", "%"]}
+                />
+              )}
+            </ComponentAdminWrapper>
+          </div>
+          <div className={css.promsDatabyDep}>
+            <ComponentAdminWrapper title="AR% by Chain">
+              {loading ? (
+                <Loader isLoading={true} />
+              ) : error ? (
+                <p>Error: {error}</p>
+              ) : (
+                <DataTable
+                  data={totalRegionsPlan(filteredPlansData, "chain")}
+                  dataHeader={["Chain", "%"]}
+                />
+              )}
+            </ComponentAdminWrapper>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
+
 interface RegionFilterProps {
   regions: string[];
   onRegionChange: (region: string) => void;

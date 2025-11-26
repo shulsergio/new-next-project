@@ -52,7 +52,7 @@
 @media (min-width: 1200px) {
   .table {
     width: 100%;
-    font-size: 20px;
+    font-size: 18px;
     /* min-width: 380px; */
     table-layout: fixed;
   }
