@@ -1,7 +1,7 @@
 @import "react-circular-progressbar/dist/styles.css";
 :root {
   --color-background-light: #daf1ff;
-  --color-background-wrapper: #f5f5f5;
+  --color-background-wrapper: #fefefe;
   --color-text-white: #f8ffff;
   --color-text-main: #6699ff;
   --color-text-headers: #003296;
