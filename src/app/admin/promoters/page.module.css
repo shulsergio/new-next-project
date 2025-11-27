@@ -13,12 +13,30 @@
   width: 100%;
 }
 
+.selectLabel {
+  font-size: 12px;
+  color: var(--color-text-main);
+}
+
+.selectBox {
+  width: 75px;
+  padding: 3px;
+  border: 1px solid #b3d9ff;
+  border-radius: 5px;
+  background-color: #e6f2ff;
+  font-size: 11px;
+  color: #333;
+}
+
 @media (min-width: 768px) {
   .promsList {
     width: 100%;
   }
   .promsData {
     width: 100%;
+  }
+  .selectLabel {
+    font-size: 14px;
   }
 }
 
@@ -33,5 +51,17 @@
   }
   .promsData {
     width: 20%;
+  }
+  .selectLabel {
+    font-size: 18px;
+  }
+  .selectBox {
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #b3d9ff;
+    border-radius: 5px;
+    background-color: #e6f2ff;
+    font-size: 14px;
+    color: #333;
   }
 }

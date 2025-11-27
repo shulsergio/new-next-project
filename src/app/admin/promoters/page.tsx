@@ -106,40 +106,55 @@ export default function AdminPromotersPage() {
   // console.log("-----selectedDate: ", selectedDate);
   return (
     <>
-      <ComponentAdminWrapper title="Promoters plans">
-        {loading && <Loader isLoading={true} />}
-        {error && <p>Ошибка: {error}</p>}
-        {!loading && !error && (
-          <RegionFilter
-            regions={regionData}
-            onRegionChange={handleRegionChange}
-            selectedRegion={selectedRegion}
-          />
-        )}
+      <ComponentAdminWrapper title="All promoters">
+        <div className="filter">
+          {loading && <Loader isLoading={true} />}
+          {error && <p>Ошибка: {error}</p>}
+          {!loading && !error && (
+            <RegionFilter
+              regions={regionData}
+              onRegionChange={handleRegionChange}
+              selectedRegion={selectedRegion}
+            />
+          )}
+        </div>
+        <div className="filetr222">
+          {loading ? (
+            <Loader isLoading={true} />
+          ) : error ? (
+            <p>Error: {error}</p>
+          ) : hasPermission("canVisiblePromsListAllData") ? (
+            <>
+              <Calendar
+                selectedDate={selectedDate}
+                setSelectedDate={handleDateChange}
+              />
+              {/* <PromotersTableAllData promoters={promotersData} /> */}
+            </>
+          ) : hasPermission("canVisiblePromsListData") ? (
+            <>
+              <Calendar
+                selectedDate={selectedDate}
+                setSelectedDate={handleDateChange}
+              />
+              {/* <PromotersTable promoters={promotersData} /> */}
+            </>
+          ) : (
+            <p>No data</p>
+          )}
+        </div>
       </ComponentAdminWrapper>
       <div className={css.adminPromotersPage}>
         <div className={css.promsList}>
-          <ComponentAdminWrapper title="All promoters">
+          <ComponentAdminWrapper>
             {loading ? (
               <Loader isLoading={true} />
             ) : error ? (
               <p>Error: {error}</p>
             ) : hasPermission("canVisiblePromsListAllData") ? (
-              <>
-                <Calendar
-                  selectedDate={selectedDate}
-                  setSelectedDate={handleDateChange}
-                />
-                <PromotersTableAllData promoters={promotersData} />
-              </>
+              <PromotersTableAllData promoters={promotersData} />
             ) : hasPermission("canVisiblePromsListData") ? (
-              <>
-                <Calendar
-                  selectedDate={selectedDate}
-                  setSelectedDate={handleDateChange}
-                />
-                <PromotersTable promoters={promotersData} />
-              </>
+              <PromotersTable promoters={promotersData} />
             ) : (
               <p>No data</p>
             )}

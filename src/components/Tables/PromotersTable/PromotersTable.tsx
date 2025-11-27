@@ -18,7 +18,7 @@ export default function PromotersTable({ promoters }: PromotersTableProps) {
         <thead>
           <tr>
             <th>Region</th>
-            <th>Chain</th>
+            {/* <th>Chain</th> */}
             <th>Name</th>
             <th>MCS id</th>
             <th>Type</th>
@@ -35,7 +35,7 @@ export default function PromotersTable({ promoters }: PromotersTableProps) {
             return (
               <tr key={promoter._id}>
                 <td>{promoter.region}</td>
-                <td>{promoter.region}</td>
+                {/* <td>{promoter.region}</td> */}
                 <td>{promoter.name}</td>
                 <td>{promoter.mcsId}</td>
                 <td>{promoter.userType}</td>
