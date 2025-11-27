@@ -99,8 +99,8 @@ export function ProfileUserShopBox() {
           title="Hello!"
         >
           <p>Селаут та бонуси оновлено:</p>
-          <p>Comfy - по 24.11 включно</p>
-          <p>Epicentr, Fox- по 25.11 включно</p>
+          <p>Comfy - по 25.11 включно</p>
+          <p>Epicentr, Fox- по 26.11 включно</p>
           <p>----</p>
           <p>Додано top bonuses w48</p>
           <button className={css.modalSaveButton} onClick={closeWelcomeModal}>
