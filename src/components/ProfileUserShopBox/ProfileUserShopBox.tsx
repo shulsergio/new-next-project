@@ -98,11 +98,8 @@ export function ProfileUserShopBox() {
           onClose={closeWelcomeModal}
           title="Hello!"
         >
-          <p>Селаут та бонуси оновлено:</p>
-          <p>Comfy - по 26.11 включно</p>
-          <p>Epicentr, Fox- по 27.11 включно</p>
-          <p>----</p>
-          <p>Додано top bonuses w48</p>
+          <p>Селаут та бонуси за листопад оновлено повністю.</p>
+
           <button className={css.modalSaveButton} onClick={closeWelcomeModal}>
             ОК
           </button>
