@@ -11,9 +11,6 @@ export default function DataTable({ data, dataHeader }: DataTableProps) {
   const entries = Object.entries(data);
   // console.log("dataHeader", dataHeader);
   const headers = dataHeader || [];
-  // const headerOne = dataHeader[0] || "";
-  // const headerTwo = dataHeader[1] || "";
-  // console.log("DataTable entries:", entries);
   return (
     <div className={css.tableWrapper}>
       <table className={css.table}>
