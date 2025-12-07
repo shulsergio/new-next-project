@@ -1,0 +1,17 @@
+.accordionWrapper {
+  border: 1px solid var(--border_solid);
+  /* border-radius: 4px; */
+  margin: 0 4px;
+  width: 100%;
+  background-color: var(--color-background-wrapper);
+}
+.accordionTitle {
+  font-size: 14px;
+  color: var(--color-text-headers);
+  font-weight: 600;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
