@@ -17,6 +17,7 @@ import PromotersIhsBox, {
   IhsDataItem,
 } from "@/components/PromotersIhsBox/PromotersIhsBox";
 import AccordionWrapper from "@/components/AccordionWrapper/AccordionWrapper";
+import NewRecharts from "@/components/NewRecharts/newRecharts";
 
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
@@ -86,7 +87,8 @@ export default async function UserPlansPage() {
               </div>
             </div>
             <AccordionWrapper title="Weekly AR">
-              <p>AR every week</p>
+              {/* <p>AR every week</p> */}
+              <NewRecharts />
             </AccordionWrapper>
 
             <div className={css.newDataBox}>
@@ -138,6 +140,10 @@ export default async function UserPlansPage() {
                 />
               </div>
             </div>
+            <AccordionWrapper title="Weekly AR">
+              {/* <p>AR every week</p> */}
+              <NewRecharts />
+            </AccordionWrapper>
             <div className={css.newDataBox}>
               <p>
                 Need to 80%
