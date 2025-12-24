@@ -1,5 +1,10 @@
 import { authConfig } from "@/app/configs/authConfig";
-import { fetchShopIhsData, fetchUserPlans, Plan } from "@/utils/fetchData";
+import {
+  fetchShopIhsData,
+  fetchUserPlans,
+  fetchWeeklyPromsPlans,
+  Plan,
+} from "@/utils/fetchData";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import css from "./page.module.css";
@@ -56,6 +61,18 @@ export default async function UserPlansPage() {
   } catch (e: string | unknown) {
     console.error("Error fetching Ihs Shops Data:", e);
     IhsShopsData = [];
+  }
+
+  // fetchWeeklyPromsPlans;
+  let weeklyPromsPlansData = [];
+  try {
+    const fetchedData = await fetchWeeklyPromsPlans(session.accessToken);
+    console.log("fetchedData PLANS DATA:", fetchedData);
+    weeklyPromsPlansData = fetchedData.data.plans;
+    console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
+  } catch (e: string | unknown) {
+    console.error("Error fetching user plans:", e);
+    weeklyPromsPlansData = [];
   }
 
   return (
@@ -143,6 +160,7 @@ export default async function UserPlansPage() {
             <AccordionWrapper title="Weekly AR">
               {/* <p>AR every week</p> */}
               <NewRecharts />
+              {/* <NewRecharts plans={weeklyPromsPlansData} /> */}
             </AccordionWrapper>
             <div className={css.newDataBox}>
               <p>

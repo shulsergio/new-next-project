@@ -98,7 +98,8 @@ export function ProfileUserShopBox() {
           onClose={closeWelcomeModal}
           title="Hello!"
         >
-          <p>Селаут та бонуси оновлено по 21/12 включно</p>
+          <p>Селаут та бонуси оновлено по 23/12 включно</p>
+          <p>AV focus- виправлена помилка, вже рахує вірно</p>
           <p>Результати кварталу рахуються за 3 місяці</p>
           <button className={css.modalSaveButton} onClick={closeWelcomeModal}>
             ОК
