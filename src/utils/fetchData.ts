@@ -135,7 +135,7 @@ export async function fetchUserPlans(accessToken: string) {
   }
 
 export async function fetchWeeklyPromsPlans(accessToken: string) {
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/weeklyPromotersPlans`;
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans/weeklyPromsPlans`;
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {

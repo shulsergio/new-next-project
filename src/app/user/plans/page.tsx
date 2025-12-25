@@ -67,14 +67,17 @@ export default async function UserPlansPage() {
   let weeklyPromsPlansData = [];
   try {
     const fetchedData = await fetchWeeklyPromsPlans(session.accessToken);
-    console.log("fetchedData PLANS DATA:", fetchedData);
+    console.log("fetchedData weeklyPromsPlansData:", fetchedData);
+
     weeklyPromsPlansData = fetchedData.data.plans;
-    console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
+    // console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
+    // console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
+    // console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
   } catch (e: string | unknown) {
     console.error("Error fetching user plans:", e);
-    weeklyPromsPlansData = [];
+    // weeklyPromsPlansData = [];
   }
-
+  console.log("!!!!! weeklyPromsPlansData:", weeklyPromsPlansData);
   return (
     <div>
       {plansData && plansData.length > 0 ? (
@@ -105,7 +108,8 @@ export default async function UserPlansPage() {
             </div>
             <AccordionWrapper title="Weekly AR">
               {/* <p>AR every week</p> */}
-              <NewRecharts />
+              {/* <NewRecharts /> */}
+              <NewRecharts plans={weeklyPromsPlansData} />
             </AccordionWrapper>
 
             <div className={css.newDataBox}>
@@ -159,8 +163,8 @@ export default async function UserPlansPage() {
             </div>
             <AccordionWrapper title="Weekly AR">
               {/* <p>AR every week</p> */}
-              <NewRecharts />
-              {/* <NewRecharts plans={weeklyPromsPlansData} /> */}
+              {/* <NewRecharts /> */}
+              <NewRecharts plans={weeklyPromsPlansData} />
             </AccordionWrapper>
             <div className={css.newDataBox}>
               <p>
