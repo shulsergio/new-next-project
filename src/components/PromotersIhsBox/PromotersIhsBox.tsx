@@ -26,7 +26,7 @@ export default function PromotersIhsBox({
   //   "&&&  IhsShopData Array.isArray(IhsShopsData):",
   //   Array.isArray(IhsShopsData)
   // );
-  const weekNumberofMonth = ["w49", "w50", "w51", "w52"]; // !!!! WEEEKS !!!!   !!!! WEEEKS !!!!
+  const weekNumberofMonth = ["w01", "w02", "w03", "w04", "w05"]; // !!!! WEEEKS !!!!   !!!! WEEEKS !!!!
 
   const weeksData = weekNumberofMonth.map((weekN) => {
     const newarray = IhsShopsData.find((item) => item.week === weekN);
@@ -42,10 +42,10 @@ export default function PromotersIhsBox({
     }
     return 0;
   });
-
+  console.log(" ", weeksData);
   return (
     <div className={css.mainBox}>
-      <ul className={css.list}>
+      {/* <ul className={css.list}>
         {weekNumberofMonth.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
@@ -56,7 +56,7 @@ export default function PromotersIhsBox({
             {item}%
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 }
