@@ -9,6 +9,7 @@ import { useApiClient } from "@/hooks/useApiClient";
 import ButtonBox from "../ButtonBox/ButtonBox";
 import Modal from "../Modal/Modal";
 import Loader from "../Loader/Loader";
+import { ModalText } from "@/constants/constants";
 
 interface shopsData {
   chain: string;
@@ -98,7 +99,7 @@ export function ProfileUserShopBox() {
           onClose={closeWelcomeModal}
           title="Hello!"
         >
-          <p>Плани, селаут та бонуси оновлено!!! По 16/01 включно</p>
+          <p>{ModalText}</p>
           <button className={css.modalSaveButton} onClick={closeWelcomeModal}>
             ОК
           </button>
