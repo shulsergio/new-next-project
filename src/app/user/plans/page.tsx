@@ -30,13 +30,13 @@ export default async function UserPlansPage() {
   console.log("***Сессия на странице UserPlansPage:", session);
   console.log(
     "***Access Token на странице UserPlansPage:",
-    session?.accessToken
+    session?.accessToken,
   );
   console.log("***Access SHOP на странице UserPlansPage:", session?.user.shop);
 
   if (!session || !session.accessToken) {
     console.log(
-      "Сессия отсутствует или Access Token не найден для /plans, перенаправляем на /signin"
+      "Сессия отсутствует или Access Token не найден для /plans, перенаправляем на /signin",
     );
     redirect("/signin");
   }
@@ -50,18 +50,18 @@ export default async function UserPlansPage() {
     console.error("Error fetching user plans:", e);
     plansData = [];
   }
-  let IhsShopsData: IhsDataItem[] = [];
-  try {
-    const fetchIhsData = await fetchShopIhsData(
-      session.user.shop || "",
-      session.accessToken
-    );
-    IhsShopsData = fetchIhsData.data.data[0].ihsData;
-    // console.log("IhsShopsData IHSS DATA:", IhsShopsData);
-  } catch (e: string | unknown) {
-    console.error("Error fetching Ihs Shops Data:", e);
-    IhsShopsData = [];
-  }
+  // let IhsShopsData: IhsDataItem[] = [];
+  // try {
+  //   const fetchIhsData = await fetchShopIhsData(
+  //     session.user.shop || "",
+  //     session.accessToken
+  //   );
+  //   IhsShopsData = fetchIhsData.data.data[0].ihsData;
+  //   // console.log("IhsShopsData IHSS DATA:", IhsShopsData);
+  // } catch (e: string | unknown) {
+  //   console.error("Error fetching Ihs Shops Data:", e);
+  //   IhsShopsData = [];
+  // }
 
   // fetchWeeklyPromsPlans;
   let weeklyPromsPlansData = [];
@@ -200,14 +200,14 @@ export default async function UserPlansPage() {
               </ButtonBox>
             </div>
           </ComponentWrapper>
-          <ComponentWrapper title="IHS results">
+          {/* <ComponentWrapper title="IHS results">
             <div className={css.ihsBox}>
               <PromotersIhsBox
                 IhsShopsData={IhsShopsData}
                 sessionCategory={session.user.userType ?? ""}
               />
             </div>
-          </ComponentWrapper>
+          </ComponentWrapper> */}
           <ComponentWrapper title="Quarterly results">
             <div className={css.plansBox}>
               <p>

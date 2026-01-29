@@ -20,12 +20,14 @@ export default function PromotersIhsBox({
   IhsShopsData,
   sessionCategory,
 }: PromotersIhsBoxProps) {
+  ///////////// DEBUG ////////////
   // console.log("&&& PromotersIhsBox- ", IhsShopsData);
   // console.log("&&& typeof IhsShopsData:", typeof IhsShopsData);
   // console.log(
   //   "&&&  IhsShopData Array.isArray(IhsShopsData):",
-  //   Array.isArray(IhsShopsData)
+  //   Array.isArray(IhsShopsData),
   // );
+  ///////////// DEBUG ////////////
   const weekNumberofMonth = ["w01", "w02", "w03", "w04", "w05"]; // !!!! WEEEKS !!!!   !!!! WEEEKS !!!!
 
   const weeksData = weekNumberofMonth.map((weekN) => {
@@ -33,7 +35,7 @@ export default function PromotersIhsBox({
     // console.log("&&& PromotersIhsBox- newarray - ", newarray);
     if (newarray) {
       const IhsInCategory = newarray.categories.find(
-        (catItem) => catItem.category === sessionCategory
+        (catItem) => catItem.category === sessionCategory,
       );
       // console.log("&&& PromotersIhsBox- IhsInCategory - ", IhsInCategory);
       return IhsInCategory
