@@ -1,32 +1,25 @@
-.mainBox{
-    display: flex;
-    flex-direction: column;
-
+.mainBox {
+  display: flex;
+  flex-direction: column;
 }
-.list{
 
-    display: flex;
-    flex-direction: row;
-    /* gap: 3px; */
-
+.listData {
+  padding: 8px 0;
+  min-width: 55px;
+  border: 1px solid var(--border_solid);
+  color: var(--color-text-main);
 }
-.list li{
-
-        padding: 8px 0;
-    min-width: 55px;
-  border: 1px solid #cce7ff;
-}
-.ihsData{
-font-weight: bold;
+.ihsData {
+  font-weight: bold;
 }
 
 @media (min-width: 375px) {
-    .list li {
-        min-width: 60px;
-    }
+  .list li {
+    min-width: 60px;
+  }
 }
 @media (min-width: 768px) {
-    .list li {
-        min-width: 65px;
-    }
+  .list li {
+    min-width: 65px;
+  }
 }

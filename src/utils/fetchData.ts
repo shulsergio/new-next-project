@@ -91,28 +91,29 @@ type SafeApiClient<T = unknown> = (url: string, options?: RequestInit) => Promis
 
 
 export async function fetchShopIhsData(storeId: string, accessToken: string) {
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/ihsdatas/?storeId=${storeId}`;
+  const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/ihsdatas/?storeId=${storeId}`;
 
+  const response = await fetch(BackApi, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-store",
+  });
 
-    const response = await fetch(BackApi, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      cache: "no-store",
-    });
-    if (!response.ok) {
+  if (!response.ok) {
     console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
 
-      if (response.status === 401 || response.status === 403) {
-        throw new Error("Unauthorized access. Please log in again.");
-      }
-      throw new Error("Failed to fetch IHS data");
+    if (response.status === 401 || response.status === 403) {
+      throw new Error("Unauthorized access. Please log in again.");
     }
-    const data = await response.json();
-    return data;
+    throw new Error("Failed to fetch IHS data");
   }
+
+  const result = await response.json();
+ return result.data || [];
+}
 
 export async function fetchUserPlans(accessToken: string) {
     const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/plans`;

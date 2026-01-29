@@ -1,14 +1,11 @@
 import css from "./PromotersIhsBox.module.css";
 
-interface Category {
-  category: string;
-  share: number;
-}
-
 export interface IhsDataItem {
-  categories: Category[];
+  storeId: string;
   week: string;
   year: number;
+  category: string;
+  share: string | number;
 }
 
 interface PromotersIhsBoxProps {
@@ -20,45 +17,60 @@ export default function PromotersIhsBox({
   IhsShopsData,
   sessionCategory,
 }: PromotersIhsBoxProps) {
-  ///////////// DEBUG ////////////
-  // console.log("&&& PromotersIhsBox- ", IhsShopsData);
-  // console.log("&&& typeof IhsShopsData:", typeof IhsShopsData);
-  // console.log(
-  //   "&&&  IhsShopData Array.isArray(IhsShopsData):",
-  //   Array.isArray(IhsShopsData),
-  // );
-  ///////////// DEBUG ////////////
-  const weekNumberofMonth = ["w01", "w02", "w03", "w04", "w05"]; // !!!! WEEEKS !!!!   !!!! WEEEKS !!!!
+  const weekNumberofMonth = ["w01", "w02", "w03", "w04", "w05"];
 
   const weeksData = weekNumberofMonth.map((weekN) => {
-    const newarray = IhsShopsData.find((item) => item.week === weekN);
-    // console.log("&&& PromotersIhsBox- newarray - ", newarray);
-    if (newarray) {
-      const IhsInCategory = newarray.categories.find(
-        (catItem) => catItem.category === sessionCategory,
-      );
-      // console.log("&&& PromotersIhsBox- IhsInCategory - ", IhsInCategory);
-      return IhsInCategory
-        ? parseFloat((100 * IhsInCategory.share).toFixed(1))
-        : 0;
+    if (!IhsShopsData || !Array.isArray(IhsShopsData)) return "-";
+
+    const weekEntry = IhsShopsData.find((item) => {
+      const dbWeek = String(item.week || "")
+        .trim()
+        .toLowerCase();
+      const targetWeek = weekN.toLowerCase();
+      const dbCat = String(item.category || "")
+        .trim()
+        .toUpperCase();
+      const targetCat = sessionCategory.trim().toUpperCase();
+      return dbWeek === targetWeek && dbCat === targetCat;
+    });
+
+    // 2. Логика вывода
+    if (weekEntry && weekEntry.share !== undefined) {
+      const rawShare = String(weekEntry.share).replace(",", ".");
+      const num = parseFloat(rawShare);
+
+      if (!isNaN(num)) {
+        const result = num < 1 ? (num * 100).toFixed(1) : num.toFixed(1);
+        return `${result}%`;
+      }
+      return String(weekEntry.share);
     }
-    return 0;
+
+    return "-";
   });
-  console.log(" ", weeksData);
+
   return (
     <div className={css.mainBox}>
-      {/* <ul className={css.list}>
-        {weekNumberofMonth.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      <ul className={css.list}>
-        {weeksData.map((item, index) => (
-          <li key={index} className={css.ihsData}>
-            {item}%
-          </li>
-        ))}
-      </ul> */}
+      <table>
+        <thead>
+          <tr>
+            {weekNumberofMonth.map((week) => (
+              <th key={week} className={css.listData}>
+                {week}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {weeksData.map((val, index) => (
+              <td key={index} className={css.listData}>
+                {val}
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }

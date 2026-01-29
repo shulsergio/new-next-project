@@ -1,8 +1,8 @@
 import { authConfig } from "@/app/configs/authConfig";
 import {
+  fetchShopIhsData,
   // fetchShopIhsData,
   fetchUserPlans,
-  fetchWeeklyPromsPlans,
   Plan,
 } from "@/utils/fetchData";
 import { getServerSession } from "next-auth";
@@ -18,9 +18,9 @@ import {
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 
-// import PromotersIhsBox, {
-//   IhsDataItem,
-// } from "@/components/PromotersIhsBox/PromotersIhsBox";
+import PromotersIhsBox, {
+  IhsDataItem,
+} from "@/components/PromotersIhsBox/PromotersIhsBox";
 // import AccordionWrapper from "@/components/AccordionWrapper/AccordionWrapper";
 // import NewRecharts from "@/components/NewRecharts/newRecharts";
 
@@ -50,34 +50,35 @@ export default async function UserPlansPage() {
     console.error("Error fetching user plans:", e);
     plansData = [];
   }
-  // let IhsShopsData: IhsDataItem[] = [];
-  // try {
-  //   const fetchIhsData = await fetchShopIhsData(
-  //     session.user.shop || "",
-  //     session.accessToken
-  //   );
-  //   IhsShopsData = fetchIhsData.data.data[0].ihsData;
-  //   // console.log("IhsShopsData IHSS DATA:", IhsShopsData);
-  // } catch (e: string | unknown) {
-  //   console.error("Error fetching Ihs Shops Data:", e);
-  //   IhsShopsData = [];
-  // }
 
-  // fetchWeeklyPromsPlans;
-  let weeklyPromsPlansData = [];
+  let IhsShopsData: IhsDataItem[] = [];
   try {
-    const fetchedData = await fetchWeeklyPromsPlans(session.accessToken);
-    console.log("fetchedData weeklyPromsPlansData:", fetchedData);
+    const fetchIhsData = await fetchShopIhsData(
+      session.user.shop || "",
+      session.accessToken,
+    );
 
-    weeklyPromsPlansData = fetchedData.data.plans;
-    // console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
-    // console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
-    // console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
-  } catch (e: string | unknown) {
-    console.error("Error fetching user plans:", e);
-    // weeklyPromsPlansData = [];
+    IhsShopsData = Array.isArray(fetchIhsData) ? fetchIhsData : [];
+  } catch (e: unknown) {
+    console.error("Error fetching Ihs Shops Data:", e);
+    IhsShopsData = [];
   }
-  console.log("!!!!! weeklyPromsPlansData:", weeklyPromsPlansData);
+  console.log("!!!!! IhsShopsData:", IhsShopsData);
+  // fetchWeeklyPromsPlans;
+  // let weeklyPromsPlansData = [];
+  // try {
+  //   const fetchedData = await fetchWeeklyPromsPlans(session.accessToken);
+  //   console.log("fetchedData weeklyPromsPlansData:", fetchedData);
+
+  //   weeklyPromsPlansData = fetchedData.data.plans;
+  //   console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
+  //   console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
+  //   console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
+  // } catch (e: string | unknown) {
+  //   console.error("Error fetching user plans:", e);
+  //   // weeklyPromsPlansData = [];
+  // }
+  // console.log("!!!!! weeklyPromsPlansData:", weeklyPromsPlansData);
   return (
     <div>
       {plansData && plansData.length > 0 ? (
@@ -200,14 +201,14 @@ export default async function UserPlansPage() {
               </ButtonBox>
             </div>
           </ComponentWrapper>
-          {/* <ComponentWrapper title="IHS results">
+          <ComponentWrapper title="IHS results">
             <div className={css.ihsBox}>
               <PromotersIhsBox
                 IhsShopsData={IhsShopsData}
                 sessionCategory={session.user.userType ?? ""}
               />
             </div>
-          </ComponentWrapper> */}
+          </ComponentWrapper>
           <ComponentWrapper title="Quarterly results">
             <div className={css.plansBox}>
               <p>
