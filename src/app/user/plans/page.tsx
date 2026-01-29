@@ -1,6 +1,6 @@
 import { authConfig } from "@/app/configs/authConfig";
 import {
-  fetchShopIhsData,
+  // fetchShopIhsData,
   fetchUserPlans,
   fetchWeeklyPromsPlans,
   Plan,
@@ -18,9 +18,9 @@ import {
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 
-import PromotersIhsBox, {
-  IhsDataItem,
-} from "@/components/PromotersIhsBox/PromotersIhsBox";
+// import PromotersIhsBox, {
+//   IhsDataItem,
+// } from "@/components/PromotersIhsBox/PromotersIhsBox";
 // import AccordionWrapper from "@/components/AccordionWrapper/AccordionWrapper";
 // import NewRecharts from "@/components/NewRecharts/newRecharts";
 
