@@ -17,7 +17,7 @@ export default function PromotersIhsBox({
   IhsShopsData,
   sessionCategory,
 }: PromotersIhsBoxProps) {
-  const weekNumberofMonth = ["w01", "w02", "w03", "w04", "w05"];
+  const weekNumberofMonth = ["w10", "w11", "w12", "w13"];
 
   const weeksData = weekNumberofMonth.map((weekN) => {
     if (!IhsShopsData || !Array.isArray(IhsShopsData)) return "-";
