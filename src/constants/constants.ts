@@ -14,4 +14,4 @@ export const PROMS_TYPE_SELECT = ['AV', 'DA', 'MDA', 'SDA'];
 
 export const UniformSizeData = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
 
-export const ModalText = 'оновлено по 20.05.2026 включно';
+export const ModalText = 'оновлено по 26.05.2026 включно';
