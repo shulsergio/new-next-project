@@ -2,7 +2,7 @@
 export const PRD_AV_DATA = ["MONITOR", "Sound Device", "TV", "TV projector"];
 export const PRD_DA_DATA = ["B-in", "DW", "MWO", "REF", "VC", "WM"];
 
-export const MONTH_DATA = ["m01y2026", "m02y2026", "m03y2026", "m04y2026", "m05y2026", "m06y2026"];
+export const MONTH_DATA = ["m03y2026", "m04y2026", "m05y2026", "m05y2026"];
 
 // for Admin Plans Page
 
