@@ -11,7 +11,6 @@ import { MONTH_DATA, PRD_AV_DATA, PRD_DA_DATA } from "@/constants/constants";
 
 interface FocusModelsManagerProps {
   limit: number;
-  // newType: string;
   accessToken: string;
 }
 
@@ -24,7 +23,6 @@ interface ApiResponseModel {
 
 export default function FocusModelsManager({
   limit,
-  // newType,
   accessToken,
 }: FocusModelsManagerProps) {
   const { data: session } = useSession();
@@ -40,16 +38,23 @@ export default function FocusModelsManager({
     prdData = [...PRD_DA_DATA, ...PRD_AV_DATA];
   }
   console.log("----newType-----", newType);
+
   const [focusModels, setFocusModels] = useState<FocusModel[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [curPage, setCurPage] = useState(1);
   const [selectedPrd, setSelectedPrd] = useState<string>(prdData[0]);
   const [selectedMonth, setSelectedMonth] = useState<string>(
-    MONTH_DATA[MONTH_DATA.length - 1]
+    MONTH_DATA[MONTH_DATA.length - 1],
   );
   const [type, setSelectedType] = useState<string>(newType);
   const [isFocusOnly, setIsFocusOnly] = useState(false);
   const [isBonusOnly, setIsBonusOnly] = useState(false);
+
+  // Буферный стейт для хранения вводимого текста в инпуте
+  const [searchInputValue, setSearchInputValue] = useState("");
+  // Основной стейт, который улетает на бэкенд и обновляется только по кнопке Найти
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,6 +64,7 @@ export default function FocusModelsManager({
       setError(null);
       console.log("------ type 111 -------", type);
       try {
+        // Передаем searchTerm (9-й аргумент) функции запроса
         const fetchedData: ApiResponseModel = await fetchFocusModels(
           curPage,
           limit,
@@ -67,7 +73,8 @@ export default function FocusModelsManager({
           selectedPrd,
           selectedMonth,
           isFocusOnly,
-          isBonusOnly
+          isBonusOnly,
+          searchTerm.trim(),
         );
         setFocusModels(fetchedData.data.data);
         console.log("*** data in FocusModelsManager fetchedData:", fetchedData);
@@ -90,6 +97,7 @@ export default function FocusModelsManager({
     isFocusOnly,
     isBonusOnly,
     selectedMonth,
+    searchTerm, // Следим за подтвержденной строкой поиска
   ]);
 
   const handlePrdChange = (prd: string) => {
@@ -110,7 +118,12 @@ export default function FocusModelsManager({
     setIsBonusOnly(isChecked);
     setCurPage(1);
   };
-  // console.log("data in FocusModelsManager prds:", prds);
+
+  // Метод подтверждения поиска: обновляет searchTerm и сбрасывает страницу на 1-ю
+  const handleSearchSubmit = () => {
+    setSearchTerm(searchInputValue);
+    setCurPage(1);
+  };
 
   const hasPrevPage = curPage > 1;
   const hasNextPage = curPage * limit < totalCount;
@@ -125,6 +138,12 @@ export default function FocusModelsManager({
       {!loading && !error && (
         <>
           <div className={css.filterWrapperBox}>
+            <ModelSearchInput
+              value={searchInputValue}
+              onChange={setSearchInputValue}
+              onSubmit={handleSearchSubmit}
+            />
+
             <MonthFilter
               months={MONTH_DATA}
               onMonthChange={handleMonthChange}
@@ -160,6 +179,47 @@ export default function FocusModelsManager({
     </>
   );
 }
+
+interface ModelSearchInputProps {
+  value: string;
+  onChange: (value: string) => void;
+  onSubmit: () => void;
+}
+
+function ModelSearchInput({
+  value,
+  onChange,
+  onSubmit,
+}: ModelSearchInputProps) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSubmit();
+    }
+  };
+
+  return (
+    <div className={css.prdFilterBox}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <label htmlFor="modelSearch" className={css.selectLabel}>
+          Search model:
+        </label>
+        <input
+          id="modelSearch"
+          type="text"
+          placeholder="Type model.."
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className={css.selectBox}
+        />
+      </div>
+      <button type="button" onClick={onSubmit} className={css.selectBoxBtn}>
+        Find
+      </button>
+    </div>
+  );
+}
+
 interface PrdFilterProps {
   prdData: string[];
   selectedPrd: string | null;

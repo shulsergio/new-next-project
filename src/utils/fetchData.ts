@@ -307,15 +307,32 @@ interface shopsData {
 
   }
 
+export async function fetchFocusModels(
+  curPage: number, 
+  limit: number, 
+  type: string, 
+  accessToken: string, 
+  selectedPrd: string, 
+  selectedMonth: string, 
+  isFocusOnly: boolean,
+  isBonusOnly: boolean,
+  searchTerm?: string  
+): Promise<ApiResponse> {
+ 
 
 
-  export async function fetchFocusModels(curPage: number, limit: number, type: string, accessToken: string, selectedPrd: string, selectedMonth: string, isFocusOnly: boolean,isBonusOnly: boolean): Promise<ApiResponse> {
-    // type = "AV";
-    // console.log("WWWWW fetchFocusModels selectedPrd===", selectedPrd)
-        // console.log("WWWWW fetchFocusModels selectedMonth===", selectedMonth)
-    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}&selectedPrd=${selectedPrd}&selectedMonth=${selectedMonth}&isFocusOnly=${isFocusOnly}&isBonusOnly=${isBonusOnly}`;
 
-    // console.log("WWWWW fetchFocusModels BackApi===", BackApi)
+  
+  const newSearchTerm = searchTerm?.toUpperCase().trim() || ""; // Ensure searchTerm is a string and trim whitespace
+    console.log("------ fetchFocusModels type 111 -------", type);
+  console.log("------ fetchFocusModels type 111 -------", curPage);
+  console.log("------ fetchFocusModels type 111 -------", limit);
+  console.log("------ fetchFocusModels type 111 -------", newSearchTerm);
+
+
+    const BackApi = `${process.env.NEXT_PUBLIC_BACKEND_URL}/focusModels/${type}?page=${curPage}&limit=${limit}&selectedPrd=${selectedPrd}&selectedMonth=${selectedMonth}&isFocusOnly=${isFocusOnly}&isBonusOnly=${isBonusOnly}&search=${newSearchTerm || ""}`;
+
+  
     const response = await fetch(BackApi, {
       method: "GET",
       headers: {
@@ -324,18 +341,26 @@ interface shopsData {
       },
       cache: "no-store",
     });
+    
     if (!response.ok) {
-    console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
+      console.error(`HTTP Error Status: ${response.status} - ${response.statusText}`);
 
       if (response.status === 401 || response.status === 403) {
         throw new Error("Unauthorized access. Please log in again.");
       }
       throw new Error("Failed to fetch IHS data");
     }
-    const data = await response.json();
-    // console.log('%%%% FILE fetchShopMatixData: ', data)
+    
+  const data = await response.json();
+  
+
+console.log('("------ fetchFocusModels data:', data);
+
     return data;
 }
+
+
+
   interface FocusFilterModelData {
   productIds: string[];
   months: string[];
