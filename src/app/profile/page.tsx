@@ -5,6 +5,7 @@ import { ProfileUserShopBox } from "@/components/ProfileUserShopBox/ProfileUserS
 import { authConfig } from "../configs/authConfig";
 import { getServerSession } from "next-auth";
 // import FirstModalData from "@/components/Modal/FirstModalData/page";
+import Image from "next/image";
 
 /**
  * Profile page component
@@ -58,6 +59,39 @@ export default async function Profile() {
             <ButtonBox option="link" href="user/shopMatrix">
               Shop matrix
             </ButtonBox>
+          </ComponentWrapper>
+          <ComponentWrapper>
+            <div className={css.logoContainer}>
+              <div className={css.logoText}>
+                <Image
+                  src="/og-image.PNG"
+                  alt="SCORY"
+                  width={180}
+                  height={45}
+                  style={{
+                    height: "auto",
+                    margin: "0 auto",
+                    objectFit: "contain",
+                  }}
+                />
+                <div className={css.logoDescription}>
+                  <p style={{ fontSize: "20px", padding: "10px" }}>
+                    Любиш футбол?{" "}
+                  </p>
+                  <p style={{ fontSize: "16px" }}>
+                    Роби прогнози на ЧМ 2026 та змагайся з кращими!
+                  </p>
+                </div>
+              </div>
+              <ButtonBox
+                option="link"
+                href="https://scory.com.ua"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit SCORY
+              </ButtonBox>
+            </div>
           </ComponentWrapper>
         </>
       )}

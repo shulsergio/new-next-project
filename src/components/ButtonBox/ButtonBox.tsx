@@ -11,6 +11,8 @@ interface ButtonBoxProps {
   href?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | (() => void);
   disabled?: boolean;
+  target?: string;
+  rel?: string;
 }
 
 export default function ButtonBox({
@@ -20,10 +22,12 @@ export default function ButtonBox({
   onClick,
   children = null,
   disabled = false,
+  target = "_self",
+  rel = "",
 }: ButtonBoxProps) {
   if (option === "link") {
     return (
-      <Link href={href} className={css.linkBox}>
+      <Link href={href} className={css.linkBox} target={target} rel={rel}>
         {children}
       </Link>
     );
