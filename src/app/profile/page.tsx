@@ -85,7 +85,7 @@ export default async function Profile() {
               </div>
               <ButtonBox
                 option="link"
-                href="https://scory.com.ua"
+                href="https://scory.com.ua?ref=sams"
                 target="_blank"
                 rel="noopener"
               >
