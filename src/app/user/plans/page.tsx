@@ -102,7 +102,10 @@ export default async function UserPlansPage() {
               <div className={css.circularProgressBar}>
                 <ClientCircularProgressBar
                   value={
-                    (plansData[0].totalSOfact / plansData[0].totalSOplan) * 100
+                    plansData[0].totalSOplan > 0
+                      ? (plansData[0].totalSOfact / plansData[0].totalSOplan) *
+                        100
+                      : 0
                   }
                 />
               </div>
