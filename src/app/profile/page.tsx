@@ -87,7 +87,7 @@ export default async function Profile() {
                 option="link"
                 href="https://scory.com.ua"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
               >
                 Visit SCORY
               </ButtonBox>
