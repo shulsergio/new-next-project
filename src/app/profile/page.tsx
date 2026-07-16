@@ -5,7 +5,7 @@ import { ProfileUserShopBox } from "@/components/ProfileUserShopBox/ProfileUserS
 import { authConfig } from "../configs/authConfig";
 import { getServerSession } from "next-auth";
 // import FirstModalData from "@/components/Modal/FirstModalData/page";
-import Image from "next/image";
+// import Image from "next/image";
 
 /**
  * Profile page component
@@ -60,7 +60,7 @@ export default async function Profile() {
               Shop matrix
             </ButtonBox>
           </ComponentWrapper>
-          <ComponentWrapper>
+          {/* <ComponentWrapper>
             <div className={css.logoContainer}>
               <div className={css.logoText}>
                 <Image
@@ -92,7 +92,7 @@ export default async function Profile() {
                 Visit SCORY
               </ButtonBox>
             </div>
-          </ComponentWrapper>
+          </ComponentWrapper> */}
         </>
       )}
     </div>
