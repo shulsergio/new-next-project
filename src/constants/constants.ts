@@ -2,7 +2,7 @@
 export const PRD_AV_DATA = ["MONITOR", "Sound Device", "TV", "TV projector"];
 export const PRD_DA_DATA = ["B-in", "DW", "MWO", "REF", "VC", "WM"];
 
-export const MONTH_DATA = ["m03y2026", "m04y2026", "m05y2026", "m06y2026"];
+export const MONTH_DATA = ["m03y2026", "m04y2026", "m05y2026", "m07y2026"];
 
 // for Admin Plans Page
 
@@ -14,4 +14,4 @@ export const PROMS_TYPE_SELECT = ['AV', 'DA', 'MDA', 'SDA'];
 
 export const UniformSizeData = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
 
-export const ModalText = 'оновлено повний місяць';
+export const ModalText = 'DA- оновлено по 12,07';
