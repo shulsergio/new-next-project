@@ -7,9 +7,9 @@ import TextBox from "../TextBox/TextBox";
 import { fetchShopsById } from "@/utils/fetchData";
 import { useApiClient } from "@/hooks/useApiClient";
 import ButtonBox from "../ButtonBox/ButtonBox";
-import Modal from "../Modal/Modal";
+// import Modal from "../Modal/Modal";
 import Loader from "../Loader/Loader";
-import { ModalText } from "@/constants/constants";
+// import { ModalText } from "@/constants/constants";
 
 interface shopsData {
   chain: string;
@@ -24,13 +24,13 @@ export function ProfileUserShopBox() {
 
   const [shopsData, setShopsData] = useState<shopsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
+  // const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
   useEffect(() => {
     const hasShownWelcomeModal = sessionStorage.getItem("welcomeModalShown");
     // console.log("!!! hasShownWelcomeModal:", hasShownWelcomeModal);
     if (hasShownWelcomeModal !== "1" && !hasShownWelcomeModal) {
       // console.log("!!! hasShownWelcomeModal IN IF:", hasShownWelcomeModal);
-      setIsWelcomeModalOpen(true);
+      // setIsWelcomeModalOpen(true);
       sessionStorage.setItem("welcomeModalShown", "1");
     }
   }, []);
@@ -66,9 +66,9 @@ export function ProfileUserShopBox() {
   }
   const profileTitle = `${userProfile?.role} profile`;
 
-  const closeWelcomeModal = () => {
-    setIsWelcomeModalOpen(false);
-  };
+  // const closeWelcomeModal = () => {
+  //   setIsWelcomeModalOpen(false);
+  // };
 
   return (
     <ComponentWrapper title={profileTitle}>
@@ -94,7 +94,7 @@ export function ProfileUserShopBox() {
             Addr: <span className={css.span}>{shopsData?.address || "-"}</span>
           </TextBox>
         </div>
-        <Modal
+        {/* <Modal
           isOpen={isWelcomeModalOpen}
           onClose={closeWelcomeModal}
           title="Hello!"
@@ -103,7 +103,7 @@ export function ProfileUserShopBox() {
           <button className={css.modalSaveButton} onClick={closeWelcomeModal}>
             ОК
           </button>
-        </Modal>
+        </Modal> */}
       </div>
     </ComponentWrapper>
   );
