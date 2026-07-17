@@ -11,7 +11,8 @@ export interface Plan {
   focusQlySOplan: number;
   focusQlySOfact: number;
     topBonus: number;
-    date: string;
+  date: string;
+      notes: string;
     createdAt: string;
     updatedAt: string;
   }

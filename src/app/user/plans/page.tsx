@@ -41,48 +41,40 @@ export default async function UserPlansPage() {
     redirect("/signin");
   }
   let plansData: Plan[] = [];
-  try {
-    const fetchedData = await fetchUserPlans(session.accessToken);
-    console.log("fetchedData PLANS DATA:", fetchedData);
-    plansData = fetchedData.data.plans;
-    console.log("plansData PLANS DATA:", plansData);
-  } catch (e: string | unknown) {
-    console.error("Error fetching user plans:", e);
-    plansData = [];
-  }
-
   let IhsShopsData: IhsDataItem[] = [];
+
   try {
-    const fetchIhsData = await fetchShopIhsData(
-      session.user.shop || "",
-      session.accessToken,
-    );
+    const [plansResult, ihsResult] = await Promise.allSettled([
+      fetchUserPlans(session.accessToken),
+      fetchShopIhsData(session.user.shop || "", session.accessToken),
+    ]);
 
-    IhsShopsData = Array.isArray(fetchIhsData) ? fetchIhsData : [];
-  } catch (e: unknown) {
-    console.error("Error fetching Ihs Shops Data:", e);
-    IhsShopsData = [];
+    if (plansResult.status === "fulfilled") {
+      console.log("fetchedData PLANS DATA:", plansResult.value);
+      plansData = plansResult.value?.data?.plans || [];
+      console.log("plansData PLANS DATA:", plansData);
+    } else {
+      console.error("Error fetching user plans:", plansResult.reason);
+    }
+
+    if (ihsResult.status === "fulfilled") {
+      IhsShopsData = Array.isArray(ihsResult.value) ? ihsResult.value : [];
+    } else {
+      console.error("Error fetching Ihs Shops Data:", ihsResult.reason);
+    }
+  } catch (e) {
+    console.error("Unexpected error in parallel fetching:", e);
   }
-  console.log("!!!!! IhsShopsData:", IhsShopsData);
-  // fetchWeeklyPromsPlans;
-  // let weeklyPromsPlansData = [];
-  // try {
-  //   const fetchedData = await fetchWeeklyPromsPlans(session.accessToken);
-  //   console.log("fetchedData weeklyPromsPlansData:", fetchedData);
 
-  //   weeklyPromsPlansData = fetchedData.data.plans;
-  //   console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
-  //   console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
-  //   console.log("weeklyPromsPlansData PLANS DATA:", weeklyPromsPlansData);
-  // } catch (e: string | unknown) {
-  //   console.error("Error fetching user plans:", e);
-  //   // weeklyPromsPlansData = [];
-  // }
-  // console.log("!!!!! weeklyPromsPlansData:", weeklyPromsPlansData);
+  console.log("!!!!! IhsShopsData:", IhsShopsData);
+
   return (
     <div>
       {plansData && plansData.length > 0 ? (
         <>
+          <ComponentWrapper title="Notes">
+            <p>{plansData[0].notes}</p>
+          </ComponentWrapper>
           <ComponentWrapper title="Total AR">
             <div className={css.plansBox}>
               <div>
