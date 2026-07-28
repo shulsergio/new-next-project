@@ -10,6 +10,7 @@ import AdminPlansPage from "./promoters/plans/page";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 import AdminPromotersMotivationPage from "./promoters/motivation/page";
 import { useAccess } from "@/hooks/useAccess";
+import AdminPopDataPage from "./merch/pop/page";
 // import { getServerSession } from "next-auth";
 // import { authConfig } from "../configs/authConfig";
 
@@ -33,6 +34,8 @@ export default function Admin() {
         return <AdminPlansPage />;
       case "promoters/motivation":
         return <AdminPromotersMotivationPage />;
+      case "merch/pop":
+        return <AdminPopDataPage />;
       // case "competitors":
       //   return <CompetitorsData />;
       default:
@@ -71,6 +74,15 @@ export default function Admin() {
 
             <ButtonBox option="link" href="user/focus-models">
               Focus Models
+            </ButtonBox>
+
+            {/* ////// MERCH */}
+            <ButtonBox
+              option="button"
+              // href="admin/promoters/plans"
+              onClick={() => setCurrentPage("merch/pop")}
+            >
+              Pop Data
             </ButtonBox>
           </ComponentAdminWrapper>
         </div>
