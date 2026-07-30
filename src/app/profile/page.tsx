@@ -1,9 +1,12 @@
 import css from "./profile.module.css";
+import { authConfig } from "../configs/authConfig";
+import { getServerSession } from "next-auth";
 import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
 import { ProfileUserShopBox } from "@/components/ProfileUserShopBox/ProfileUserShopBox";
-import { authConfig } from "../configs/authConfig";
-import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+// import { useEffect } from "react";
+// import MerchUserShopData from "@/components/MerchUserShopData/MerchUserShopData";
 // import FirstModalData from "@/components/Modal/FirstModalData/page";
 // import Image from "next/image";
 
@@ -18,6 +21,10 @@ import { getServerSession } from "next-auth";
 export default async function Profile() {
   const session = await getServerSession(authConfig);
   const userProfile = session?.user.mcsId ?? "";
+  const userRole = session?.user.role ?? "";
+  const isUserProm = session?.user.role === "promoter";
+  const isUserMerch = session?.user.role === "merchandiser";
+  console.log("userRole- ", userRole);
   const allowedAvProfiles = [
     "av.prom",
     "av.dnipro",
@@ -26,13 +33,16 @@ export default async function Profile() {
     "av.odesa",
   ];
 
+  if (isUserMerch) {
+    redirect("/profile/merch/shops");
+  }
+
   const isAvProfile = allowedAvProfiles.includes(userProfile);
-  // console.log("User Profile DATA IN PROFILE PAGE:", userProfile);
   return (
     <div className={css.container}>
       {/* <FirstModalData /> */}
 
-      {isAvProfile ? (
+      {isAvProfile && (
         <>
           <ComponentWrapper>
             <ButtonBox option="link" href="user/motivation">
@@ -43,7 +53,8 @@ export default async function Profile() {
             </ButtonBox>
           </ComponentWrapper>
         </>
-      ) : (
+      )}
+      {isUserProm && (
         <>
           <ProfileUserShopBox />
           <ComponentWrapper>
@@ -60,7 +71,13 @@ export default async function Profile() {
               Shop matrix
             </ButtonBox>
           </ComponentWrapper>
-          {/* <ComponentWrapper>
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ПРИМЕР РЕКЛАМНОГО БЛОКА <ComponentWrapper>
             <div className={css.logoContainer}>
               <div className={css.logoText}>
                 <Image
@@ -92,9 +109,4 @@ export default async function Profile() {
                 Visit SCORY
               </ButtonBox>
             </div>
-          </ComponentWrapper> */}
-        </>
-      )}
-    </div>
-  );
-}
+          </ComponentWrapper> */

@@ -38,7 +38,7 @@ export default function AdminPlansPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedPromType, setSelectedPromType] = useState<string>(
-    PROMS_TYPE_SELECT[0]
+    PROMS_TYPE_SELECT[0],
   );
   const [selectedRegion, setselectedRegion] = useState<string>(regionData[0]);
   const [selectedChain, setSelectedChain] = useState<string>(chainData[0]);
@@ -52,7 +52,7 @@ export default function AdminPlansPage() {
 
     if (status === "unauthenticated") {
       console.log(
-        "Доступ запрещен: пользователь не аутентифицирован или не является админом."
+        "Доступ запрещен: пользователь не аутентифицирован или не является админом.",
       );
       redirect("/");
     }
@@ -75,15 +75,9 @@ export default function AdminPlansPage() {
                 selectedPromType,
                 selectedRegion,
                 // selectedChain
-                session.accessToken
+                session.accessToken,
               ),
             ]);
-          // console.log(
-          //   "FFFFFF fetchedShopsResponse data:",
-          //   fetchedShopsResponse
-          // );
-          // console.log("FFFFFF fetchedPlans data:", fetchedPlans);
-          // console.log("FFFFFF fetchedPromoters data:", fetchedPromoters);
 
           const plansByUserId = new Map<string, Plan[]>();
 
@@ -123,7 +117,7 @@ export default function AdminPlansPage() {
                 plans: plans,
                 chain: chain,
               } as EnrichedPromoter;
-            }
+            },
           );
           // console.log(
           //   "FFFFFF FINAL enrichedPromoters data:",

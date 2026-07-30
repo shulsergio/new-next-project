@@ -471,7 +471,34 @@ export async function fetchBonusModels(type: string, accessToken: string, storeI
     return data;
 }
 
+export interface Shop {
+  _id: string;
+  storeId: string;
+  name: string;
+  chain: string;
+  address: string;
+  region: string;
+  city: string;
+  merchandiserId?: string;
+}
 
+export async function fetchMerchShops(accessToken: string): Promise<Shop[]> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/shops/merch/shops`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch merchandiser shops");
+  }
+
+  const result = await res.json();
+  return result.data;
+}
 
 
 

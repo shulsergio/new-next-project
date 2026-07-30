@@ -77,22 +77,32 @@ export function ProfileUserShopBox() {
           🔑 User Info
         </ButtonBox>
         <div className={css.boxSmall}>
+          {userProfile?.role && (
+            <TextBox option="static">
+              Role: <span className={css.span}>{userProfile?.role || "-"}</span>
+            </TextBox>
+          )}
           <TextBox option="static">
-            Role: <span className={css.span}>{userProfile?.role || "-"}</span>
-          </TextBox>
-          <TextBox option="static">
-            User type:{" "}
+            User type:
             <span className={css.span}>{userProfile?.userType || "-"}</span>
           </TextBox>
-          <TextBox option="static">
-            Shop: <span className={css.span}>{userProfile?.shop || "-"}</span>
-          </TextBox>
-          <TextBox option="static">
-            Chain: <span className={css.span}>{shopsData?.chain || "-"}</span>
-          </TextBox>
-          <TextBox option="static">
-            Addr: <span className={css.span}>{shopsData?.address || "-"}</span>
-          </TextBox>
+          {userProfile?.shop && (
+            <TextBox option="static">
+              Shop: <span className={css.span}>{userProfile?.shop || "-"}</span>
+            </TextBox>
+          )}
+
+          {shopsData?.chain && (
+            <TextBox option="static">
+              Chain: <span className={css.span}>{shopsData?.chain || "-"}</span>
+            </TextBox>
+          )}
+          {shopsData?.address && (
+            <TextBox option="static">
+              Addr:{" "}
+              <span className={css.span}>{shopsData?.address || "-"}</span>
+            </TextBox>
+          )}
         </div>
         {/* <Modal
           isOpen={isWelcomeModalOpen}
