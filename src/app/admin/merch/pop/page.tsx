@@ -1,7 +1,10 @@
+import ExportPopsButton from "@/components/ExportPopsButton/ExportPopsButton";
+import css from "./page.module.css";
+
 export default function AdminPopDataPage() {
   return (
-    <>
-      <p>HELLO</p>
-    </>
+    <div className={css.container}>
+      <ExportPopsButton />
+    </div>
   );
 }

@@ -52,7 +52,10 @@ export default function MerchShopsPage() {
       <div className={css.shopsBox}>
         {shops.map((shop) => (
           <ComponentAdminWrapper key={shop._id}>
-            <Link href={`/merch/shops/${shop._id}`} className={css.shopCard}>
+            <Link
+              href={`/profile/merch/shops/${shop._id}`}
+              className={css.shopCard}
+            >
               <div className={css.chainData}>
                 <div className={css.badge}>{shop.chain}</div>
                 <div className={css.badge}>{shop.city}</div>
