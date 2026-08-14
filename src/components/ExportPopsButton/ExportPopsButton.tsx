@@ -41,7 +41,7 @@ export default function ExportPopsButton() {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Export error:", error);
-      alert("Не удалось скачать отчет");
+      alert("Failed to download report");
     } finally {
       setIsExporting(false);
     }
@@ -54,7 +54,7 @@ export default function ExportPopsButton() {
       onClick={handleExport}
       disabled={isExporting}
     >
-      {isExporting ? "Формирование файла..." : "📊 Выгрузить отчет в Excel"}
+      {isExporting ? "Downloading..." : "📊 Download to Excel"}
     </ButtonBox>
   );
 }

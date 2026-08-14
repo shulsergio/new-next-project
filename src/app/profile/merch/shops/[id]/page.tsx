@@ -134,43 +134,47 @@ export default function ShopPopPage({
                 {item.group} ({item.dep})
               </span>
             </div>
-
-            <h3 className={css.popName}>{item.name}</h3>
-            {item.description && (
-              <p className={css.popDesc}>{item.description}</p>
-            )}
-
-            <div className={css.inputsGrid}>
-              <div className={css.inputGroup}>
-                <label>Qty placed:</label>
-                <input
-                  type="number"
-                  min="0"
-                  value={item.qtyPlaced}
-                  onChange={(e) =>
-                    handleQuantityChange(
-                      item.popId,
-                      "qtyPlaced",
-                      parseInt(e.target.value) || 0,
-                    )
-                  }
-                />
+            <div className={css.boxData}>
+              <div className={css.leftBoxData}>
+                <h3 className={css.popName}>{item.name}</h3>
+                {item.description && (
+                  <p className={css.popDesc}>{item.description}</p>
+                )}
               </div>
+              <div className={css.rightBoxData}>
+                <div className={css.inputsGrid}>
+                  <div className={css.inputGroup}>
+                    <label>Qty placed:</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={item.qtyPlaced}
+                      onChange={(e) =>
+                        handleQuantityChange(
+                          item.popId,
+                          "qtyPlaced",
+                          parseInt(e.target.value) || 0,
+                        )
+                      }
+                    />
+                  </div>
 
-              <div className={css.inputGroup}>
-                <label>Qty total:</label>
-                <input
-                  type="number"
-                  min="0"
-                  value={item.qtyTotal}
-                  onChange={(e) =>
-                    handleQuantityChange(
-                      item.popId,
-                      "qtyTotal",
-                      parseInt(e.target.value) || 0,
-                    )
-                  }
-                />
+                  <div className={css.inputGroup}>
+                    <label>Qty total:</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={item.qtyTotal}
+                      onChange={(e) =>
+                        handleQuantityChange(
+                          item.popId,
+                          "qtyTotal",
+                          parseInt(e.target.value) || 0,
+                        )
+                      }
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
