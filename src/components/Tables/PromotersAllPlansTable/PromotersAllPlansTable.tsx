@@ -8,6 +8,7 @@ interface Promoter {
   name: string;
   region: string;
   userType: string;
+  activeUser?: boolean;
 }
 
 interface EnrichedPromoter extends Promoter {
@@ -25,6 +26,10 @@ const PercentDataForAdminData = (plan, fact) =>
 export default function PromotersAllPlansTable({
   promotersAllPlans,
 }: promotersAllPlansProps) {
+  const activePromoters = promotersAllPlans.filter(
+    (promoter) => promoter.activeUser !== false,
+  );
+
   return (
     <div className={css.tableWrapper}>
       {/* <h1>Promoters All Plans Table</h1> */}
@@ -42,7 +47,7 @@ export default function PromotersAllPlansTable({
           </tr>
         </thead>
         <tbody>
-          {promotersAllPlans.map((promoter) => {
+          {activePromoters.map((promoter) => {
             if (promoter.plans.length === 0) {
               return (
                 <tr key={promoter._id}>
