@@ -23,7 +23,6 @@ export default function ShopPopPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  // В Next.js 15+ params — это Promise, поэтому используем React.use()
   const { id: shopId } = use(params);
 
   const { data: session, status } = useSession();
@@ -32,7 +31,6 @@ export default function ShopPopPage({
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  // 1. Загрузка POP-материалов для данного магазина
   useEffect(() => {
     const loadShopPops = async () => {
       if (!session?.accessToken || !shopId) return;
@@ -48,7 +46,7 @@ export default function ShopPopPage({
           },
         );
 
-        if (!res.ok) throw new Error("Ошибка загрузки POP-материалов");
+        if (!res.ok) throw new Error("Помилка завантаження POP");
 
         const data = await res.json();
         setPops(data.data || []);
@@ -118,10 +116,10 @@ export default function ShopPopPage({
   };
 
   if (status === "loading" || isLoading) return <Loader isLoading={true} />;
-
+  console.log("pops- ", pops);
   return (
     <main className={css.container}>
-      <h1 className={css.title}>placement status</h1>
+      <h1 className={css.title}>Статус рор</h1>
 
       {message && <div className={css.alert}>{message}</div>}
 
@@ -160,7 +158,7 @@ export default function ShopPopPage({
                   </div>
 
                   <div className={css.inputGroup}>
-                    <label>Qty total:</label>
+                    <label>total:</label>
                     <input
                       type="number"
                       min="0"
