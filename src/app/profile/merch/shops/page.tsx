@@ -60,6 +60,12 @@ export default function MerchShopsPage() {
     <main className={css.container}>
       {/* ---------- Панель фильтров ---------- */}
       <ComponentWrapper>
+        <Link href={`/profile/merch/data`} className={css.shopCard}>
+          Інвентаризація
+        </Link>
+      </ComponentWrapper>
+      {/* ---------- Панель фильтров ---------- */}
+      <ComponentWrapper>
         <div className={css.filterItem}>
           <label htmlFor="chainSelect" className={css.label}>
             Мережа:

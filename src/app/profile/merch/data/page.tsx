@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Loader from "@/components/Loader/Loader";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
-import css from "./shopsPopPage.module.css";
+import css from "./inventoryShopPage.module.css";
 
 interface PopInventoryItem {
   popId: string;
