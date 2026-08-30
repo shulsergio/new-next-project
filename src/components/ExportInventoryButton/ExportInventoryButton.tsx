@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import ButtonBox from "../ButtonBox/ButtonBox";
 
-export default function ExportPopsButton() {
+export default function ExportInventoryButton() {
   const { data: session } = useSession();
   const [isExporting, setIsExporting] = useState(false);
 
@@ -14,7 +14,7 @@ export default function ExportPopsButton() {
     setIsExporting(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/shops/pops/export`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/merch/inventory/export`,
         {
           method: "GET",
           headers: {
@@ -54,7 +54,7 @@ export default function ExportPopsButton() {
       onClick={handleExport}
       disabled={isExporting}
     >
-      {isExporting ? "Downloading..." : "📊 Export POP data"}
+      {isExporting ? "Downloading..." : "📊 Export Inventory"}
     </ButtonBox>
   );
 }
