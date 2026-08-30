@@ -105,7 +105,7 @@ export default function MerchInventoryPage() {
 
   return (
     <main className={css.container}>
-      <h1 className={css.title}>Мій склад (Залишки POP)</h1>
+      <h1 className={css.title}>Мій склад POP</h1>
 
       {message && <div className={css.alert}>{message}</div>}
 
@@ -130,7 +130,7 @@ export default function MerchInventoryPage() {
               <div className={css.rightBoxData}>
                 <div className={css.inputsGrid}>
                   <div className={css.inputGroup}>
-                    <label>Залишок на руках:</label>
+                    <label>Залишок:</label>
                     <input
                       type="number"
                       min="0"

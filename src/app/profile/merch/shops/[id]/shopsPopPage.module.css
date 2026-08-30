@@ -35,7 +35,7 @@
   justify-content: space-between;
   flex-direction: row;
   flex-wrap: wrap;
-  overflow: scroll;
+  /* overflow: scroll; */
   gap: 4px;
   background: #ffffff;
   border: 1px solid #e2e8f0;
