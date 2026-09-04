@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { SignInForm } from "../../components/SignInForm/SignInForm";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function SignInPage() {
@@ -16,8 +16,8 @@ export default function SignInPage() {
   }, [error]);
 
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <SignInForm />
-    </div>
+    </Suspense>
   );
 }
