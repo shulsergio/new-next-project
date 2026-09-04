@@ -2,26 +2,18 @@
 
 import { useState } from "react";
 import css from "./admin.module.css";
-// import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ButtonBox from "@/components/ButtonBox/ButtonBox";
-
-import AdminPromotersPage from "./promoters/page";
-import AdminPlansPage from "./promoters/plans/page";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
-import AdminPromotersMotivationPage from "./promoters/motivation/page";
 import { useAccess } from "@/hooks/useAccess";
-import AdminPopDataPage from "./merch/pop/page";
-// import { getServerSession } from "next-auth";
-// import { authConfig } from "../configs/authConfig";
+import AdminPromotersPlansView from "@/components/AdminViews/AdminPromotersPlansView/AdminPromotersPlansView";
+import AdminPopDataView from "@/components/AdminViews/AdminPopDataView/AdminPopDataView";
 
-/**
- *
- * Admin page component
- * This ONLY for ADMIN role
- * If role Admin- this page, if not- Profile page
- * @export
- * @return {*}
- */
+// ИМПОРТИРУЕМ ОБЫЧНЫЕ КОМПОНЕНТЫ (НЕ page.tsx)
+// import AdminPromotersView from "@/components/AdminViews/AdminPromotersView";
+// import AdminPlansView from "@/components/AdminViews/AdminPlansView";
+// import AdminMotivationView from "@/components/AdminViews/AdminMotivationView";
+// import AdminPopDataView from "@/components/AdminViews/AdminPopDataView";
+
 export default function Admin() {
   const [currentPage, setCurrentPage] = useState<string | null>(null);
   const { hasPermission } = useAccess();
@@ -29,17 +21,15 @@ export default function Admin() {
   const renderContent = () => {
     switch (currentPage) {
       case "promoters":
-        return <AdminPromotersPage />;
+        return null; // <AdminPromotersView />;
       case "promoters/plans":
-        return <AdminPlansPage />;
+        return <AdminPromotersPlansView />;
       case "promoters/motivation":
-        return <AdminPromotersMotivationPage />;
+        return null; // <AdminMotivationView />;
       case "merch/pop":
-        return <AdminPopDataPage />;
-      // case "competitors":
-      //   return <CompetitorsData />;
+        return <AdminPopDataView />;
       default:
-        return <></>;
+        return null;
     }
   };
 
@@ -52,22 +42,23 @@ export default function Admin() {
             <ButtonBox option="link" href="user/userInfo">
               User Info
             </ButtonBox>
+
             {hasPermission("canAccessPromsListData") && (
               <ButtonBox
                 option="button"
-                // href="admin/promoters"
                 onClick={() => setCurrentPage("promoters")}
               >
                 Proms data
               </ButtonBox>
             )}
+
             <ButtonBox
               option="button"
-              // href="admin/promoters/plans"
               onClick={() => setCurrentPage("promoters/plans")}
             >
               Proms plans
             </ButtonBox>
+
             <ButtonBox option="link" href="user/motivation">
               Motivation
             </ButtonBox>
@@ -76,10 +67,8 @@ export default function Admin() {
               Focus Models
             </ButtonBox>
 
-            {/* ////// MERCH */}
             <ButtonBox
               option="button"
-              // href="admin/promoters/plans"
               onClick={() => setCurrentPage("merch/pop")}
             >
               Pop Data

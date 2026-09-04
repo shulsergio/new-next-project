@@ -11,7 +11,7 @@ import {
 } from "@/utils/fetchData";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import css from "./plans.module.css";
+import css from "./AdminPromotersPlansView.module.css";
 // import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
 import PromotersAllPlansTable from "@/components/Tables/PromotersAllPlansTable/PromotersAllPlansTable";
@@ -31,7 +31,7 @@ interface EnrichedPromoter extends Promoter {
   chain: string;
 }
 
-export default function AdminPlansPage() {
+export default function AdminPromotersPlansView() {
   const regionData = ["all", ...REGION];
   const chainData = ["all", ...CHAIN];
   const [plansData, setPlansData] = useState<EnrichedPromoter[]>([]);

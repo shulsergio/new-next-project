@@ -1,13 +1,13 @@
 import ExportPopsButton from "@/components/ExportPopsButton/ExportPopsButton";
-import css from "./page.module.css";
+// import css from "./AdminPopDataView.module.css";
 import ComponentAdminWrapper from "@/components/ComponentAdminWrapper/ComponentAdminWrapper";
 // import ComponentWrapper from "@/components/ComponentWrapper/ComponentWrapper";
 import ExportInventoryButton from "@/components/ExportInventoryButton/ExportInventoryButton";
 import PopKpiCards from "@/components/PopKpiCards/PopKpiCards";
 
-export default function AdminPopDataPage() {
+export default function AdminPopDataView() {
   return (
-    <div className={css.container}>
+    <div>
       <ComponentAdminWrapper title="Export POPs data">
         <PopKpiCards />
         <ExportPopsButton />
