@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import ButtonBox from "../ButtonBox/ButtonBox";
+import toast from "react-hot-toast";
 
 export default function ExportInventoryButton() {
   const { data: session } = useSession();
@@ -41,9 +42,10 @@ export default function ExportInventoryButton() {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Export error:", error);
-      alert("Failed to download report");
+      toast.error("Failed to download");
     } finally {
       setIsExporting(false);
+      toast.success("Report downloaded");
     }
   };
 

@@ -54,7 +54,7 @@ export default function AdminPlansPage() {
       console.log(
         "Доступ запрещен: пользователь не аутентифицирован или не является админом.",
       );
-      redirect("/");
+      redirect("/signin?error=unauthorized");
     }
   }, [session, status]);
   // console.log(",*** STATUS:", status);

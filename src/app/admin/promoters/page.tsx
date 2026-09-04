@@ -19,7 +19,6 @@ import { useAccess } from "@/hooks/useAccess";
 import PromotersTableAllData from "@/components/Tables/PromotersTableAllData/page";
 import Calendar from "@/components/Date_calendar/Calendar";
 import { REGION } from "@/constants/constants";
-import toast from "react-hot-toast";
 
 export default function AdminPromotersPage() {
   const regionData = ["all", ...REGION];
@@ -40,8 +39,7 @@ export default function AdminPromotersPage() {
     }
 
     if (status === "unauthenticated") {
-      toast.error("You are not logged in");
-      redirect("/signin");
+      redirect("/signin?error=unauthorized");
     }
   }, [session, status]);
   const selectedPromType = "all";

@@ -14,9 +14,9 @@ export default async function UserTopBonusPage() {
 
   if (!session || !session.accessToken) {
     console.log(
-      "Сессия отсутствует или Access Token не найден ShopMatrixPage, перенаправляем на /signin"
+      "Сессия отсутствует или Access Token не найден ShopMatrixPage, перенаправляем на /signin",
     );
-    redirect("/signin");
+    redirect("/signin?error=unauthorized");
   }
 
   // let shopBonuses = [];

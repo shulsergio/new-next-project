@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/app/configs/authConfig";
 import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
 
 export default async function ProfileLayout({
   children,
@@ -11,8 +10,7 @@ export default async function ProfileLayout({
   const session = await getServerSession(authConfig);
 
   if (!session) {
-    toast.error("You are not logged in");
-    redirect("/signin");
+    redirect("/signin?error=unauthorized");
   }
 
   return <>{children}</>;

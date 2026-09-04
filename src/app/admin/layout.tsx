@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader/Loader";
-import toast from "react-hot-toast";
 
 export default function AdminLayout({
   children,
@@ -23,8 +22,7 @@ export default function AdminLayout({
       session?.user?.permissions?.canAccessAdminPanel === true;
 
     if (status === "unauthenticated" || !isAdmin) {
-      toast.error("You are not logged in");
-      router.push("/signin");
+      router.push("/signin?error=unauthorized");
     }
   }, [status, session, router]);
 

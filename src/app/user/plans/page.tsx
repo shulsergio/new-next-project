@@ -38,7 +38,7 @@ export default async function UserPlansPage() {
     console.log(
       "Сессия отсутствует или Access Token не найден для /plans, перенаправляем на /signin",
     );
-    redirect("/signin");
+    redirect("/signin?error=unauthorized");
   }
   let plansData: Plan[] = [];
   let IhsShopsData: IhsDataItem[] = [];
