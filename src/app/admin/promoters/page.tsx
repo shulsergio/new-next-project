@@ -19,6 +19,7 @@ import { useAccess } from "@/hooks/useAccess";
 import PromotersTableAllData from "@/components/Tables/PromotersTableAllData/page";
 import Calendar from "@/components/Date_calendar/Calendar";
 import { REGION } from "@/constants/constants";
+import toast from "react-hot-toast";
 
 export default function AdminPromotersPage() {
   const regionData = ["all", ...REGION];
@@ -39,10 +40,8 @@ export default function AdminPromotersPage() {
     }
 
     if (status === "unauthenticated") {
-      console.log(
-        "Доступ запрещен: пользователь не аутентифицирован или не является админом."
-      );
-      redirect("/");
+      toast.error("You are not logged in");
+      redirect("/signin");
     }
   }, [session, status]);
   const selectedPromType = "all";
@@ -56,7 +55,7 @@ export default function AdminPromotersPage() {
             selectedPromType,
             selectedRegion,
             // selectedChain
-            session.accessToken
+            session.accessToken,
           );
           // const fetchedData = await fetchAllPromoters(session.accessToken);
           setPromotersData(fetchedData);
@@ -79,19 +78,25 @@ export default function AdminPromotersPage() {
     setselectedRegion(region);
   };
 
-  const PromsByUserType = promotersData.reduce((acc, promoter) => {
-    if (promoter.userType) {
-      acc[promoter.userType] = (acc[promoter.userType] || 0) + 1;
-    }
-    return acc;
-  }, {} as Record<string, number>);
+  const PromsByUserType = promotersData.reduce(
+    (acc, promoter) => {
+      if (promoter.userType) {
+        acc[promoter.userType] = (acc[promoter.userType] || 0) + 1;
+      }
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
   // console.log("Promoters by user type:", PromsByUserType);
-  const PromsByRegion = promotersData.reduce((acc, promoter) => {
-    if (promoter.region) {
-      acc[promoter.region] = (acc[promoter.region] || 0) + 1;
-    }
-    return acc;
-  }, {} as Record<string, number>);
+  const PromsByRegion = promotersData.reduce(
+    (acc, promoter) => {
+      if (promoter.region) {
+        acc[promoter.region] = (acc[promoter.region] || 0) + 1;
+      }
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
   // console.log("Promoters by user type:", PromsByRegion);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);

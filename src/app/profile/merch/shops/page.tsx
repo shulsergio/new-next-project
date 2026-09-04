@@ -32,7 +32,7 @@ export default function MerchShopsPage() {
         setShops(data);
       } catch (err) {
         console.error("Error loading shops:", err);
-        setError("Не удалось загрузить список магазинов");
+        setError("не вдалося завантажити магазини.");
       } finally {
         setIsLoading(false);
       }
@@ -54,6 +54,7 @@ export default function MerchShopsPage() {
     return matchesChain && matchesStoreId;
   });
 
+  // Лоадер показывается только во время фетчинга данных или первичной гидрации NextAuth
   if (status === "loading" || isLoading) return <Loader isLoading={true} />;
 
   return (
@@ -64,7 +65,7 @@ export default function MerchShopsPage() {
           Інвентаризація
         </Link>
       </ComponentWrapper>
-      {/* ---------- Панель фильтров ---------- */}
+
       <ComponentWrapper>
         <div className={css.filterItem}>
           <label htmlFor="chainSelect" className={css.label}>
@@ -99,6 +100,7 @@ export default function MerchShopsPage() {
           />
         </div>
       </ComponentWrapper>
+
       {error && <p className={css.error}>{error}</p>}
 
       {!error && filteredShops.length === 0 && (

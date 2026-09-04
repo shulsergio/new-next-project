@@ -20,6 +20,7 @@ import { redirect } from "next/navigation";
  */
 export default async function Profile() {
   const session = await getServerSession(authConfig);
+
   const userProfile = session?.user.mcsId ?? "";
   const userRole = session?.user.role ?? "";
   const isUserProm = session?.user.role === "promoter";
