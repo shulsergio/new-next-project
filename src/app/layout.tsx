@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "./providers";
 import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fieldhub.in.ua"),
@@ -46,6 +47,7 @@ export default function RootLayout({
           <main className="main-container">{children}</main>
           <Footer />
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );

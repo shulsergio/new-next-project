@@ -10,11 +10,19 @@ export default async function Home() {
 
   if (!session) {
     return (
-      <TextBox option="text">
-        <div className={css.topic}>
-          <p className={css.letter}> Field HUB</p>
-        </div>
-      </TextBox>
+      <>
+        <TextBox option="text">
+          <div className={css.topic}>
+            <p className={css.letter}> Field HUB</p>
+          </div>
+        </TextBox>
+        <TextBox option="text">
+          <p>
+            {" "}
+            якщо треба скинути пароль- пишіть project.sams.helper@gmail.com
+          </p>
+        </TextBox>
+      </>
     );
   }
   // console.log("*** session.user:", session.user);
