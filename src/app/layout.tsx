@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "FieldHub",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.PNG",
         width: 1200,
         height: 630,
         alt: "FieldHub Preview",
@@ -24,6 +24,12 @@ export const metadata: Metadata = {
     ],
     locale: "uk_UA",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FieldHub платформа",
+    description: "Автоматизація",
+    images: ["https://fieldhub.in.ua/og-image.PNG"],
   },
 };
 
