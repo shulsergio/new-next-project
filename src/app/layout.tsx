@@ -6,8 +6,24 @@ import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
-  title: "SAMS project",
-  description: "create next app",
+  title: "FieldHub платформа",
+  description: "Автоматизація",
+  openGraph: {
+    title: "FieldHub платформа",
+    description: "Автоматизація",
+    url: "https://fieldhub.in.ua",
+    siteName: "FieldHub",
+    images: [
+      {
+        url: "https://fieldhub.in.ua/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "FieldHub Preview",
+      },
+    ],
+    locale: "uk_UA",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

@@ -2,28 +2,30 @@
   box-sizing: border-box;
   padding: 20px 10px;
 }
-.topic{
-    font-size: 20px;
-text-align: left;
-font-weight: normal;
+.topic {
+  font-size: 20px;
+  font-weight: normal;
 }
-.letter{
+.letter {
+  margin-top: 10px;
+
   font-weight: bold;
   color: #003b7b;
   color: #064bba;
   font-size: 24px;
+  text-align: center;
 }
 
 @media (min-width: 1200px) {
-.topic{
+  .topic {
     font-size: 28px;
-text-align: left;
-font-weight: normal;
-}
-.letter{
-  font-weight: bold;
-  color: #003b7b;
-  color: #064bba;
-  font-size: 32px;
-}
+    text-align: left;
+    font-weight: normal;
+  }
+  .letter {
+    font-weight: bold;
+    color: #003b7b;
+    color: #064bba;
+    font-size: 32px;
+  }
 }
