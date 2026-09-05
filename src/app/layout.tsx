@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fieldhub.in.ua"),
   title: "FieldHub платформа",
   description: "Автоматизація",
   openGraph: {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "FieldHub",
     images: [
       {
-        url: "https://fieldhub.in.ua/og-image.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "FieldHub Preview",
