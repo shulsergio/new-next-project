@@ -27,17 +27,17 @@ import PromotersIhsBox, {
 export default async function UserPlansPage() {
   const session = await getServerSession(authConfig);
 
-  console.log("***Сессия на странице UserPlansPage:", session);
+  // console.log("***Сессия на странице UserPlansPage:", session);
   console.log(
     "***Access Token на странице UserPlansPage:",
     session?.accessToken,
   );
-  console.log("***Access SHOP на странице UserPlansPage:", session?.user.shop);
+  // console.log("***Access SHOP на странице UserPlansPage:", session?.user.shop);
 
   if (!session || !session.accessToken) {
-    console.log(
-      "Сессия отсутствует или Access Token не найден для /plans, перенаправляем на /signin",
-    );
+    // console.log(
+    // "Сессия отсутствует или Access Token не найден для /plans, перенаправляем на /signin",
+    // );
     redirect("/signin?error=unauthorized");
   }
   let plansData: Plan[] = [];
@@ -50,9 +50,9 @@ export default async function UserPlansPage() {
     ]);
 
     if (plansResult.status === "fulfilled") {
-      console.log("fetchedData PLANS DATA:", plansResult.value);
+      // console.log("fetchedData PLANS DATA:", plansResult.value);
       plansData = plansResult.value?.data?.plans || [];
-      console.log("plansData PLANS DATA:", plansData);
+      // console.log("plansData PLANS DATA:", plansData);
     } else {
       console.error("Error fetching user plans:", plansResult.reason);
     }
@@ -66,7 +66,7 @@ export default async function UserPlansPage() {
     console.error("Unexpected error in parallel fetching:", e);
   }
 
-  console.log("!!!!! IhsShopsData:", IhsShopsData);
+  // console.log("!!!!! IhsShopsData:", IhsShopsData);
 
   return (
     <div>

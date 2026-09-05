@@ -25,7 +25,7 @@ export default async function Profile() {
   const userRole = session?.user.role ?? "";
   const isUserProm = session?.user.role === "promoter";
   const isUserMerch = session?.user.role === "merchandiser";
-  console.log("userRole- ", userRole);
+  console.log(userRole);
   const allowedAvProfiles = [
     "av.prom",
     "av.dnipro",

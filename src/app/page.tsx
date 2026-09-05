@@ -3,11 +3,10 @@ import { authConfig } from "./configs/authConfig";
 import { redirect } from "next/navigation";
 import css from "./page.module.css";
 import TextBox from "@/components/TextBox/TextBox";
-import Image from "next/image";
 
 export default async function Home() {
   const session = await getServerSession(authConfig);
-  console.log("*1*1* Сессия на главной странице:", session);
+  // console.log("*1*1* Сессия на главной странице:", session);
 
   if (!session) {
     return (
@@ -18,8 +17,8 @@ export default async function Home() {
       </TextBox>
     );
   }
-  console.log("*** session.user:", session.user);
-  console.log("*** session.user?.role:", session.user?.role);
+  // console.log("*** session.user:", session.user);
+  // console.log("*** session.user?.role:", session.user?.role);
   const hasAdminAccess =
     session.user?.permissions?.["canAccessAdminPanel"] === true;
 
