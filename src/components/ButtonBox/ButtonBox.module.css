@@ -11,11 +11,11 @@
   font-size: 15px;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 4px rgba(130, 130, 252, 0.2);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
 }
 .linkBox:hover {
   background-color: var(--bg-color-button-hover);
-  box-shadow: 2px 4px 12px rgba(0, 50, 150, 0.4);
+  box-shadow: 2px 4px 12px rgba(0, 50, 150, 0.5);
 }
 .linkBox:disabled {
   background-color: #cccccc;

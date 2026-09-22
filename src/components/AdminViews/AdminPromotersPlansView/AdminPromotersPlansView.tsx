@@ -51,9 +51,7 @@ export default function AdminPromotersPlansView() {
     }
 
     if (status === "unauthenticated") {
-      console.log(
-        "Доступ запрещен: пользователь не аутентифицирован или не является админом.",
-      );
+      console.log("no");
       redirect("/signin?error=unauthorized");
     }
   }, [session, status]);
@@ -221,7 +219,7 @@ export default function AdminPromotersPlansView() {
         <div className={css.promsList}>
           <ComponentAdminWrapper>
             {loading && <Loader isLoading={true} />}
-            {error && <p>Ошибка: {error}</p>}
+            {error && <p>error: {error}</p>}
             {!loading && !error && (
               <PromotersAllPlansTable promotersAllPlans={filteredPlansData} />
             )}

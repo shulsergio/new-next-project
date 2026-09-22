@@ -33,7 +33,7 @@ export default function PopKpiCards() {
           },
         );
 
-        if (!res.ok) throw new Error("Ошибка загрузки метрик");
+        if (!res.ok) throw new Error("loading error");
 
         const result = await res.json();
         setData(result.data);
@@ -50,7 +50,7 @@ export default function PopKpiCards() {
   }, [session, status]);
 
   if (isLoading) {
-    return <div className={css.skeletonGrid}>Загрузка показателей...</div>;
+    return <div className={css.skeletonGrid}>Loading...</div>;
   }
 
   if (!data) return null;
@@ -106,6 +106,25 @@ export default function PopKpiCards() {
           Позицій, де розміщено менше ніж за планом
         </div>
         <div className={css.badgeWarning}>Потребують уваги</div>
+      </div>
+
+      {/* 4. new card */}
+      <div className={`${css.card} ${css.redCard}`}>
+        <div className={css.cardHeader}>
+          <span className={css.title}>new card</span>
+        </div>
+      </div>
+      {/* 5. new card */}
+      <div className={`${css.card} ${css.redCard}`}>
+        <div className={css.cardHeader}>
+          <span className={css.title}>new card</span>
+        </div>
+      </div>
+      {/* 6. new card */}
+      <div className={`${css.card} ${css.redCard}`}>
+        <div className={css.cardHeader}>
+          <span className={css.title}>new card</span>
+        </div>
       </div>
     </div>
   );
